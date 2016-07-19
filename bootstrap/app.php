@@ -59,9 +59,9 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    Clockwork\Support\Lumen\ClockworkMiddleware::class
+]);
 
 // $app->routeMiddleware([
 //     'auth' => App\Http\Middleware\Authenticate::class,
@@ -77,6 +77,8 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
+
+$app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
