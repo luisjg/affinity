@@ -10,6 +10,9 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+$app->group('api', function(){
+	// api routes
+});
 
 $app->get('/', function () use ($app) {
     return $app->version();
