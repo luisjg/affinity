@@ -10,8 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$app->group('api', function(){
+$app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
 	// api routes
+	$app->get('badges', 'BadgesController@badges');
+	$app->get('interests', 'InterestsController@interests');
 });
 
 $app->get('/', function () use ($app) {
