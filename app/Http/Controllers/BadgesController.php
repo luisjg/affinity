@@ -30,7 +30,7 @@ class BadgesController extends Controller
 			$response['messages']['data'] = 'We could not find any records.';
 		}
 
-		return json_encode($response);
+		return $response;
 	}
 
 	// return all the badges associated with specified email
@@ -57,6 +57,6 @@ class BadgesController extends Controller
 			$response['messages']['user'] = 'No user could be found with that email.';
 		}
 
-		return json_encode($response);
+		return $response;
 	}
 }
