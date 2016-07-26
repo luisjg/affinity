@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
 use Laravel\Lumen\Auth\Authorizable;
@@ -21,6 +21,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'name', 'email',
     ];
 
+    protected $primaryKey = 'user_id';
+
+    public $incrementing = false;
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -29,4 +33,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function badges()
+    {
+        return $this->belongsToMany('App\Models\Badge', 'entity_badge', 'entity_id', 'badge_id');
+    }
 }

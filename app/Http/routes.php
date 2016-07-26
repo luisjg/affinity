@@ -11,8 +11,10 @@
 |
 */
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
-	// api routes
+	// badges requests
 	$app->get('badges', 'BadgesController@badges');
+	$app->get('badges/{email}', 'BadgesController@facultyBadge');
+
 	$app->get('interests', 'InterestsController@interests');
 });
 
