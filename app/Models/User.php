@@ -38,4 +38,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsToMany('App\Models\Badge', 'entity_badge', 'entity_id', 'badge_id');
     }
+
+    public function scopeEmail($q, $email)
+    {
+        if(app()->environment() == 'local')
+        {
+            return $q->whereEmail('nr_' . $email);
+        }
+
+        return $q->whereEmail($email);
+    }
 }
