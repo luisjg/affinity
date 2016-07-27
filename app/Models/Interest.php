@@ -6,7 +6,7 @@ class Interest extends Model
 {
 	protected $table = 'expertises';
 
-	protected $primaryKey = 'attributes_id';
+	protected $primaryKey = 'attribute_id';
 
 	public $incrementing = false;
 }

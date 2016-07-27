@@ -14,8 +14,9 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 	// badges requests
 	$app->get('badges', 'BadgesController@badges');
 	$app->get('badges/{email}', 'BadgesController@facultyBadge');
-	$app->get('interests', 'InterestsController@listInterest');
-	$app->get('interests/{type}', 'InterestsController@listInterest');
+	$app->get('interests', 'InterestsController@getInterest');
+	$app->get('interests/{type}', 'InterestsController@getInterest');
+
 
 });
 
