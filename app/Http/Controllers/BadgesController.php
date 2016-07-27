@@ -8,55 +8,19 @@ class BadgesController extends Controller
 	// return a list of all the badges
 	public function badges()
 	{
-		$response = [
-			'status'  => app('Illuminate\Http\Response')->status(),
-			'success' => count(Badge::all()) > 0 ? true : false,
-			'version' => 'attributes-1.0',
-			'type'    => 'badges',
-		];
-
-		if($response['status'] == 200)
-		{
-			$response['badges'] = Badge::all();
-		}
-
-		if($response['status'] != 200)
-		{
-			$response['messages']['server_error'] = 'We encountered an error on our server.';
-		}
-
-		if($response['success'] == false)
-		{
-			$response['messages']['data'] = 'We could not find any records.';
-		}
-
-		return json_encode($response);
+		return $this->sendResponse(Badge::all(), 'badges');
 	}
 
 	// return all the badges associated with specified email
 	public function facultyBadge($email)
 	{
-		$user = User::with('badges')->where('email', $email)->first();
-		
-		$response = [
-			'status'  => app('Illuminate\Http\Response')->status(),
-			'success' => count(Badge::all()) > 0 ? true : false,
-			'version' => 'attributes-1.0',
-			'type'    => 'badges',
+		$user = User::with('badges')->email($email)->first();
+
+		$userInfo = [
+		'members_id' => $user->user_id, 
+		'email' => $user->email
 		];
 
-		if($user)
-		{
-			$response['members_id'] = $user->user_id;
-			$response['email']      = $user->email;
-			$response['badges']     = $user->badges;
-		}
-
-		if(!$user)
-		{
-			$response['messages']['user'] = 'No user could be found with that email.';
-		}
-
-		return json_encode($response);
+		return $this->sendResponse($user->badges, 'badges', $userInfo);
 	}
 }

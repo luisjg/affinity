@@ -19,5 +19,5 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 });
 
 $app->get('/', function () use ($app) {
-    return $app->version();
+    return app()->environment();
 });
