@@ -6,7 +6,7 @@ class research extends Model
 {
 	protected $table = 'research_interests';
 
-	protected $primaryKey = 'attributes_id';
+	protected $primaryKey = 'attribute_id';
 
 	public $incrementing = false;
 }

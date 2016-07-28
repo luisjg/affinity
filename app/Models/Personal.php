@@ -6,7 +6,7 @@ class personal extends Model
 {
 	protected $table = 'personal_interests';
 
-	protected $primaryKey = 'attributes_id';
+	protected $primaryKey = 'attribute_id';
 
 	public $incrementing = false;
 }

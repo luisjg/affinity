@@ -6,7 +6,7 @@ class teaching extends Model
 {
 	protected $table = 'teaching_interests';
 
-	protected $primaryKey = 'attributes_id';
+	protected $primaryKey = 'attribute_id';
 
 	public $incrementing = false;
 }

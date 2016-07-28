@@ -45,6 +45,18 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof HttpException)
+        {
+            return json_encode([
+                'status'   => app('Illuminate\Http\Response')->status(),
+                'success'  => false,
+                'version'  => 'attributes-1.0',
+                'messages' => [
+                    'No url found for that request.'
+                ]
+            ]);
+        }
+
         return parent::render($request, $e);
     }
 }
