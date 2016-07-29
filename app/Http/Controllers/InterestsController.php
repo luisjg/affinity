@@ -17,16 +17,16 @@ class InterestsController extends Controller
 			'teaching'   => 'App\Models\Teaching',
 			'personal'   => 'App\Models\Personal',
 		];
-
-		// user is searching for ALL research, teaching, or personal
-		$data = $table[$type]::all();
 		
-		// user has specified search based off interest id so return $data based off $type:id
 		if(str_contains($type, ':'))
 		{
 			$query = $type;
 			$type  = strtok($type, ':');
 			$data  = $table[$type]::find($query);
+		}
+		else
+		{
+			$data = $table[$type]::all();
 		}
 
 		return $this->sendResponse($data, "$type-interest");

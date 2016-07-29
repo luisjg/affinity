@@ -7,16 +7,16 @@ class InterestsMiddleware
 {
     public function handle($request, Closure $next)
     {
-        $type = $request->route()[2]['type'];
-
-        $interests = [
-            'research',
-            'teaching',
-            'personal',
-        ];
-
         if($request->is('api/interests/*'))
         {
+            $type = $request->route()[2]['type'];
+
+            $interests = [
+                'research',
+                'teaching',
+                'personal',
+            ];
+            
             if(str_contains($type, ':'))
             {
                 $type = strtok($type, ':');
