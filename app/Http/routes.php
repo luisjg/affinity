@@ -18,6 +18,10 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 	// interests requests
 	$app->get('interests', 'InterestsController@getInterest');
 	$app->get('interests/{type}', 'InterestsController@getInterest');
+	$app->get('{else}', function() 
+	{
+		abort(404);
+	});
 });
 
 $app->get('/', function () use ($app) {

@@ -63,7 +63,8 @@ $app->middleware([
 
 $app->routeMiddleware([
     'auth'     => App\Http\Middleware\Authenticate::class,
-    'interest' => App\Http\Middleware\InterestsMiddleware::class
+    'interest' => App\Http\Middleware\InterestsMiddleware::class,
+    'badge' => App\Http\Middleware\BadgesMiddleware::class
 ]);
 
 /*
