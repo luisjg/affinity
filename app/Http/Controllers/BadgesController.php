@@ -5,6 +5,11 @@ use App\Models\User;
 
 class BadgesController extends Controller 
 {
+	public function __construct()
+	{
+		$this->middleware('badge', ['only' => 'facultyBadge']);
+	}
+
 	// return a list of all the badges
 	public function badges()
 	{

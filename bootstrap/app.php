@@ -61,9 +61,10 @@ $app->middleware([
     Clockwork\Support\Lumen\ClockworkMiddleware::class
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+    'auth'  => App\Http\Middleware\Authenticate::class,
+    'badge' => App\Http\Middleware\BadgesMiddleware::class
+]);
 
 /*
 |--------------------------------------------------------------------------

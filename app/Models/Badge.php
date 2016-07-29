@@ -4,9 +4,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Badge extends Model
 {
-	protected $table = 'badges';
+	protected $table = 'exploration.badges';
 
-	protected $primaryKey = 'badge_id';
+	protected $primaryKey = 'badges_id';
 
 	public $incrementing = false;
 
