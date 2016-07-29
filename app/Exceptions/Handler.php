@@ -47,14 +47,14 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof HttpException)
         {
-            return [
+            return json_encode([
                 'status'   => app('Illuminate\Http\Response')->status(),
                 'success'  => false,
                 'version'  => 'attributes-1.0',
                 'messages' => [
-                    'No url found for that request.'
+                    'No results found.'
                 ]
-            ];
+            ]);
         }
 
         return parent::render($request, $e);

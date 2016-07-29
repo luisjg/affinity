@@ -57,14 +57,10 @@ $app->singleton(
 |
 */
 
-$app->middleware([
-    Clockwork\Support\Lumen\ClockworkMiddleware::class
-]);
-
 $app->routeMiddleware([
     'auth'     => App\Http\Middleware\Authenticate::class,
     'interest' => App\Http\Middleware\InterestsMiddleware::class,
-    'badge' => App\Http\Middleware\BadgesMiddleware::class
+    'badge'    => App\Http\Middleware\BadgesMiddleware::class
 ]);
 
 /*
@@ -78,7 +74,6 @@ $app->routeMiddleware([
 |
 */
 
-$app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);

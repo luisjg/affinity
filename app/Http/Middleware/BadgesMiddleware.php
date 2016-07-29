@@ -8,12 +8,11 @@ class BadgesMiddleware
 {
     public function handle($request, Closure $next)
     {
-
     	if($request->is('api/badges/*'))
     	{
 	        $user = User::email($request->route()[2]['email'])->first();
-	        
-	        if(!$user)
+
+	        if(is_null($user))
 	        {
 	            throw new NotFoundHttpException;
 	        }
