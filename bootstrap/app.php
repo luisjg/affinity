@@ -63,7 +63,8 @@ $app->singleton(
 
 $app->routeMiddleware([
     'auth'  => App\Http\Middleware\Authenticate::class,
-    'badge' => App\Http\Middleware\BadgesMiddleware::class
+    'badge' => App\Http\Middleware\BadgesMiddleware::class,
+    'interest'  =>  App\Http\Middleware\InterestsMiddleware::class,
 ]);
 
 /*

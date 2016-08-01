@@ -16,13 +16,13 @@ class BadgesMiddleware
                 throw new NotFoundHttpException;
             }
 
-            // first query string must be ?email=
-            if(current(array_keys($request->all())) !== 'email')
+            // first query string must be ?member=
+            if(current(array_keys($request->all())) !== 'member')
             {
                 throw new NotFoundHttpException;
             }
 
-            $user = User::email($request['email'])->first();
+            $user = User::email($request['member'])->first();
 
             if(is_null($user))
             {

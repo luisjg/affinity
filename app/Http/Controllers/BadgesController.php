@@ -14,10 +14,10 @@ class BadgesController extends Controller
 	
 	public function badges(Request $request)
 	{
-		// request has ?email={email} in url
-		if($request['email'])
+		// request has ?member={email} in url
+		if($request['member'])
 		{
-			$user = User::with('badges')->email($request['email'])->first();
+			$user = User::with('badges')->email($request['member'])->first();
 
 			$userInfo = [
 				'members_id' => $user->user_id, 
