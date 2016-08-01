@@ -13,7 +13,8 @@
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
 	// badges requests
 	$app->get('badges', 'BadgesController@badges');
-	$app->get('badges/{email}', 'BadgesController@facultyBadge');
+
+
 
 	// interests requests
 	$app->get('interests', 'InterestsController@getInterest');

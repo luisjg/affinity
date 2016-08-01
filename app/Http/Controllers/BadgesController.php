@@ -1,26 +1,33 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Badge;
 use App\Models\User;
 
 class BadgesController extends Controller 
 {
-	// return a list of all the badges
-	public function badges()
+	public function __construct()
 	{
-		return $this->sendResponse(Badge::all(), 'badges');
+		$this->middleware('badge');
 	}
-
-	// return all the badges associated with specified email
-	public function facultyBadge($email)
+	
+	public function badges(Request $request)
 	{
-		$user = User::with('badges')->email($email)->first();
+		// request has ?email={email} in url
+		if($request['email'])
+		{
+			$user = User::with('badges')->email($request['email'])->first();
 
-		$userInfo = [
-		'members_id' => $user->user_id, 
-		'email' => $user->email
-		];
+			$userInfo = [
+				'members_id' => $user->user_id, 
+				'email'      => $user->email
+			];
 
-		return $this->sendResponse($user->badges, 'badges', $userInfo);
+			// request has no search queries in url
+			return $this->sendResponse($user->badges, 'badges', $userInfo);
+		}
+
+		return $this->sendResponse(Badge::all(), 'badges');
 	}
 }
