@@ -24,10 +24,10 @@ class BadgesController extends Controller
 				'email'      => $user->email
 			];
 
-			// request has no search queries in url
 			return $this->sendResponse($user->badges, 'badges', $userInfo);
 		}
 
+		// request has no search queries in url
 		return $this->sendResponse(Badge::all(), 'badges');
 	}
 }

@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
                 'success'  => false,
                 'version'  => 'attributes-1.0',
                 'messages' => [
-                    'No url found for that request.'
+                    'No results found.'
                 ]
             ]);
         }

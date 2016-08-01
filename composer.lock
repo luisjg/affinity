@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0516378bfdf5444290ae8167540cf567",
-    "content-hash": "1aaf7987c385725b25bf35c703a3898c",
+    "hash": "e4d878d04ce3f38a5965279c7252819d",
+    "content-hash": "be56596918ef42a15b75d881aaedbd55",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -1133,51 +1133,6 @@
             "description": "The Illuminate View package.",
             "homepage": "http://laravel.com",
             "time": "2016-05-28 21:20:12"
-        },
-        {
-            "name": "itsgoingd/clockwork",
-            "version": "v1.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/itsgoingd/clockwork.git",
-                "reference": "76488226d8fdeab29c1782a5a6c154403ad9cdcf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/76488226d8fdeab29c1782a5a6c154403ad9cdcf",
-                "reference": "76488226d8fdeab29c1782a5a6c154403ad9cdcf",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9",
-                "psr/log": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Clockwork\\": "Clockwork/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "itsgoingd",
-                    "email": "itsgoingd@luzer.sk",
-                    "homepage": "http://twitter.com/itsgoingd"
-                }
-            ],
-            "description": "Server-side component of Clockwork, a Chrome extension for PHP development",
-            "homepage": "http://github.com/itsgoingd/clockwork",
-            "keywords": [
-                "debugging",
-                "laravel",
-                "logging",
-                "profiling"
-            ],
-            "time": "2016-06-18 18:17:25"
         },
         {
             "name": "laravel/lumen-framework",
@@ -2809,16 +2764,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.26",
+            "version": "4.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74"
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fc1d8cd5b5de11625979125c5639347896ac2c74",
-                "reference": "fc1d8cd5b5de11625979125c5639347896ac2c74",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c062dddcb68e44b563f66ee319ddae2b5a322a90",
+                "reference": "c062dddcb68e44b563f66ee319ddae2b5a322a90",
                 "shasum": ""
             },
             "require": {
@@ -2877,7 +2832,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-05-17 03:09:28"
+            "time": "2016-07-21 06:48:14"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
