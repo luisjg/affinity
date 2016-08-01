@@ -8,5 +8,14 @@ class research extends Model
 
 	protected $primaryKey = 'attribute_id';
 
+	protected $fillable = [
+		'attribute_id',
+		'title',
+		'short_name',
+		'parent_attribute_id',
+		'hiearchy',
+		'count'
+	];
+
 	public $incrementing = false;
 }
