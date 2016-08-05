@@ -23,6 +23,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function badges()
     {
         return $this->belongsToMany('App\Models\Badge', 'exploration.badges_awarded', 'members_id', 'badge_name')
+                    ->withPivot('published')
                     ->select(['badges_id', 'name', 'url_image', 'url_web', 'award_date', 'published'])
                     ->orderBy('badges_id', 'ASC');
     }

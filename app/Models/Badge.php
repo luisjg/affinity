@@ -14,4 +14,9 @@ class Badge extends Model
 
 	public $incrementing = false;
 
+	public function getPublishedAttribute()
+	{
+		return $this->pivot->published == 'TRUE' ? true : false;
+	}
+
 }
