@@ -6,12 +6,12 @@ class Badge extends Model
 {
 	protected $table = 'exploration.badges';
 
-	protected $primaryKey = 'badges_id';
+	protected $primaryKey = 'name';
+
+	protected $hidden = [
+		'pivot'
+	];
 
 	public $incrementing = false;
 
-	public function user()
-	{
-		return $this->belongsToMany('App\Models\User', 'entity_badge', 'badge_id', 'entity_id');
-	}
 }

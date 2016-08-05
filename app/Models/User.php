@@ -12,31 +12,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email',
-    ];
-
     protected $primaryKey = 'user_id';
 
     public $incrementing = false;
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
     ];
 
     public function badges()
     {
-        return $this->belongsToMany('App\Models\Badge', 'entity_badge', 'entity_id', 'badge_id');
+        return $this->belongsToMany('App\Models\Badge', 'exploration.badges_awarded', 'members_id', 'badge_name')
+                    ->select(['badges_id', 'name', 'url_image', 'url_web', 'award_date', 'published'])
+                    ->orderBy('badges_id', 'ASC');
     }
 
     public function scopeEmail($q, $email)

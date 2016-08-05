@@ -20,8 +20,7 @@ class BadgesController extends Controller
 			$user = User::with('badges')->email($request['member'])->first();
 
 			$userInfo = [
-				'members_id' => $user->user_id, 
-				'email'      => $user->email
+				'email' => $request['member']
 			];
 
 			return $this->sendResponse($user->badges, 'badges', $userInfo);
