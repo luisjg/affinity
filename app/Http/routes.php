@@ -7,6 +7,13 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 	$app->get('interests', 'InterestsController@getInterest');
 	$app->get('interests/{type}', 'InterestsController@getInterest');
 
+	// Project's interest
+	$app->get('project/{id}/interest','InterestsController@getInterestProject');
+
+	// Member's interest
+	$app->get('member/{id}/interest','InterestsController@getInterestMember');
+
+
 });
 
 $app->get('/', function () use ($app) {

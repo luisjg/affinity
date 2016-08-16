@@ -14,7 +14,9 @@ class InterestsController extends Controller
 
 	public function getInterest(Request $request, $type='all')
 	{
-		$request = $request->only('projects','members','id');
+		// Projects and Members serve as flags to activate the addition
+		// of such interest with associated projects / members
+		$request = $request->only('projects','members');
 		
 		$table = [
 			'all'        => 'App\Models\Interest',
@@ -22,8 +24,8 @@ class InterestsController extends Controller
 			'teaching'   => 'App\Models\Teaching',
 			'personal'   => 'App\Models\Personal',
 		];
-	 	if($request['id']){
-			$query = $request['id'];
+		if(str_contains($type, ':')){
+			$query = $type;
 			$type  = strtok($query, ':');
 			$data  = $table[$type]::where('attribute_id',$query);
 		} else{
@@ -38,5 +40,21 @@ class InterestsController extends Controller
 		// return $data;
 		return $this->sendResponse($data->get(), "$type-interest");
 	}
+	public function getInterestProject($id)
+	{
+		$data = InterestEntity::where('entities_id',$id)->with('interest')->get();
+		foreach ($data as $connection ) {
+			$interest[] = $connection->interest[0];
+		}
+		return $this->sendResponse($interest, "project-interest");
 
+	}
+	public function getInterestMember($id)
+	{
+		$data = InterestEntity::where('entities_id',$id)->with('interest')->get();
+		foreach ($data as $connection ) {
+			$interest[] = $connection->interest[0];
+		}
+		return $this->sendResponse($interest, "member-interest");
+	}
 }

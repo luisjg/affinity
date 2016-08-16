@@ -9,4 +9,9 @@ class InterestEntity extends Model
 	protected $primaryKey = 'entities_id';
 
 	public $incrementing = false;
+
+	public function interest()
+	{
+		return $this->hasMany('App\Models\Interest','attribute_id','expertise_id');
+	}
 }
