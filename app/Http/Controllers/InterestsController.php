@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\User;
+use App\Models\InterestEntity;
 
 class InterestsController extends Controller 
 {
@@ -9,26 +12,31 @@ class InterestsController extends Controller
 		$this->middleware('interest');
 	}
 
-	public function getInterest($type = 'all')
+	public function getInterest(Request $request, $type='all')
 	{
+		$request = $request->only('projects','members','id');
+		
 		$table = [
 			'all'        => 'App\Models\Interest',
 			'research'   => 'App\Models\Research',
 			'teaching'   => 'App\Models\Teaching',
 			'personal'   => 'App\Models\Personal',
 		];
-		
-		if(str_contains($type, ':'))
-		{
-			$query = $type;
-			$type  = strtok($type, ':');
-			$data  = $table[$type]::find($query);
+	 	if($request['id']){
+			$query = $request['id'];
+			$type  = strtok($query, ':');
+			$data  = $table[$type]::where('attribute_id',$query);
+		} else{
+			$data = $table[$type]::whereNotNull('attribute_id');
 		}
-		else
-		{
-			$data = $table[$type]::all();
+		if($request['members'] == "true"){
+			$data = $data->with('members');
 		}
-
-		return $this->sendResponse($data, "$type-interest");
+		if($request['projects'] == "true"){
+			$data = $data->with('projects');
+		}
+		// return $data;
+		return $this->sendResponse($data->get(), "$type-interest");
 	}
+
 }
