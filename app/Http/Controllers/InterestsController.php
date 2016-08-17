@@ -51,10 +51,14 @@ class InterestsController extends Controller
 	}
 	public function getInterestMember($id)
 	{
-		$data = InterestEntity::where('entities_id',$id)->with('interest')->get();
+		$user = User::email($id)->first();
+		$userInfo = [
+			'email' => $id
+		];
+		$data = InterestEntity::where('entities_id',$user->user_id)->with('interest')->get();
 		foreach ($data as $connection ) {
 			$interest[] = $connection->interest[0];
 		}
-		return $this->sendResponse($interest, "member-interest");
+		return $this->sendResponse($interest, "member-interest", $userInfo);
 	}
 }
