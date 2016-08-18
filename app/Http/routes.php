@@ -3,16 +3,16 @@
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
 	// badges requests
 	$app->get('badges', 'BadgesController@badges');
-	// interests requests
-	$app->get('interests', 'InterestsController@getInterest');
-	$app->get('interests/{type}', 'InterestsController@getInterest');
+	$app->get('badges/member/{email}', 'BadgesController@badges');
 
-	// Project's interest
-	$app->get('project/{id}/interest','InterestsController@getInterestProject');
+	// Intersest requests
+	$app->get('interests', 'InterestsController@getInterestAll');
+	$app->get('interests/{type}', 'InterestsController@getInterestType');
 
-	// Member's interest
-	$app->get('member/{id}/interest','InterestsController@getInterestMember');
+	$app->get('interests/project/{id}', 'InterestsController@getInteresType');
 
+	$app->get('interests/member/{email}', 'InterestsController@getInterestMember');
+	$app->get('interests/{type}/member/{email}', 'InterestsController@getInterestMember');
 
 });
 

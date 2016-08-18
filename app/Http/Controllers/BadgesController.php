@@ -12,15 +12,15 @@ class BadgesController extends Controller
 		$this->middleware('badge');
 	}
 	
-	public function badges(Request $request)
+	public function badges($email='')
 	{
 		// request has ?member={email} in url
-		if($request['member'])
+		if($email)
 		{
-			$user = User::with('badges')->email($request['member'])->first();
+			$user = User::with('badges')->email($email)->first();
 
 			$userInfo = [
-				'email' => $request['member']
+				'email' => $email
 			];
 
 			return $this->sendResponse($user->badges, 'badges', $userInfo);

@@ -9,17 +9,28 @@ class InterestsController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('interest');
+		// $this->middleware('interest');
 	}
 
-	public function getInterest(Request $request, $type='all')
+	public function getInterestAll(Request $request)
+	{
+		$data = 'App\Models\Interest'::whereNotNull('attribute_id');
+		if($request['members'] == "true"){
+			$data = $data->with('members');
+		}
+		if($request['projects'] == "true"){
+			$data = $data->with('projects');
+		}
+		return $this->sendResponse($data->get(), "interest");
+	}
+
+	public function getInterestType(Request $request, $type='all')
 	{
 		// Projects and Members serve as flags to activate the addition
 		// of such interest with associated projects / members
 		$request = $request->only('projects','members');
-		
 		$table = [
-			'all'        => 'App\Models\Interest',
+			'all'		 =>	'App\Models\Interest',
 			'research'   => 'App\Models\Research',
 			'teaching'   => 'App\Models\Teaching',
 			'personal'   => 'App\Models\Personal',
@@ -28,7 +39,7 @@ class InterestsController extends Controller
 			$query = $type;
 			$type  = strtok($query, ':');
 			$data  = $table[$type]::where('attribute_id',$query);
-		} else{
+		}else{
 			$data = $table[$type]::whereNotNull('attribute_id');
 		}
 		if($request['members'] == "true"){
@@ -40,27 +51,33 @@ class InterestsController extends Controller
 		// return $data;
 		return $this->sendResponse($data->get(), "$type-interest");
 	}
-	public function getInterestProject($id)
-	{
-		$data = InterestEntity::where('entities_id',$id)->with('interest')->get();
-		foreach ($data as $connection ) {
-			$interest[] = $connection->interest[0];
-		}
-		return $this->sendResponse($interest, "project-interest");
 
-	}
-	public function getInterestMember($id)
+	public function getInterestMember(Request $request, $email, $type="all")
 	{
-		$user = User::email($id)->first();
-		$userInfo = [
-			'email' => $id
+		$table = [
+			'all'		 =>	'App\Models\Interest',
+			'research'   => 'App\Models\Research',
+			'teaching'   => 'App\Models\Teaching',
+			'personal'   => 'App\Models\Personal',
 		];
-		if($user){
-			$data = InterestEntity::where('entities_id',$user->user_id)->with('interest')->get();
+		$user = User::email($email)->first();
+		$userInfo = [
+			'email' => $user->email
+		];
+		if($type=='all'){
+			$data = InterestEntity::where('entities_id',$user->user_id)->with("interest")->get();
 			foreach ($data as $connection ) {
-				$interest[] = $connection->interest[0];
+				$interest[] = $connection["interest"][0];
 			}
-			return $this->sendResponse($interest, "member-interest", $userInfo);
+		return $this->sendResponse($interest, "member-interest", ['email' => $email]);
 		}
+		else{
+			$data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
+			foreach ($data as $connection ) {
+				$interest[] = $connection["interest_$type"][0];
+			}
+		return $this->sendResponse($interest, "member-interest $type", ['email' => $email]);
+		}
+
 	}
 }
