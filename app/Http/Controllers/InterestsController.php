@@ -14,7 +14,7 @@ class InterestsController extends Controller
 
 	public function getInterestAll(Request $request)
 	{
-		$data = 'App\Models\Interest'::whereNotNull('attribute_id');
+		$data = App\Models\Interest::whereNotNull('attribute_id');
 		if($request['members'] == "true"){
 			$data = $data->with('members');
 		}

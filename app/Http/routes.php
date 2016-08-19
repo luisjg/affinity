@@ -9,7 +9,7 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 	$app->get('interests', 'InterestsController@getInterestAll');
 	$app->get('interests/{type}', 'InterestsController@getInterestType');
 
-	$app->get('interests/project/{id}', 'InterestsController@getInteresType');
+	$app->get('interests/project/{id}', 'InterestsController@getInterestType');
 
 	$app->get('interests/member/{email}', 'InterestsController@getInterestMember');
 	$app->get('interests/{type}/member/{email}', 'InterestsController@getInterestMember');
