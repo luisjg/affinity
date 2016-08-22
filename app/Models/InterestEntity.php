@@ -29,5 +29,10 @@ class InterestEntity extends Model
 	public function interest_personal()
 	{
 		return $this->hasMany('App\Models\Personal','attribute_id','expertise_id');
+
+	}
+	public function interest_project()
+	{
+		return $this->hasOne('App\Models\Interest','attribute_id','expertise_id');
 	}
 }

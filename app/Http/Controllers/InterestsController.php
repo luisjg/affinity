@@ -24,6 +24,15 @@ class InterestsController extends Controller
 		return $this->sendResponse($data->get(), "interest");
 	}
 
+	public function getInterestProject($id)
+	{
+		$interestProject = InterestEntity::where('entities_id',$id)->with('interest_project')->get();
+		foreach($interestProject as &$interest){
+			$data[] = $interest->interest_project;
+		}
+		return $this->sendResponse($data, "interests");
+	}
+
 	public function getInterestType(Request $request, $type='all')
 	{
 		// Projects and Members serve as flags to activate the addition
