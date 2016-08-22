@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+use App\Models\Interest;
 use App\Models\User;
 use App\Models\InterestEntity;
 
@@ -14,7 +15,7 @@ class InterestsController extends Controller
 
 	public function getInterestAll(Request $request)
 	{
-		$data = App\Models\Interest::whereNotNull('attribute_id');
+		$data = Interest::whereNotNull('attribute_id');
 		if($request['members'] == "true"){
 			$data = $data->with('members');
 		}
