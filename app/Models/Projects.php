@@ -9,4 +9,9 @@ class Projects extends Model
 	protected $primaryKey = 'project_id';
 
 	public $incrementing = false;
+
+	public function interests()
+	{
+		return $this->belongsToMany('App\Models\Interest', 'fresco.expertise_entity', 'expertise_id', 'entites_id');
+	}
 }

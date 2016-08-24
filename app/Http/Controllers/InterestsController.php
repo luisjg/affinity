@@ -27,11 +27,10 @@ class InterestsController extends Controller
 
 	public function getInterestProject($id)
 	{
-		$interestProject = InterestEntity::where('entities_id',$id)->with('interest_project')->get();
-		foreach($interestProject as &$interest){
-			$data[] = $interest->interest_project;
-		}
-		return $this->sendResponse($data, "interests");
+		return $interestProject = Interest::with('projects',function ($query) use ($id) {
+				$query->where('project_id',$id);})->get();
+
+		return $this->sendResponse($interestProject, "interests");
 	}
 
 	public function getInterestType(Request $request, $type='all')
