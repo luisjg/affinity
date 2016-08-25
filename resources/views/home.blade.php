@@ -5,51 +5,25 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Metaphor by META+Lab</title>
+  <title>Attributes by META+Lab</title>
   <meta name="description" content="An elegantly crafted UI Kit for CSUN branded prototypes &amp; applications">
-
-  <!-- FONT LIBS -->
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
   <link rel="stylesheet" href="https://cdn.metalab.csun.edu/metaphor/css/metaphor.css">
 </head>
 <body>
-<nav class="primary-nav">
-  <div class="container">
-    <div class="primary-nav__mobile">
-      <div class="primary-nav__btn">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-      <div class="primary-nav__brand"><span class="sr-only">California State University, Northridge (CSUN)</span></div>
-      <a class="sr-only" href="#main">Skip to main content</a>
-    </div>
-  </div>
-</nav>
-<div class="section section--md ">
+<div class="section section--sm">
   <div class="container type--center">
     <img src="metalablogo.jpg" style="width:80px; margin-bottom: 25px;" alt="Meta+Lab Logo">
     <h1 class="giga type--thin">Attributes Web Service</h1>
     <h3 class="h1 type--thin type--gray">A Web Service that delivers information on faculty engagement</h3>
-    <br>
   </div>
-</div>
-<div class="section" style="background-color: #252525;">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <h1 class="type--white type--thin type--marginless">Documentation</h1>
-        </div>
-      </div>
-    </div>
 </div>
 <div class="section">
   <div class="container">
     <div class="row">
-
-      <div class="col-sm-3">
+      <div class="col-md-3">
           <p><strong>Attributes Web Service:</strong></p>
           <ul class="list list--arrows list--hover">
             <li class="list__item"><a href="#introduction">Introduction</a></li>
@@ -61,7 +35,7 @@
           </ul>
       </div>
 
-      <div class="col-sm-9">
+      <div class="col-md-9">
           <h2 id="introduction" class="type--header type--thin">Introduction</h2>
           <p>The Attributes web service gives information acknowledging and celebrating teaching interests and accomplishments and helps promote faculty community and networking. This information is derived from the Research and Graduate Studies and faculty submited information using <a href="">Scholarships</a>. The web service provides a gateway to access the information via a REST-ful API. The information is retrieved by creating a specific URI and giving values to filter the data. The information that is returned is a JSON object that contains a set of interest or badges attached to a particular member; the format of the JSON object is as follows:</p>
           <pre><code>{
