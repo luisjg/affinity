@@ -29,15 +29,35 @@ class InterestsController extends Controller
 	{
 		return $interestProject = Interest::with('projects',function ($query) use ($id) {
 				$query->where('project_id',$id);})->get();
-
 		return $this->sendResponse($interestProject, "interests");
 	}
+	public function getInterestWithProject($type='all')
+	{
+		return $this->getInterestType($flag='project',$type);
+	}
 
-	public function getInterestType(Request $request, $type='all')
+
+	
+	public function getInterestWithMembers($type='all',Request $request)
+	{
+		if($request->has('email')){
+			$email = $request['email'];
+			return $this->getInterestMember($email, $type);
+		}
+		return $this->getInterestType($flag='member',$type);
+	}
+	public function getInterestWithMembersEmail($type,$email)
+	{
+		return $this->getInterestMember($email, $type);
+	}
+
+
+
+
+	public function getInterestType($flag='', $type='all')
 	{
 		// Projects and Members serve as flags to activate the addition
 		// of such interest with associated projects / members
-		$request = $request->only('projects','members');
 		$table = [
 			'all'		 =>	'App\Models\Interest',
 			'research'   => 'App\Models\Research',
@@ -51,17 +71,17 @@ class InterestsController extends Controller
 		}else{
 			$data = $table[$type]::whereNotNull('attribute_id');
 		}
-		if($request['members'] == "true"){
+		if($flag == "member"){
 			$data = $data->with('members');
 		}
-		if($request['projects'] == "true"){
+		if($flag == "project"){
 			$data = $data->with('projects');
 		}
 		// return $data;
 		return $this->sendResponse($data->get(), "$type-interest");
 	}
 
-	public function getInterestMember(Request $request, $email, $type="all")
+	public function getInterestMember($email, $type="all")
 	{
 		$table = [
 			'all'		 =>	'App\Models\Interest',
@@ -80,6 +100,7 @@ class InterestsController extends Controller
 			}
 		return $this->sendResponse($interest, "member-interest", ['email' => $email]);
 		}
+
 		else{
 			$data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
 			foreach ($data as $connection ) {

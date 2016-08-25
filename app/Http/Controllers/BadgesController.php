@@ -9,23 +9,25 @@ class BadgesController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('badge');
+		// $this->middleware('badge');
 	}
 	
-	public function badges($email='')
+	public function badges($id='',Request $request)
 	{
 		// request has ?member={email} in url
-		if($email)
+		if($request->has('email'))
 		{
-			$user = User::with('badges')->email($email)->first();
+			$user = User::with('badges')->email($request['email'])->first();
 
 			$userInfo = [
-				'email' => $email
+				'email' => $request['email']
 			];
 
 			return $this->sendResponse($user->badges, 'badges', $userInfo);
 		}
-
+		if($id){
+			return $this->sendResponse(Badge::where('badges_id',$id)->firstOrFail(), 'badges');
+		}
 		// request has no search queries in url
 		return $this->sendResponse(Badge::all(), 'badges');
 	}

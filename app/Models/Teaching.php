@@ -17,7 +17,7 @@ class teaching extends Model
 	}
 	public function members()
 	{
-		$data = $this->hasManyThrough('App\Models\User','App\Models\InterestEntity','expertise_id','individuals_id');
+		$data = $this->hasManyThrough('App\Models\User','App\Models\InterestEntity','expertise_id','user_id');
 		return $data->where('entities_id','LIKE',"members:%");
 	}
 }

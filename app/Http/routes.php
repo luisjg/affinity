@@ -3,21 +3,26 @@
 $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
 	// badges requests
 	$app->get('badges', 'BadgesController@badges');
-	$app->get('badges/member/{email}', 'BadgesController@badges');
+	$app->get('badges/members', 'BadgesController@badges');
+	$app->get('badges/{id}', 'BadgesController@badges');
 
 	// Intersest requests
 	$app->get('interests', 'InterestsController@getInterestAll');
 	
-	$app->get('interests/project/{id}', 'InterestsController@getInterestProject');
+	$app->get('interests/projects', 'InterestsController@getInterestWithProject');
+	$app->get('interests/projects/{id}', 'InterestsController@getInterestProject');
+
+	$app->get('interests/members', 'InterestsController@getInterestWithMembers');
+
 
 	$app->get('interests/{type}', 'InterestsController@getInterestType');
-	$app->get('interests/member/{email}', 'InterestsController@getInterestMember');
-	$app->get('interests/{type}/member/{email}', 'InterestsController@getInterestMember');
+	$app->get('interests/{type}/projects', 'InterestsController@getInterestWithMembers');
+	$app->get('interests/{type}/members', 'InterestsController@getInterestWithMembers');
 
 });
 
-$app->get('/', function () use ($app) {
-    return app()->environment();
+$app->get('/', function () {
+    return view('home');
 });
 
 $app->get('update-interests', function () {
