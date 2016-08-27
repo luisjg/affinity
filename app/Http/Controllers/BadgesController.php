@@ -12,9 +12,9 @@ class BadgesController extends Controller
 		$this->middleware('badge');
 	}
 	
-	public function badges($email='')
+	public function badges($email = NULL)
 	{
-		// request has ?member={email} in url
+		// url is api/badges/member/{email}
 		if($email)
 		{
 			$user = User::with('badges')->email($email)->first();
@@ -26,7 +26,7 @@ class BadgesController extends Controller
 			return $this->sendResponse($user->badges, 'badges', $userInfo);
 		}
 
-		// request has no search queries in url
+		// url is api/badges
 		return $this->sendResponse(Badge::all(), 'badges');
 	}
 }

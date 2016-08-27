@@ -45,7 +45,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof HttpException)
+        if($e instanceof HttpException || $e instanceof ModelNotFoundException)
         {
             return json_encode([
                 'status'   => app('Illuminate\Http\Response')->status(),

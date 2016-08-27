@@ -12,12 +12,11 @@ class Interest extends Model
 
     public function projects()
     {
-        $data = $this->hasManyThrough('App\Models\Projects','App\Models\InterestEntity','expertise_id','project_id');
-        return $data->where('entities_id','LIKE',"projects:%");
+        return $this->belongsToMany('App\Models\Project', 'fresco.expertise_entity', 'expertise_id', 'entities_id');
     }
+
     public function members()
     {
-        $data = $this->hasManyThrough('App\Models\User','App\Models\InterestEntity','expertise_id','individuals_id');
-        return $data->where('entities_id','LIKE',"members:%");
+        return $this->belongsToMany('App\Models\User', 'fresco.expertise_entity', 'expertise_id', 'entities_id');
     }
 }
