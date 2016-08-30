@@ -16,10 +16,6 @@ class InterestsController extends Controller
 		$interests = Interest::whereNotNull('attribute_id');
 		return $this->sendResponse($interests->get(), 'interests');
 	}
-
-
-
-
 	public function getInterestType(Request $request, $type = NULL){
 		try{
 			$table = [
@@ -45,7 +41,6 @@ class InterestsController extends Controller
 			abort(404);
 		}
 	}
-
 
 	// Project Functions
 	public function getInterestwithProjects()
@@ -78,6 +73,7 @@ class InterestsController extends Controller
 			abort(404);
 		}
 	}
+
 	// Member's Function
 	public function getInterestwithMembers(Request $request, $type='all')
 	{
@@ -123,4 +119,5 @@ class InterestsController extends Controller
 			abort(404);
 		}
 	}
+	
 }
