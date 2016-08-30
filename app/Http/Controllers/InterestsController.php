@@ -10,23 +10,31 @@ use Exception;
 
 class InterestsController extends Controller 
 {
-	public function getInterestAll(Request $request)
+
+	public function getInterestAll()
 	{
 		$interests = Interest::whereNotNull('attribute_id');
-
-		if($request['members'] == true)
-		{
-			$interests->with('members');
-		}
-
-		if($request['projects'] == true)
-		{
-			$interests->with('projects');
-		}
-
 		return $this->sendResponse($interests->get(), 'interests');
 	}
 
+
+
+	// Project Functions
+	public function getInterestwithProjects()
+	{
+		$interests = Interest::whereNotNull('attribute_id')->with('projects');
+		return $this->sendResponse($interests->get(), 'interests');
+	}
+	public function getInterestTypeProjects(Request $request, $type='all')
+	{
+		if($request->has('email')){
+			return $this->getInterestMember($request['email'],$type);
+		}
+		else{
+			return $this->getInterestMember($type,'projects');
+		}
+		return $this->sendResponse($interests->get(), 'interests');
+	}
 	public function getInterestProject($id)
 	{
 		try
@@ -42,48 +50,18 @@ class InterestsController extends Controller
 			abort(404);
 		}
 	}
-
-	public function getInterestType(Request $request, $type = NULL)
+	// Member's Function
+	public function getInterestwithMembers(Request $request, $type='all')
 	{
-		try
-		{
-			$table = [
-				'all'	   => 'App\Models\Interest',
-				'research' => 'App\Models\Research',
-				'teaching' => 'App\Models\Teaching',
-				'personal' => 'App\Models\Personal',
-			];
-
-			if(str_contains($type, ':'))
-			{
-				$query = $type;
-				$type  = strtok($type, ':');
-				$data  = $table[$type]::findOrFail($query);
-			}
-			else
-			{
-				$data = $table[$type]::all();
-			}
-
-			if($request['members'] == true)
-			{
-				$data = $data->with('members');
-			}
-
-			if($request['projects'] == true)
-			{
-				$data = $data->with('projects');
-			}
-
-			return $this->sendResponse($data, "$type-interest");
+		if($request->has('email')){
+			return $this->getInterestMember($request['email'],$type);
 		}
-		catch(Exception $e)
-		{
-			abort(404);
+		else{
+			$interests = Interest::whereNotNull('attribute_id')->with('members');
 		}
+		return $this->sendResponse($interests->get(), 'interests');
 	}
-
-	public function getInterestMember(Request $request, $email, $type="all")
+	public function getInterestMember($email, $type)
 	{
 		try
 		{		
@@ -102,14 +80,14 @@ class InterestsController extends Controller
 				foreach ($data as $connection ) {
 					$interest[] = $connection["interest"][0];
 				}
-			return $this->sendResponse($interest, "member-interest", ['email' => $email]);
+				return $this->sendResponse($interest, "interest", ['email' => $email]);
 			}
 			else{
 				$data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
 				foreach ($data as $connection ) {
 					$interest[] = $connection["interest_$type"][0];
 				}
-			return $this->sendResponse($interest, "member-interest $type", ['email' => $email]);
+			return $this->sendResponse($interest, "interest", ['email' => $email]);
 			}
 		}
 		catch(Exception $e)

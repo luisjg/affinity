@@ -6,7 +6,7 @@ class Badge extends Model
 {
 	protected $table = 'exploration.badges';
 
-	protected $primaryKey = 'name';
+	protected $primaryKey = 'badges_id';
 
 	protected $hidden = [
 		'pivot'
@@ -17,6 +17,10 @@ class Badge extends Model
 	public function getPublishedAttribute()
 	{
 		return $this->pivot->published == 'TRUE' ? true : false;
+	}
+	public function members()
+	{
+		return $this->hasMany('App\Models\BadgesAwarded', 'badge_name','name');
 	}
 
 }

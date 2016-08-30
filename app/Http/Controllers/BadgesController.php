@@ -11,22 +11,35 @@ class BadgesController extends Controller
 	{
 		$this->middleware('badge');
 	}
-	
-	public function badges($email = NULL)
+
+	public function getAllBadges(Request $request)
 	{
-		// url is api/badges/member/{email}
-		if($email)
-		{
-			$user = User::with('badges')->email($email)->first();
-
+		if($request->has('email')){
+			$user = User::with('badges')->email($request['email'])->first();
 			$userInfo = [
-				'email' => $email
+				'email' => $request['email']
 			];
-
-			return $this->sendResponse($user->badges, 'badges', $userInfo);
+				if($user){
+					return $this->sendResponse($user->badges, 'badges', $userInfo);
+				}
+				else{
+					abort(404);
+				}
 		}
-
-		// url is api/badges
-		return $this->sendResponse(Badge::all(), 'badges');
+		else{
+	 		return $this->sendResponse(Badge::all(), 'badges');
+		}
 	}
+
+	public function getBadgesMember()
+	{
+		return Badge::with('members')->get();
+	}
+
+	public function getBadge($id)
+	{
+		$badge = Badge::findOrFail($id);	
+		return $this->sendResponse($badge,'badge');
+	}
+
 }
