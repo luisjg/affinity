@@ -19,6 +19,34 @@ class InterestsController extends Controller
 
 
 
+
+	public function getInterestType(Request $request, $type = NULL){
+		try{
+			$table = [
+				'all'	   => 'App\Models\Interest',
+				'research' => 'App\Models\Research',
+				'teaching' => 'App\Models\Teaching',
+				'personal' => 'App\Models\Personal',
+			];
+			if(str_contains($type, ':'))
+			{
+				$query = $type;
+				$type  = strtok($type, ':');
+				$data  = $table[$type]::findOrFail($query);
+				return $this->sendResponse($data, 'interests');
+			}else
+			{
+				$data = $table[$type]::all();
+				return $this->sendResponse($data, 'interests');
+			}
+		}
+		catch(Exception $e)
+		{
+			abort(404);
+		}
+	}
+
+
 	// Project Functions
 	public function getInterestwithProjects()
 	{

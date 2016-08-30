@@ -21,7 +21,7 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 });
 
 $app->get('/', function () {
-    // return view('home');
+    return view('home');
 });
 
 $app->get('update-interests', function () {
