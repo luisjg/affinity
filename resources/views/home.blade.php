@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>Attributes by META+Lab</title>
-  <meta name="description" content="An elegantly crafted UI Kit for CSUN branded prototypes &amp; applications">
+  <meta name="description" content="A Web Service that delivers information on faculty engagement">
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
