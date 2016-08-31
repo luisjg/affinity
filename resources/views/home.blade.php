@@ -15,11 +15,11 @@
 <body>
 <div class="section section--sm">
   <div class="container type--center">
-    <img src="metalablogo.jpg" style="width:80px; margin-bottom: 25px;" alt="Meta+Lab Logo">
     <h1 class="giga type--thin">Attributes Web Service</h1>
     <h3 class="h1 type--thin type--gray">A Web Service that delivers information on faculty engagement</h3>
   </div>
 </div>
+
 <div class="section">
   <div class="container">
     <div class="row">
@@ -121,6 +121,28 @@
     </div>
   </div>
 </div>
+
+<div class="metalab-footer">
+    <div class="metalab-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="metalab-branding">
+              <img src="http://www.csun.edu/faculty/imgs/meta-logo-horz.png" alt="CSUN META Lab Logo">
+              <ul class="list--unstyled">
+                <li><a href="http://metalab.csun.edu">metalab.csun.edu</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <ul class="list--unstyled metalab-tagline">
+              <li>Explore. Learn. Go Beyond.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
