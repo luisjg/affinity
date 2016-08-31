@@ -9,7 +9,7 @@ class BadgesController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('badge');
+		// $this->middleware('badge');
 	}
 
 	public function getAllBadges()
@@ -38,7 +38,7 @@ class BadgesController extends Controller
 
 	public function getBadge($id)
 	{
-		$badge = Badge::findOrFail($id);	
+		$badge = Badge::where('badges_id',$id)->firstOrFail();	
 		return $this->sendResponse($badge,'badge');
 	}
 
