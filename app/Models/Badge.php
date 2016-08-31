@@ -6,7 +6,7 @@ class Badge extends Model
 {
 	protected $table = 'exploration.badges';
 
-	protected $primaryKey = 'badges_id';
+	protected $primaryKey = 'name';
 
 	protected $hidden = [
 		'pivot'

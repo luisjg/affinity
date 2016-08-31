@@ -115,7 +115,7 @@
         </ul>
         <strong>Specified Member's Badges</strong>
           <ul>
-            <li><a href="{{url('api/badges/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>
+            <li><a href="{{url('api/badges/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/badges/members?email=steven.fitzgerald@csun.edu')}}</a></li>
           </ul>
       </div>
     </div>

@@ -6,7 +6,7 @@ class BadgesAwarded extends Model
 {
 	protected $table = 'exploration.badges_awarded';
 
-	protected $primaryKey = 'badges_id';
+	protected $primaryKey = 'badge_name';
 
 	protected $hidden = [
 		'pivot'
