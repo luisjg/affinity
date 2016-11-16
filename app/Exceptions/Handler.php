@@ -50,7 +50,7 @@ class Handler extends ExceptionHandler
             return json_encode([
                 'status'   => app('Illuminate\Http\Response')->status(),
                 'success'  => false,
-                'version'  => 'attributes-1.0',
+                'version'  => 'affinity-1.0',
                 'messages' => [
                     'No results found.'
                 ]

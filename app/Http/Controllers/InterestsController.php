@@ -48,6 +48,7 @@ class InterestsController extends Controller
 		$interests = Interest::whereNotNull('attribute_id')->with('projects');
 		return $this->sendResponse($interests->get(), 'interests');
 	}
+
 	public function getInterestTypeProjects(Request $request, $type='all')
 	{
 		if($request->has('email')){
@@ -58,20 +59,15 @@ class InterestsController extends Controller
 		}
 		return $this->sendResponse($interests->get(), 'interests');
 	}
+
 	public function getInterestProject($id)
 	{
-		try
-		{
 			$interestProject = InterestEntity::where('entities_id',$id)->with('interest_project')->get();
-			foreach($interestProject as &$interest){
+			$data= [];
+			foreach($interestProject as $interest){
 				$data[] = $interest->interest_project;
 			}
-			return $this->sendResponse($data, "interests");	
-		}
-		catch(Exception $e)
-		{
-			abort(404);
-		}
+			return $this->sendResponse($data, "interests");
 	}
 
 	// Member's Function
@@ -85,38 +81,48 @@ class InterestsController extends Controller
 		}
 		return $this->sendResponse($interests->get(), 'interests');
 	}
+
+
 	public function getInterestMember($email, $type)
 	{
-		try
-		{		
-			$table = [
-				'all'		 =>	'App\Models\Interest',
-				'research'   => 'App\Models\Research',
-				'teaching'   => 'App\Models\Teaching',
-				'personal'   => 'App\Models\Personal',
-			];
-			$user = User::email($email)->first();
-			$userInfo = [
-				'email' => $user->email
-			];
-			if($type=='all'){
-				$data = InterestEntity::where('entities_id',$user->user_id)->with("interest")->get();
-				foreach ($data as $connection ) {
-					$interest[] = $connection["interest"][0];
-				}
-				return $this->sendResponse($interest, "interest", ['email' => $email]);
+		$table = [
+			'all'		 =>	'App\Models\Interest',
+			'research'   => 'App\Models\Research',
+			'teaching'   => 'App\Models\Teaching',
+			'personal'   => 'App\Models\Personal',
+		];
+		$user = User::email($email)->firstOrFail();
+		$userInfo = [
+			'email' => $user->email
+		];
+		$interest=[];
+		if($type=='all'){
+			$data = InterestEntity::where('entities_id',$user->user_id)->with("interest")->get();
+			foreach ($data as $connection ) {
+				$interest[] = $connection["interest"][0];
 			}
-			else{
-				$data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
+		}
+		else{
+			$data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
 				foreach ($data as $connection ) {
 					$interest[] = $connection["interest_$type"][0];
 				}
-			return $this->sendResponse($interest, "interest", ['email' => $email]);
-			}
 		}
-		catch(Exception $e)
+		return $this->sendResponse($interest, "interest", ['email' => $email]);
+	}
+	
+	function updateCount($interest)
+	{
+		$interest->count = $interest->count + 1;
+		$interest->save();
+
+		if($interest->parent_attribute_id)
 		{
-			abort(404);
+			$model = get_class($interest);
+
+			$parent = $model::find($interest->parent_attribute_id);
+
+			return updateCount($parent);
 		}
 	}
 	

@@ -11,7 +11,7 @@ class Controller extends BaseController
 		$response = [
 			'status'   => app('Illuminate\Http\Response')->status(),
 			'success'  => app('Illuminate\Http\Response')->status() < 400 ? true : false,
-			'version'  => 'attributes-1.0',
+			'version'  => 'affinity-1.0',
 			'type'     => $type,
 		];
 

@@ -16,7 +16,7 @@ class Badge extends Model
 
 	public function getPublishedAttribute()
 	{
-		return $this->pivot->published == 'TRUE' ? true : false;
+		return $this->pivot->published == 'TRUE';
 	}
 	public function members()
 	{

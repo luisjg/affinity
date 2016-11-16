@@ -5,7 +5,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Attributes by META+Lab</title>
+  <title>Affinity by META+Lab</title>
   <meta name="description" content="A Web Service that delivers information on faculty engagement">
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
@@ -15,7 +15,7 @@
 <body>
 <div class="section section--sm">
   <div class="container type--center">
-    <h1 class="giga type--thin">Attributes Web Service</h1>
+    <h1 class="giga type--thin">Affinity Web Service</h1>
     <h3 class="h1 type--thin type--gray">A Web Service that delivers information on faculty engagement</h3>
   </div>
 </div>
@@ -24,7 +24,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-          <p><strong>Attributes Web Service:</strong></p>
+          <p><strong>Affinity Web Service:</strong></p>
           <ul class="list list--arrows list--hover">
             <li class="list__item"><a href="#introduction">Introduction</a></li>
             <li class="list__item"><a href="#getting-started">Getting Started</a></li>
@@ -37,11 +37,11 @@
 
       <div class="col-md-9">
           <h2 id="introduction" class="type--header type--thin">Introduction</h2>
-          <p>The Attributes web service gives information acknowledging and celebrating teaching interests and accomplishments and helps promote faculty community and networking. This information is derived from the Research and Graduate Studies and faculty submited information using <a href="">Scholarships</a>. The web service provides a gateway to access the information via a REST-ful API. The information is retrieved by creating a specific URI and giving values to filter the data. The information that is returned is a JSON object that contains a set of interest or badges attached to a particular member; the format of the JSON object is as follows:</p>
+          <p>The Affinity web service gives information acknowledging and celebrating teaching interests and accomplishments and helps promote faculty community and networking. This information is derived from the Research and Graduate Studies and faculty submited information using <a href="">Scholarships</a>. The web service provides a gateway to access the information via a REST-ful API. The information is retrieved by creating a specific URI and giving values to filter the data. The information that is returned is a JSON object that contains a set of interest or badges attached to a particular member; the format of the JSON object is as follows:</p>
           <pre><code>{
   status: 200,
   success: true,
-  version: "attributes-1.0",
+  version: "Affinity-1.0",
   type: "badges",
   email: "steven.fitzgerald@csun.edu",
   badges: [
