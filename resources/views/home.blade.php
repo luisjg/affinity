@@ -12,6 +12,7 @@
   <script>try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
   <link rel="stylesheet" href="https://cdn.metalab.csun.edu/metaphor/css/metaphor.css">
+  <link rel="stylesheet" href="css/tomorrow.css.min">
 </head>
 <body>
 <div class="section section--sm">
