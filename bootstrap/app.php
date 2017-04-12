@@ -78,6 +78,9 @@ $app->routeMiddleware([
 |
 */
 
+$app->configure('proxypass');
+$app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::class);
+
 // $app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
