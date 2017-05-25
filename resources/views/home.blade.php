@@ -84,9 +84,9 @@
         <h3 class="type--thin">The collection URI allows the consumer to obtain a list of interest or badges that are part of the entire data set.</h3>
         <ul>
           <strong>Interest Listing</strong>
-          <li><a href="{{url('api/interests')}}">{{url('api/interests')}}</a></li>
+          <li><a href="{{url('api/1.0/interests')}}">{{url('api/interests')}}</a></li>
           <strong>Badges Listing</strong>
-          <li><a href="{{url('api/badges')}}">{{url('api/badge')}}</a></li>
+          <li><a href="{{url('api/1.0/badges')}}">{{url('api/badge')}}</a></li>
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
