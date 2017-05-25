@@ -131,7 +131,7 @@
         {{--</ul>--}}
         <strong>Specified Member's Badges</strong>
         <ul>
-          <li><a href="{{url('api/badges/alexandra.monchick@csun.edu')}}">{{url('api/badges/alexandra.monchick@csun.edu')}}</a></li>
+          <li><a href="{{url('api/1.0/badges/alexandra.monchick@csun.edu')}}">{{url('api/badges/alexandra.monchick@csun.edu')}}</a></li>
         </ul>
       </div>
     </div>
