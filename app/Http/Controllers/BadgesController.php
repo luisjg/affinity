@@ -13,7 +13,7 @@ class BadgesController extends Controller
     public function getAllBadges()
     {
         $response = buildResponseArray('badges');
-        $badges = Badge::where('active', 'TRUE')->get();
+        $badges = Badge::Active()->get();
         $response['count'] = "{$badges->count()}";
         $response['badges'] = $badges;
         return $this->sendJsonResponse($response);
@@ -41,7 +41,7 @@ class BadgesController extends Controller
     public function getPersonsBadges($email)
     {
         $response = buildResponseArray('badges');
-        $user = BadgeAwarded::where(['email' => $email, 'active' => 'TRUE'])->get();
+        $user = BadgeAwarded::Email($email)->get();
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
         return $this->sendJsonResponse($response);
@@ -55,7 +55,7 @@ class BadgesController extends Controller
     public function getBadge($id)
     {
         $response = buildResponseArray('badges');
-        $badge = Badge::where('active', 'TRUE')->findOrFail('badges:'.$id);
+        $badge = Badge::Active()->findOrFail('badges:'.$id);
         $response['count'] = "{$badge->count()}";
         $response['badges'] = $badge;
         return $this->sendJsonResponse($response);
