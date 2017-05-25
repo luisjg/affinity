@@ -40,20 +40,34 @@
       <div class="col-md-9">
         <h2 id="introduction" class="type--header type--thin">Introduction</h2>
         <p>The Affinity web service gives information acknowledging and celebrating teaching interests and accomplishments and helps promote faculty community and networking. This information is derived from the Research and Graduate Studies and faculty submited information using <a href="">Scholarships</a>. The web service provides a gateway to access the information via a REST-ful API. The information is retrieved by creating a specific URI and giving values to filter the data. The information that is returned is a JSON object that contains a set of interest or badges attached to a particular member; the format of the JSON object is as follows:</p>
-        <pre><code>{
-  status: 200,
-  success: true,
-  version: "Affinity-1.0",
-  type: "badges",
-  email: "steven.fitzgerald@csun.edu",
-  badges: [
+        <pre class="prettyprint"><code>{
+  "version": "affinity-1.0",
+  "status": 200,
+  "success": "true",
+  "type": "badges",
+  "count": 2,
+  "badges": [
     {
-    badges_id: "badges:0",
-    name: "Example Badge",
-    url_image: "https://cdn.metalab.csun.edu/...",
-    url_web: "http://metalab.csun.edu",
-    award_date: "{{date("m/d/y")}}",
-    published: true
+      "id": 319,
+      "badge_name": "Probationary Faculty Grant",
+      "award_date": "2014",
+      "badge_info": {
+        "name": "Probationary Faculty Grant",
+        "issuer": "Faculty Development",
+        "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
+        "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/probationary-faculty-support-program"
+      }
+    },
+    {
+      "id": 396,
+      "badge_name": "Teaching Conference Grant",
+      "award_date": "Fall 2015",
+      "badge_info": {
+        "name": "Teaching Conference Grant",
+        "issuer": "Faculty Development",
+        "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
+        "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/competition-attending-teaching-conference"
+      }
     }
   ]
 }</code></pre>
@@ -77,47 +91,47 @@
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
         <h3 class="type--thin">The subcollection URI allows the consumer to obtain a list of interestthat are part of a specified data set.</h3>
-        <strong>Interest Listing</strong>
-        <ul>
-          <li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>
-          <li><a href="{{url('api/interests/teaching')}}">{{url('api/interests/teaching')}}</a></li>
-          <li><a href="{{url('api/interests/personal')}}">{{url('api/interests/personal')}}</a></li>
-        </ul>
-        <strong>Interest Listing with Attached Members</strong>
-        <ul>
-          <li><a href="{{url('api/interests/members')}}">{{url('api/interests/members')}}</a></li>
-          <li><a href="{{url('api/interests/research/members')}}">{{url('api/interests/research/members')}}</a></li>
-          <li><a href="{{url('api/interests/teaching/members')}}">{{url('api/interests/teaching/members')}}</a></li>
-          <li><a href="{{url('api/interests/personal/members')}}">{{url('api/interests/personal/members')}}</a></li>
-        </ul>
-        <strong>Interest Listing with Attached Scholarship Projects</strong>
-        <ul>
-          <li><a href="{{url('api/interests/projects')}}">{{url('api/interests/projects')}}</a></li>
-          <li><a href="{{url('api/interests/research/projects')}}">{{url('api/interests/research/projects')}}</a></li>
-          <li><a href="{{url('api/interests/teaching/projects')}}">{{url('api/interests/teaching/projects')}}</a></li>
-          <li><a href="{{url('api/interests/personal/projects')}}">{{url('api/interests/personal/projects')}}</a></li>
-        </ul>
-        <br>
-        <h2 id="instances" class="type--header type--thin">Instances</h2>
-        <h3 class="type--thin">The instance URI allows the consumer to obtain information about a single interest or a single badge.</h3>
-        <strong>Single Listing</strong>
-        <ul>
-          <li><a href="{{url('api/interests/research:1')}}">{{url('api/interests/research:1')}}</a></li>
-          <li><a href="{{url('api/badges/badges:1')}}">{{url('api/interests/badges:1')}}</a></li>
+        {{--<strong>Interest Listing</strong>--}}
+        {{--<ul>--}}
+          {{--<li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/teaching')}}">{{url('api/interests/teaching')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/personal')}}">{{url('api/interests/personal')}}</a></li>--}}
+        {{--</ul>--}}
+        {{--<strong>Interest Listing with Attached Members</strong>--}}
+        {{--<ul>--}}
+          {{--<li><a href="{{url('api/interests/members')}}">{{url('api/interests/members')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/research/members')}}">{{url('api/interests/research/members')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/teaching/members')}}">{{url('api/interests/teaching/members')}}</a></li>--}}
+{{--          <li><a href="{{url('api/interests/personal/members')}}">{{url('api/interests/personal/members')}}</a></li>--}}
+        {{--</ul>--}}
+        {{--<strong>Interest Listing with Attached Scholarship Projects</strong>--}}
+        {{--<ul>--}}
+          {{--<li><a href="{{url('api/interests/projects')}}">{{url('api/interests/projects')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/research/projects')}}">{{url('api/interests/research/projects')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/teaching/projects')}}">{{url('api/interests/teaching/projects')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/personal/projects')}}">{{url('api/interests/personal/projects')}}</a></li>--}}
+        {{--</ul>--}}
+        {{--<br>--}}
+        {{--<h2 id="instances" class="type--header type--thin">Instances</h2>--}}
+        {{--<h3 class="type--thin">The instance URI allows the consumer to obtain information about a single interest or a single badge.</h3>--}}
+        {{--<strong>Single Listing</strong>--}}
+        {{--<ul>--}}
+          {{--<li><a href="{{url('api/interests/research:1')}}">{{url('api/interests/research:1')}}</a></li>--}}
+          {{--<li><a href="{{url('api/badges/badges:1')}}">{{url('api/interests/badges:1')}}</a></li>--}}
 
-        </ul>
-        <h2 id="query" class="type--header type--thin">Query</h2>
-        <h3 class="type--thin">The query URI allows a consumer to obtain a list of interest or badges that relate to a specified member.</h3>
-        <strong>Specified Member's Interest</strong>
-        <ul>
-          <li><a href="{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>
-        </ul>
+        {{--</ul>--}}
+        {{--<h2 id="query" class="type--header type--thin">Query</h2>--}}
+        {{--<h3 class="type--thin">The query URI allows a consumer to obtain a list of interest or badges that relate to a specified member.</h3>--}}
+        {{--<strong>Specified Member's Interest</strong>--}}
+        {{--<ul>--}}
+          {{--<li><a href="{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
+{{--          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
+        {{--</ul>--}}
         <strong>Specified Member's Badges</strong>
         <ul>
-          <li><a href="{{url('api/badges/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/badges/members?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('api/badges/alexandra.monchick@csun.edu')}}">{{url('api/badges/alexandra.monchick@csun.edu')}}</a></li>
         </ul>
       </div>
     </div>
@@ -147,6 +161,7 @@
 </div>
 
 <script src="https://cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 <!--
   __  __   ___   _____     _
  |  \/  | | __| |_   _|   /_\       Explore Learn Go Beyond
