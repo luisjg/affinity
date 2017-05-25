@@ -18,7 +18,7 @@ class InterestsController extends Controller
     {
         $response = buildResponseArray('interests');
         $interests = Interest::whereNotNull('attribute_id')->get();
-        $response['count'] = $interests->count();
+        $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendJsonResponse($response);
     }
