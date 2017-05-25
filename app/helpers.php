@@ -1,16 +1,21 @@
 <?php
 
-function updateCount($interest)
+/**
+ * Generate basic API response array
+ *
+ * @param string $collection - e.g. classes, membership-classes, etc.
+ * @param boolean $success - default true
+ * @param int $status_code - default 200
+ * @return array
+ * @internal param string $data_type - e.g. classes, membership-classes, etc.
+ */
+function buildResponseArray($collection, $success = true, $status_code = 200)
 {
-	$interest->count = $interest->count + 1;
-	$interest->save();
-
-	if($interest->parent_attribute_id)
-	{
-		$model = get_class($interest);
-
-		$parent = $model::find($interest->parent_attribute_id);
-
-		return updateCount($parent);
-	}
+    return $response = [
+        'success'    => ($success ? "true" : "false"),
+        'status'     => $status_code,
+        'api'        => 'affinity',
+        'version'    => '1.0',
+        'collection' => $collection
+    ];
 }
