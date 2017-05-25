@@ -29,4 +29,15 @@ class BadgeAwarded extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 'TRUE');
+    }
+
+    public function scopeEmail($query, $email)
+    {
+        $email = str_replace('nr_', '', $email);
+        return $query->whereEmail($email)->Active();
+    }
 }

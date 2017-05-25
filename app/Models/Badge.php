@@ -30,6 +30,10 @@ class Badge extends Model
      */
     public $incrementing = false;
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 'TRUE');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
