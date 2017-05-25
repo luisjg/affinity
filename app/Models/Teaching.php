@@ -4,17 +4,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class teaching extends Model
 {
-	protected $table = 'fresco.teaching_interests';
+    /**
+     * @var string
+     */
+    protected $table = 'fresco.teaching_interests';
 
-	protected $primaryKey = 'attribute_id';
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'attribute_id';
 
-	public $incrementing = false;
-	
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function projects()
     {
         return $this->belongsToMany('App\Models\Project', 'fresco.expertise_entity', 'expertise_id', 'entities_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function members()
     {
         return $this->belongsToMany('App\Models\User', 'fresco.expertise_entity', 'expertise_id', 'entities_id');

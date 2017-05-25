@@ -8,10 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model
 {
-    use Authenticatable, Authorizable;
-
     protected $primaryKey = 'user_id';
 
     public $incrementing = false;
@@ -30,9 +28,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function scopeEmail($q, $email)
     {
-        if(app()->environment() == 'local')
+        if(app()->environment() != 'local')
         {
-            return $q->whereEmail('nr_' . $email);
+            $email = str_replace('nr_', '', $email);
         }
 
         return $q->whereEmail($email);
@@ -46,6 +44,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         $data = $this->hasManyThrough('App\Models\User','App\Models\InterestEntity','expertise_id','individuals_id');
         return $data->where('entities_id','LIKE',"members:%");
+    }
+
+    public function interests()
+    {
+        return $this->belongsToMany('App\Models\Interest', 'person_interest', 'attribute_id', 'user_id');
     }
 
 }

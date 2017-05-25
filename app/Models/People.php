@@ -4,10 +4,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class People extends Model
 {
-	protected $table = 'nemo.individuals';
+    /**
+     * @var string
+     */
+    protected $table = 'nemo.individuals';
 
-	protected $primaryKey = 'individuals_id';
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'individuals_id';
 
-	public $incrementing = false;
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
 
 }
