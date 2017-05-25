@@ -4,23 +4,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Badge extends Model
 {
-	protected $table = 'exploration.badges';
+    /**
+     * @var string
+     */
+    protected $table = 'exploration.badges';
 
-	protected $primaryKey = 'name';
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'badges_Id';
 
-	protected $hidden = [
-		'pivot'
-	];
+    /**
+     * @var array
+     */
+    protected $hidden = [
+        'badges_id',
+        'pivot',
+        'updated_at',
+        'created_at',
+        'active'
+    ];
 
-	public $incrementing = false;
+    /**
+     * @var bool
+     */
+    public $incrementing = false;
 
-	public function getPublishedAttribute()
-	{
-		return $this->pivot->published == 'TRUE';
-	}
-	public function members()
-	{
-		return $this->hasMany('App\Models\BadgesAwarded', 'badge_name','name');
-	}
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function members()
+    {
+        return $this->hasMany('App\Models\BadgeAwarded', 'badge_name','name');
+    }
 
 }
