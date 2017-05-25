@@ -11,7 +11,7 @@ $app->group(['prefix' => 'api', 'namespace' => 'App\Http\Controllers'], function
 
     // Interest requests
     $app->get('interests', 'InterestsController@getAllInterests');
-    $app->get('interests/{email}', 'InterestsController@getPersonsInterests');
+//    $app->get('interests/{email}', 'InterestsController@getPersonsInterests');
 //    $app->get('interests/{type}/{email}', 'InterestsController@getSpecificPersonsInterestType');
 //    $app->get('interests/{email}/{type}', 'InterestsController@getSpecificPersonsInterestType');
 
