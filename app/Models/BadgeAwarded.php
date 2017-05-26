@@ -37,7 +37,6 @@ class BadgeAwarded extends Model
 
     public function scopeEmail($query, $email)
     {
-        $email = str_replace('nr_', '', $email);
         return $query->whereEmail($email)->Active();
     }
 }
