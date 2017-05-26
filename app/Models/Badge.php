@@ -32,7 +32,7 @@ class Badge extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('active', 'TRUE');
+        return $query->where('active', 'TRUE')->whereNotNull('url_image');
     }
 
     /**

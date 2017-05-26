@@ -32,7 +32,7 @@ class BadgeAwarded extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('active', 'TRUE');
+        return $query->where('active', 'TRUE')->whereNotNull('url_image');
     }
 
     public function scopeEmail($query, $email)
