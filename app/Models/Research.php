@@ -20,6 +20,15 @@ class Research extends Model
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $hidden = [
+        'attribute_id',
+        'updated_at',
+        'created_at'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function projects()
