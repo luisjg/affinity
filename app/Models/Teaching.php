@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class teaching extends Model
+class Teaching extends Model
 {
     /**
      * @var string
@@ -18,6 +18,12 @@ class teaching extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    protected $hidden = [
+        'attribute_id',
+        'created_at',
+        'updated_at'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
