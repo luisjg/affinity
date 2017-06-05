@@ -2,155 +2,189 @@
 
 use App\Models\Interest;
 use App\Models\InterestEntity;
+use App\Models\Personal;
+use App\Models\Research;
+use App\Models\Teaching;
 use App\Models\User;
-use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class InterestsController extends Controller
 {
 
     /**
-     * Returns all the interests
+     * Handles which type of interest to retrieve
+     * @param string $type interest type
+     * @param Request $request
      * @return array JSON Response
      */
-    public function getAllInterests()
+    public function handleInterestType($type, Request $request)
     {
-        $response = buildResponseArray('interests');
-        $interests = Interest::whereNotNull('attribute_id')->get();
-        $response['count'] = "{$interests->count()}";
-        $response['interests'] = $interests;
-        return $this->sendJsonResponse($response);
+        if(!$request->has('email')) {
+            if($type == 'research')
+                return $this->getAllResearchInterests();
+            else if($type == 'personal')
+                return $this->getAllPersonalInterests();
+            else if($type == 'teaching')
+                return $this->getAllTeachingInterests();
+            else
+                throw new BadRequestHttpException;
+        } else {
+            if($type == 'research')
+                return $this->getPersonsResearchInterests($request['email']);
+            else if($type == 'personal')
+                return $this->getPersonsPersonalInterests($request['email']);
+            else if($type == 'teaching')
+                return $this->getPersonsTeachingInterests($request['email']);
+            else
+                throw new BadRequestHttpException;
+        }
     }
 
     /**
-     * Returns all of the interests of one given person
+     * Retrieves all the interests
+     * @param Request $request
+     * @return array JSON Response
+     */
+    public function getAllInterests(Request $request)
+    {
+        if($request->has('email')) {
+            return $this->getAllPersonsInterests($request['email']);
+        } else {
+            $response = buildResponseArray('interests');
+            $interests = Interest::whereNotNull('attribute_id')->get();
+            $response['count'] = "{$interests->count()}";
+            $response['interests'] = $interests;
+            return $this->sendResponse($response);
+        }
+    }
+
+    /**
+     * Retrieves all the research interests
+     * @return array JSON Response
+     */
+    public function getAllResearchInterests()
+    {
+        $response = buildResponseArray('interests');
+        $interests = Research::whereNotNull('attribute_id')->get();
+        $response['count'] = "{$interests->count()}";
+        $response['interests'] = $interests;
+        return $this->sendResponse($response);
+    }
+
+
+    /**
+     * Retrieves all interests from a given person
      * @param string $email
      * @return array JSON Response
      */
-    public function getPersonsInterests($email)
+    public function getAllPersonsInterests($email)
     {
-        return $user = User::with('interests')->email($email)->firstOrFail();
+        $user = User::whereEmail($email)->firstOrFail();
         $response = buildResponseArray('interests');
-        $interests = InterestEntity::where('entities_id',$user->user_id)->with("interest")->get();
-        return $interests;
-//        $interests = Interest::whereHas('members', function($q) use($user) {
-//            $q->where('members_id', $user->user_Id);
-        $response['count'] = $interests->count();
+        $interestEntity = InterestEntity::where('entities_id',$user->user_id)->get();
+        if(count($interestEntity)) {
+            foreach($interestEntity as $item)
+                $researchId[] = $item->expertise_id;
+            $interests = Interest::findOrFail($researchId);
+        } else {
+            $interests = $interestEntity;
+        }
+        $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
-        return $this->sendJsonResponse($response);
+        return $this->sendResponse($response);
     }
 
     /**
-     * Handles the retrieval of a person's expertise type
-     * @param string $email the user's email
-     * @param string $type the research type to look up
+     * Retrieves all the personal interests
      * @return array JSON Response
      */
-    public function getSpecificPersonsInterestType($email, $type)
+    public function getAllPersonalInterests()
     {
-        $user = User::email($email)->firstOrFail();
-        // I need to find a person and his type...
         $response = buildResponseArray('interests');
-        // load up the user with their specific interest type/
-        $interests = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
-        $response['count'] = $interests->count();
+        $interests = Personal::all();
+        $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
-        return $this->sendJsonResponse($response);
+        return $this->sendResponse($response);
     }
 
-    public function getInterestType(Request $request, $type = NULL){
-        try{
-            $table = [
-                'all'	   => 'App\Models\Interest',
-                'research' => 'App\Models\Research',
-                'teaching' => 'App\Models\Teaching',
-                'personal' => 'App\Models\Personal',
-            ];
-            if(str_contains($type, ':'))
-            {
-                $query = $type;
-                $type  = strtok($type, ':');
-                $data  = $table[$type]::findOrFail($query);
-                return $this->sendResponse($data, 'interests');
-            }else
-            {
-                $data = $table[$type]::all();
-                return $this->sendResponse($data, 'interests');
-            }
-        }
-        catch(Exception $e)
-        {
-            abort(404);
-        }
-    }
-
-    // Project Functions
-    public function getInterestWithProjects()
+    /**
+     * Retrieves all the teaching interests
+     * @return array JSON Response
+     */
+    public function getAllTeachingInterests()
     {
-        $interests = Interest::whereNotNull('attribute_id')->with('projects');
-        return $this->sendResponse($interests->get(), 'interests');
+        $response = buildResponseArray('interests');
+        $interests = Teaching::all();
+        $response['count'] = "{$interests->count()}";
+        $response['interests'] = $interests;
+        return $this->sendResponse($response);
     }
 
-    public function getInterestTypeProjects(Request $request, $type='all')
+    /**
+     * Retrieves all of the interests of one given person
+     * @param string $email
+     * @return array JSON Response
+     */
+    public function getPersonsResearchInterests($email)
     {
-        if($request->has('email')){
-            return $this->getInterestMember($request['email'],$type);
+        $user = User::whereEmail($email)->firstOrFail();
+        $response = buildResponseArray('interests');
+        $interestEntity = InterestEntity::interestType($user->user_id, 'research')->get();
+        if(count($interestEntity)) {
+            foreach($interestEntity as $item)
+                $researchId[] = $item->expertise_id;
+            $interests = Research::findOrFail($researchId);
+        } else {
+            $interests = $interestEntity;
         }
-        else{
-            return $this->getInterestMember($type,'projects');
-        }
-        return $this->sendResponse($interests->get(), 'interests');
+        $response['count'] = "{$interests->count()}";
+        $response['interests'] = $interests;
+        return $this->sendResponse($response);
     }
 
-    public function getInterestProject($id)
+    /**
+     * Retrieves all of the interests of one given person
+     * @param string $email
+     * @return array JSON Response
+     */
+    public function getPersonsPersonalInterests($email)
     {
-        $interestProject = InterestEntity::where('entities_id',$id)->with('interest_project')->get();
-        $data= [];
-        foreach($interestProject as $interest){
-            $data[] = $interest->interest_project;
+        $user = User::whereEmail($email)->firstOrFail();
+        $response = buildResponseArray('interests');
+        $interestEntity = InterestEntity::interestType($user->user_id, 'personal')->get();
+        if(count($interestEntity)) {
+            foreach($interestEntity as $item)
+                $researchId[] = $item->expertise_id;
+            $interests = Personal::findOrFail($researchId);
+        } else {
+            $interests = $interestEntity;
         }
-        return $this->sendResponse($data, "interests");
+        $response['count'] = "{$interests->count()}";
+        $response['interests'] = $interests;
+        return $this->sendResponse($response);
     }
 
-    // Member's Function
-    public function getInterestWithMembers(Request $request, $type='all')
+    /**
+     * Retrieves all of the interests of one given person
+     * @param string $email
+     * @return array JSON Response
+     */
+    public function getPersonsTeachingInterests($email)
     {
-        if($request->has('email')){
-            return $this->getInterestMember($request['email'],$type);
+        $user = User::whereEmail($email)->firstOrFail();
+        $response = buildResponseArray('interests');
+        $interestEntity = InterestEntity::interestType($user->user_id, 'teaching')->get();
+        if(count($interestEntity)) {
+            foreach($interestEntity as $item)
+                $researchId[] = $item->expertise_id;
+            $interests = Teaching::findOrFail($researchId);
+        } else {
+            $interests = $interestEntity;
         }
-        else{
-            $interests = Interest::whereNotNull('attribute_id')->with('members')->get();
-        }
-        return $this->sendResponse($interests, 'interests');
+        $response['count'] = "{$interests->count()}";
+        $response['interests'] = $interests;
+        return $this->sendResponse($response);
     }
 
-
-    public function getInterestMember($email, $type)
-    {
-        $table = [
-            'all'		 =>	'App\Models\Interest',
-            'research'   => 'App\Models\Research',
-            'teaching'   => 'App\Models\Teaching',
-            'personal'   => 'App\Models\Personal',
-        ];
-        $user = User::email($email)->firstOrFail();
-        $userInfo = [
-            'email' => $user->email
-        ];
-        $interest=[];
-        if($type=='all'){
-            $data = InterestEntity::where('entities_id',$user->user_id)->with("interest")->get();
-            foreach ($data as $connection ) {
-                $interest[] = $connection["interest"][0];
-            }
-        }
-        else{
-            $data = InterestEntity::where('entities_id',$user->user_id)->where('expertise_id',"LIKE","$type:%")->with("interest_$type")->get();
-            foreach ($data as $connection ) {
-                $interest[] = $connection["interest_$type"][0];
-            }
-        }
-        return $this->sendResponse($interest, "interest", ['email' => $email]);
-    }
 }
