@@ -13,12 +13,52 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
   <link rel="stylesheet" href="https://cdn.metalab.csun.edu/metaphor/css/metaphor.css">
   <link rel="stylesheet" href="css/tomorrow.css.min">
+  <style>
+    /* Style the tab */
+    div.tab {
+      overflow: hidden;
+    }
+
+    /* Style the buttons inside the tab */
+    div.tab button {
+      background-color: #f1f1f1;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    div.tab button:hover {
+      background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    div.tab button.active {
+      background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      padding: 6px 12px;
+      border: 2px solid #ccc;
+      border-top: none;
+    }
+
+    .inactive {
+      display: none;
+    }
+
+  </style>
 </head>
 <body>
 <div class="section section--sm">
   <div class="container type--center">
     <h1 class="giga type--thin">Affinity Web Service</h1>
-    <h3 class="h1 type--thin type--gray">A Web Service that delivers information on faculty engagement</h3>
+    <h3 class="h1 type--thin type--gray">Delivering Faculty Interests &amp; Badges</h3>
   </div>
 </div>
 
@@ -40,6 +80,14 @@
       <div class="col-md-9">
         <h2 id="introduction" class="type--header type--thin">Introduction</h2>
         <p>The Affinity web service gives information acknowledging and celebrating teaching interests and accomplishments and helps promote faculty community and networking. This information is derived from the Research and Graduate Studies and faculty submited information using <a href="">Scholarships</a>. The web service provides a gateway to access the information via a REST-ful API. The information is retrieved by creating a specific URI and giving values to filter the data. The information that is returned is a JSON object that contains a set of interest or badges attached to a particular member; the format of the JSON object is as follows:</p>
+
+        <div class="tab">
+          <button id="badges-btn" class="tablinks active">Badges</button>
+          <button id="interests-btn" class="tablinks">Interests</button>
+        </div>
+
+
+        <div id="badges-content" class="tabcontent">
         <pre class="prettyprint"><code>{
   "version": "affinity-1.0",
   "status": 200,
@@ -71,6 +119,26 @@
     }
   ]
 }</code></pre>
+</div>
+<div id="interests-content" class="tabcontent inactive">
+<pre class="prettyprint"><code>{
+  "success": "true",
+  "status": 200,
+  "api": "affinity",
+  "version": "1.0",
+  "collection": "interests",
+  "count": "1",
+  "interests": [
+    {
+      "title": "Sample Research Interest",
+      "short_name": null,
+      "parent_attribute_id": "research:11",
+      "hierarchy": "Architectural Engineering",
+      "count": 6
+    }
+  ]
+}</code></pre>
+</div>
         <br>
         <h2 id="getting-started" class="type--header type--thin">Getting Started</h2>
         <ol>
@@ -81,16 +149,21 @@
         <p>Loop through the data to display its information. See the Usage Example session.</p>
         <br>
         <h2 id="collections" class="type--header type--thin">Collections</h2>
-        <h3 class="type--thin">The collection URI allows the consumer to obtain a list of interest or badges that are part of the entire data set.</h3>
+        {{--<h3 class="type--thin">The collection URI allows the consumer to obtain a list of interest or badges that are part of the entire data set.</h3>--}}
+        <strong>All Interest Listing</strong>
         <ul>
-          <strong>Interest Listing</strong>
-          <li><a href="{{url('api/1.0/interests')}}">{{url('api/interests')}}</a></li>
-          <strong>Badges Listing</strong>
-          <li><a href="{{url('api/1.0/badges')}}">{{url('api/badge')}}</a></li>
+          <li><a href="{{url('1.0/interests')}}">{{url('1.0/interests')}}</a></li>
+          <li><a href="{{url('1.0/interests/personal')}}">{{url('1.0/interests/personal')}}</a></li>
+          <li><a href="{{url('1.0/interests/research')}}">{{url('1.0/interests/research')}}</a></li>
+          <li><a href="{{url('1.0/interests/teaching')}}">{{url('1.0/interests/teaching')}}</a></li>
+        </ul>
+        <strong>All Badges Listing</strong>
+        <ul>
+          <li><a href="{{url('/1.0/badges')}}">{{url('api/1.0/badge')}}</a></li>
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
-        <h3 class="type--thin">The subcollection URI allows the consumer to obtain a list of interestthat are part of a specified data set.</h3>
+        {{--<h3 class="type--thin">The subcollection URI allows the consumer to obtain a list of interestthat are part of a specified data set.</h3>--}}
         {{--<strong>Interest Listing</strong>--}}
         {{--<ul>--}}
           {{--<li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>--}}
@@ -129,9 +202,17 @@
           {{--<li><a href="{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
 {{--          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
         {{--</ul>--}}
-        <strong>Specified Member's Badges</strong>
+        <strong>Specified person's Badges</strong>
         <ul>
-          <li><a href="{{url('api/1.0/badges/alexandra.monchick@csun.edu')}}">{{url('api/1.0/badges/alexandra.monchick@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/badges/alexandra.monchick@csun.edu')}}">{{url('1.0/badges/alexandra.monchick@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/badges?email=alexandra.monchick@csun.edu')}}">{{url('1.0/badges?email=alexandra.monchick@csun.edu')}}</a></li>
+        </ul>
+        <strong>Specified person's Interests</strong>
+        <ul>
+          <li><a href="{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}</a></li>
         </ul>
       </div>
     </div>
@@ -162,6 +243,23 @@
 
 <script src="https://cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script>
+  $(document).ready(function(){
+      $("#badges-btn").click(function(){
+        $("#interests-btn").removeClass("active");
+        $("#badges-btn").addClass("active");
+        $("#interests-content").addClass("inactive");
+        $("#badges-content").removeClass("inactive");
+      });
+
+      $("#interests-btn").click(function(){
+        $("#badges-btn").removeClass("active");
+        $("#interests-btn").addClass("active");
+        $("#badges-content").addClass("inactive");
+        $("#interests-content").removeClass("inactive");
+      });
+  });
+</script>
 <!--
   __  __   ___   _____     _
  |  \/  | | __| |_   _|   /_\       Explore Learn Go Beyond
