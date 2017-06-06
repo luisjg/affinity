@@ -89,33 +89,26 @@
 
         <div id="badges-content" class="tabcontent">
         <pre class="prettyprint"><code>{
-  "version": "affinity-1.0",
-  "status": 200,
   "success": "true",
-  "type": "badges",
+  "status": 200,
+  "api": "affinity",
+  "version": "1.0",
+  "collection": "badges",
   "count": 2,
   "badges": [
     {
-      "id": 319,
-      "badge_name": "Probationary Faculty Grant",
-      "award_date": "2014",
-      "badge_info": {
-        "name": "Probationary Faculty Grant",
-        "issuer": "Faculty Development",
-        "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
-        "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/probationary-faculty-support-program"
-      }
+      "name": "Probationary Faculty Grant",
+      "issuer": "Faculty Development",
+      "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
+      "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/probationary-faculty-support-program",
+      "award_date": "2014"
     },
     {
-      "id": 396,
-      "badge_name": "Teaching Conference Grant",
-      "award_date": "Fall 2015",
-      "badge_info": {
-        "name": "Teaching Conference Grant",
-        "issuer": "Faculty Development",
-        "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
-        "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/competition-attending-teaching-conference"
-      }
+      "name": "Teaching Conference Grant",
+      "issuer": "Faculty Development",
+      "url_image": "https://cdn.metalab.csun.edu/badges/FacDev.png",
+      "url_web": "http://www.csun.edu/undergraduate-studies/faculty-development/competition-attending-teaching-conference",
+      "award_date": "Fall 2015"
     }
   ]
 }</code></pre>
@@ -127,7 +120,7 @@
   "api": "affinity",
   "version": "1.0",
   "collection": "interests",
-  "count": "1",
+  "count": 1,
   "interests": [
     {
       "title": "Sample Research Interest",
