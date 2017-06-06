@@ -30,6 +30,11 @@ class Badge extends Model
      */
     public $incrementing = false;
 
+    /**
+     * @param $query
+     * @return mixed
+     *
+     */
     public function scopeActive($query)
     {
         return $query->where('active', 'TRUE')->whereNotNull('url_image');
