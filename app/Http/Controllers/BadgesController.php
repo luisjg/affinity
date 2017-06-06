@@ -2,21 +2,27 @@
 
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
+use Illuminate\Http\Request;
 
 class BadgesController extends Controller
 {
 
     /**
      * Return all the badges.
+     * @param Request $request
      * @return array JSON Response
      */
-    public function getAllBadges()
+    public function getAllBadges(Request $request)
     {
-        $response = buildResponseArray('badges');
-        $badges = Badge::Active()->get();
-        $response['count'] = "{$badges->count()}";
-        $response['badges'] = $badges;
-        return $this->sendJsonResponse($response);
+        if($request->has('email'))
+            return $this->getPersonsBadges($request['email']);
+        else {
+            $response = buildResponseArray('badges');
+            $badges = Badge::active()->get();
+            $response['count'] = "{$badges->count()}";
+            $response['badges'] = $badges;
+            return $this->sendResponse($response);
+        }
     }
 
     /**
@@ -29,7 +35,7 @@ class BadgesController extends Controller
         $users = Badge::with('members')->get();
         $response['count'] = "{$users->count()}";
         $response['badges'] = $users;
-        return $this->sendJsonResponse($response);
+        return $this->sendResponse($response);
     }
 
 
@@ -43,10 +49,10 @@ class BadgesController extends Controller
         if(str_contains($email, 'nr_'))
             $email = str_replace('nr_', '', $email);
         $response = buildResponseArray('badges');
-        $user = BadgeAwarded::Email($email)->get();
+        $user = BadgeAwarded::email($email)->get();
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
-        return $this->sendJsonResponse($response);
+        return $this->sendResponse($response);
     }
 
     /**
@@ -57,10 +63,10 @@ class BadgesController extends Controller
     public function getBadge($id)
     {
         $response = buildResponseArray('badges');
-        $badge = Badge::Active()->findOrFail('badges:'.$id);
+        $badge = Badge::active()->findOrFail('badges:'.$id);
         $response['count'] = "{$badge->count()}";
         $response['badges'] = $badge;
-        return $this->sendJsonResponse($response);
+        return $this->sendResponse($response);
     }
 
 }
