@@ -152,7 +152,7 @@
         </ul>
         <strong>All Badges Listing</strong>
         <ul>
-          <li><a href="{{url('/1.0/badges')}}">{{url('api/1.0/badge')}}</a></li>
+          <li><a href="{{url('/1.0/badges')}}">{{url('api/1.0/badges')}}</a></li>
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
