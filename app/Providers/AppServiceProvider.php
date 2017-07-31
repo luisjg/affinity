@@ -15,12 +15,5 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        if($this->app->environment() !== 'local')
-        {
-            $this->app->singleton(UrlGenerator::class, function ($app) {
-                $url = new UrlGenerator($app);
-                return $url->forceSchema('https');
-            });
-        }
     }
 }
