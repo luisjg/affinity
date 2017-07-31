@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Laravel\Lumen\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
