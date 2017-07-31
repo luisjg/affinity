@@ -10,8 +10,8 @@
   <link rel="icon" href="//www.csun.edu/sites/default/themes/csun/favicon.ico" type="image/x-icon">
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
-  <link rel="stylesheet" href="https://cdn.metalab.csun.edu/metaphor/css/metaphor.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
+  <link rel="stylesheet" href="//cdn.metalab.csun.edu/metaphor/css/metaphor.css">
   <link rel="stylesheet" href="css/tomorrow.css.min">
   <style>
     /* Style the tab */
@@ -216,7 +216,7 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="metalab-branding">
-            <img src="http://www.csun.edu/faculty/imgs/meta-logo-horz.png" alt="CSUN META Lab Logo">
+            <img src="//www.csun.edu/faculty/imgs/meta-logo-horz.png" alt="CSUN META Lab Logo">
             <ul class="list--unstyled">
               <li><a href="http://metalab.csun.edu">metalab.csun.edu</a></li>
             </ul>
@@ -232,8 +232,8 @@
   </div>
 </div>
 
-<script src="https://cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="//cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
+<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 <script>
   $(document).ready(function(){
       $("#badges-btn").click(function(){
