@@ -11,8 +11,8 @@
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
-  <link rel="stylesheet" href="//cdn.metalab.csun.edu/metaphor/css/metaphor.css">
-  <link rel="stylesheet" href="css/tomorrow.css.min">
+  <link rel="stylesheet" href="{{ url('css/metaphor.css') }}">
+  <link rel="stylesheet" href="{{ url('css/tomorrow.css.min') }}">
   <style>
     /* Style the tab */
     div.tab {
@@ -232,8 +232,8 @@
   </div>
 </div>
 
-<script src="//cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
-<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="{{ url('js/metaphor.js') }}"></script>
+<script src="{{ url('js/run_prettify.js') }}"></script>
 <script>
   $(document).ready(function(){
       $("#badges-btn").click(function(){
