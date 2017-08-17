@@ -7,7 +7,7 @@ class Teaching extends Model
     /**
      * @var string
      */
-    protected $table = 'fresco.teaching_interests';
+    protected $table = 'fresco.expertise_entity';
 
     /**
      * @var string
