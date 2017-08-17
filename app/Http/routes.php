@@ -12,6 +12,7 @@ $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], functio
     // Interest requests
     $app->get('interests', 'InterestsController@getAllInterests');
     $app->get('interests/{type}', 'InterestsController@handleInterestType');
+
 //    $app->get('interests/{email}', 'InterestsController@getPersonsInterests');
 //    $app->get('interests/{type}/{email}', 'InterestsController@getSpecificPersonsInterestType');
 //    $app->get('interests/{email}/{type}', 'InterestsController@getSpecificPersonsInterestType');
