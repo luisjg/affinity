@@ -128,18 +128,24 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
+        $email = "nr_" . $email;
+
         $user = User::whereEmail($email)->firstOrFail();
+
         $response = buildResponseArray('interests');
-        $interestEntity = InterestEntity::interestType($user->user_id, 'research')->get();
-        if(count($interestEntity)) {
-            foreach($interestEntity as $item)
-                $researchId[] = $item->expertise_id;
-            $interests = Research::findOrFail($researchId);
-        } else {
-            $interests = $interestEntity;
+
+        $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
+
+        foreach ($interestEntity as $interest) {
+            $expertise_id[] = $interest->expertise_id;
         }
-        $response['count'] = "{$interests->count()}";
-        $response['interests'] = $interests;
+
+        $research_interests = Research::find($expertise_id);
+
+        $response['count'] = "{$research_interests->count()}";
+
+        $response['interests'] = $research_interests;
+
         return $this->sendResponse($response);
     }
 
