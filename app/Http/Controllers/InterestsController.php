@@ -154,7 +154,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('interests');
         $interestEntity = InterestEntity::where([
             ['entities_id', '=' , $user->user_id],
-            ['expertise_id', 'like', 'Personal%'],
+            ['expertise_id', 'like', 'personal%'],
         ])->get();
         if(count($interestEntity)) {
             foreach($interestEntity as $item)
@@ -189,20 +189,6 @@ class InterestsController extends Controller
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
