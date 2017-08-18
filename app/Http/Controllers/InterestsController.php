@@ -128,8 +128,6 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
-        $email = "nr_" . $email;
-
         $user = User::whereEmail($email)->firstOrFail();
 
         $response = buildResponseArray('interests');
