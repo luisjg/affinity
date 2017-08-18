@@ -170,7 +170,6 @@ class InterestsController extends Controller
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
     /**
      * Retrieves all of the interests of one given person
      * @param string $email
@@ -180,17 +179,15 @@ class InterestsController extends Controller
     {
         $user = User::whereEmail($email)->firstOrFail();
         $response = buildResponseArray('interests');
-        $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->get();
+        $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
         $idarray=[];
         foreach($interests as $interest) {
             $interest->expertise_id = substr($interest->expertise_id, 0, -9);
-            if($interest->entities_id==$user->user_id)
-                $idarray[$interest->expertise_id]=$interest->expertise_id;
+            $idarray[$interest->expertise_id]=$interest->expertise_id;
         }
             $interests=Research::whereIn('attribute_id',$idarray)->get();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
 }
