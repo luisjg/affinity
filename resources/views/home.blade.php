@@ -202,8 +202,8 @@
         <ul>
           <li><a href="{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}</a></li>
           <li><a href="{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}</a></li>
         </ul>
       </div>
     </div>
