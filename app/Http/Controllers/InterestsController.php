@@ -128,9 +128,16 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
+        $user = User::whereEmail($email)->first();
+        if($user==null)
+        {
+            $response = buildResponseArray('research_interests');
+            $response['count']=0;
+            $response['interests'] = [];
+            return $response;
+        }
 
-        $response = buildResponseArray('interests');
+        $response = buildResponseArray('research_interests');
 
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
 
@@ -154,8 +161,15 @@ class InterestsController extends Controller
      */
     public function getPersonsPersonalInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
-        $response = buildResponseArray('interests');
+        $user = User::whereEmail($email)->first();
+        if($user==null)
+        {
+            $response = buildResponseArray('personal_interests');
+            $response['count']=0;
+            $response['interests'] = [];
+            return $response;
+        }
+        $response = buildResponseArray('personal_interests');
         $interestEntity = InterestEntity::where([
             ['entities_id', '=' , $user->user_id],
             ['expertise_id', 'like', 'personal%'],
@@ -179,8 +193,15 @@ class InterestsController extends Controller
      */
     public function getPersonsTeachingInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
-        $response = buildResponseArray('interests');
+        $user = User::whereEmail($email)->first();
+        if($user==null)
+        {
+            $response = buildResponseArray('academic_interests');
+            $response['count']=0;
+            $response['interests'] = [];
+            return $response;
+        }
+        $response = buildResponseArray('academic_interests');
         $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
         $idarray=[];
         foreach($interests as $interest) {
