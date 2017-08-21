@@ -189,7 +189,4 @@ class InterestsController extends Controller
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
-
-
 }
