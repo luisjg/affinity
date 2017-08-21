@@ -29,7 +29,8 @@ class InterestsController extends Controller
                 return $this->getAllTeachingInterests();
             else
                 throw new BadRequestHttpException;
-        } else {
+        }
+        else {
             if($type == 'research')
                 return $this->getPersonsResearchInterests($request['email']);
             else if($type == 'personal')
@@ -115,7 +116,12 @@ class InterestsController extends Controller
     public function getAllTeachingInterests()
     {
         $response = buildResponseArray('interests');
-        $interests = Teaching::all();
+        $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->get();
+        foreach($interests as $interest) {
+            $interest->expertise_id = substr($interest->expertise_id, 0, -9);
+            $idarray[$interest->expertise_id]=$interest->expertise_id;
+        }
+        $interests=Research::whereIn('attribute_id',$idarray)->get();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
@@ -168,7 +174,6 @@ class InterestsController extends Controller
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
     /**
      * Retrieves all of the interests of one given person
      * @param string $email
@@ -178,17 +183,15 @@ class InterestsController extends Controller
     {
         $user = User::whereEmail($email)->firstOrFail();
         $response = buildResponseArray('interests');
-        $interestEntity = InterestEntity::interestType($user->user_id, 'teaching')->get();
-        if(count($interestEntity)) {
-            foreach($interestEntity as $item)
-                $researchId[] = $item->expertise_id;
-            $interests = Teaching::findOrFail($researchId);
-        } else {
-            $interests = $interestEntity;
+        $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
+        $idarray=[];
+        foreach($interests as $interest) {
+            $interest->expertise_id = substr($interest->expertise_id, 0, -9);
+            $idarray[$interest->expertise_id]=$interest->expertise_id;
         }
+            $interests=Research::whereIn('attribute_id',$idarray)->get();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
-
 }
