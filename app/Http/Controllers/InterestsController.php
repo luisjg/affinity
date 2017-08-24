@@ -128,9 +128,15 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
+        $user = User::whereEmail($email)->first();
+        $response = buildResponseArray('research_interests');
+        if($user==null)
+        {
 
-        $response = buildResponseArray('interests');
+            $response['count']='0';
+            $response['interests'] = [];
+            return $response;
+        }
 
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
 
@@ -154,8 +160,14 @@ class InterestsController extends Controller
      */
     public function getPersonsPersonalInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
-        $response = buildResponseArray('interests');
+        $user = User::whereEmail($email)->first();
+        $response = buildResponseArray('personal_interests');
+        if($user==null)
+        {
+            $response['count']='0';
+            $response['interests'] = [];
+            return $response;
+        }
         $interestEntity = InterestEntity::where([
             ['entities_id', '=' , $user->user_id],
             ['expertise_id', 'like', 'personal%'],
@@ -179,11 +191,18 @@ class InterestsController extends Controller
      */
     public function getPersonsTeachingInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
-        $response = buildResponseArray('interests');
+        $user = User::whereEmail($email)->first();
+        $response = buildResponseArray('academic_interests');
+        if($user==null)
+        {
+            $response['count']='0';
+            $response['interests'] = [];
+            return $response;
+        }
         $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
         $idarray=[];
-        foreach($interests as $interest) {
+        foreach($interests as $interest)
+        {
             $interest->expertise_id = substr($interest->expertise_id, 0, -9);
             $idarray[$interest->expertise_id]=$interest->expertise_id;
         }
