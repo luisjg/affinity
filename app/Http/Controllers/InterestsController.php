@@ -85,8 +85,13 @@ class InterestsController extends Controller
         $interestEntity = InterestEntity::where('entities_id',$user->user_id)->get();
         if(count($interestEntity)) {
             foreach($interestEntity as $item)
-                $researchId[] = $item->expertise_id;
-            $interests = Interest::findOrFail($researchId);
+                if(strpos($item->expertise_id, 'academic') !== false){
+                    $researchId[] = substr($item->expertise_id, 0,-9);
+                }else{
+                    $researchId[] = $item->expertise_id;
+                }
+            $interests = Interest::find($researchId);
+
         } else {
             $interests = $interestEntity;
         }
