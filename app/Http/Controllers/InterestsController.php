@@ -12,6 +12,27 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class InterestsController extends Controller
 {
 
+
+
+    public function returnBlankEmailResponse($type){
+        switch($type){
+            case'research':
+                $response = buildResponseArray('research_interests');
+                break;
+            case'personal':
+                $response = buildResponseArray('personal_interests');
+                break;
+            case'teaching':
+                $response = buildResponseArray('teaching_interests');
+                break;
+            default:
+                throw new BadRequestHttpException;
+        }
+        $response['count']='0';
+        $response['interests'] = [];
+        return $response;
+    }
+
     /**
      * Handles which type of interest to retrieve
      * @param string $type interest type
@@ -20,7 +41,12 @@ class InterestsController extends Controller
      */
     public function handleInterestType($type, Request $request)
     {
+        if($request->email=='')
+        {
+            return $this->returnBlankEmailResponse($type);
+        }
         if(!$request->has('email')) {
+
             if($type == 'research')
                 return $this->getAllResearchInterests();
             else if($type == 'personal')
@@ -40,6 +66,8 @@ class InterestsController extends Controller
                 throw new BadRequestHttpException;
         }
     }
+
+
 
     /**
      * Retrieves all the interests
@@ -152,7 +180,6 @@ class InterestsController extends Controller
 
         return $this->sendResponse($response);
     }
-
     /**
      * Retrieves all of the interests of one given person
      * @param string $email
