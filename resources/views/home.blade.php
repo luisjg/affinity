@@ -146,7 +146,7 @@
           <li><a href="{{url('1.0/interests')}}">{{url('1.0/interests')}}</a></li>
           <li><a href="{{url('1.0/interests/personal')}}">{{url('1.0/interests/personal')}}</a></li>
           <li><a href="{{url('1.0/interests/research')}}">{{url('1.0/interests/research')}}</a></li>
-          <li><a href="{{url('1.0/interests/teaching')}}">{{url('1.0/interests/teaching')}}</a></li>
+          <li><a href="{{url('1.0/interests/academic')}}">{{url('1.0/interests/academic')}}</a></li>
         </ul>
         <strong>All Badges Listing</strong>
         <ul>
@@ -158,21 +158,21 @@
         {{--<strong>Interest Listing</strong>--}}
         {{--<ul>--}}
           {{--<li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/teaching')}}">{{url('api/interests/teaching')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/academic')}}">{{url('api/interests/academic')}}</a></li>--}}
           {{--<li><a href="{{url('api/interests/personal')}}">{{url('api/interests/personal')}}</a></li>--}}
         {{--</ul>--}}
         {{--<strong>Interest Listing with Attached Members</strong>--}}
         {{--<ul>--}}
           {{--<li><a href="{{url('api/interests/members')}}">{{url('api/interests/members')}}</a></li>--}}
           {{--<li><a href="{{url('api/interests/research/members')}}">{{url('api/interests/research/members')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/teaching/members')}}">{{url('api/interests/teaching/members')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/academic/members')}}">{{url('api/interests/academic/members')}}</a></li>--}}
 {{--          <li><a href="{{url('api/interests/personal/members')}}">{{url('api/interests/personal/members')}}</a></li>--}}
         {{--</ul>--}}
         {{--<strong>Interest Listing with Attached Scholarship Projects</strong>--}}
         {{--<ul>--}}
           {{--<li><a href="{{url('api/interests/projects')}}">{{url('api/interests/projects')}}</a></li>--}}
           {{--<li><a href="{{url('api/interests/research/projects')}}">{{url('api/interests/research/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/teaching/projects')}}">{{url('api/interests/teaching/projects')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/academic/projects')}}">{{url('api/interests/academic/projects')}}</a></li>--}}
           {{--<li><a href="{{url('api/interests/personal/projects')}}">{{url('api/interests/personal/projects')}}</a></li>--}}
         {{--</ul>--}}
         {{--<br>--}}
@@ -190,7 +190,7 @@
         {{--<ul>--}}
           {{--<li><a href="{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
           {{--<li><a href="{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/teaching/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
+          {{--<li><a href="{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
 {{--          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
         {{--</ul>--}}
         <strong>Specified person's Badges</strong>
@@ -202,8 +202,8 @@
         <ul>
           <li><a href="{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}</a></li>
           <li><a href="{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/teaching?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests/academic?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/academic?email=steven.fitzgerald@csun.edu')}}</a></li>
         </ul>
       </div>
     </div>
