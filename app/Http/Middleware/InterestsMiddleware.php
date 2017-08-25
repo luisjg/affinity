@@ -13,7 +13,7 @@ class InterestsMiddleware
 
             $interests = [
                 'research',
-                'teaching',
+                'academic',
                 'personal',
             ];
             

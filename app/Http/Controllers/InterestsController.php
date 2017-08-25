@@ -4,7 +4,7 @@ use App\Models\Interest;
 use App\Models\InterestEntity;
 use App\Models\Personal;
 use App\Models\Research;
-use App\Models\Teaching;
+use App\Models\Academic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -25,8 +25,8 @@ class InterestsController extends Controller
                 return $this->getAllResearchInterests();
             else if($type == 'personal')
                 return $this->getAllPersonalInterests();
-            else if($type == 'teaching')
-                return $this->getAllTeachingInterests();
+            else if($type == 'academic')
+                return $this->getAllAcademicInterests();
             else
                 throw new BadRequestHttpException;
         } else {
@@ -34,8 +34,8 @@ class InterestsController extends Controller
                 return $this->getPersonsResearchInterests($request['email']);
             else if($type == 'personal')
                 return $this->getPersonsPersonalInterests($request['email']);
-            else if($type == 'teaching')
-                return $this->getPersonsTeachingInterests($request['email']);
+            else if($type == 'academic')
+                return $this->getPersonsAcademicInterests($request['email']);
             else
                 throw new BadRequestHttpException;
         }
@@ -114,13 +114,13 @@ class InterestsController extends Controller
     }
 
     /**
-     * Retrieves all the teaching interests
+     * Retrieves all the academic interests
      * @return array JSON Response
      */
-    public function getAllTeachingInterests()
+    public function getAllAcademicInterests()
     {
         $response = buildResponseArray('interests');
-        $interests = Teaching::all();
+        $interests = Academic::all();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
@@ -194,7 +194,7 @@ class InterestsController extends Controller
      * @param string $email
      * @return array JSON Response
      */
-    public function getPersonsTeachingInterests($email)
+    public function getPersonsAcademicInterests($email)
     {
         $user = User::whereEmail($email)->first();
         $response = buildResponseArray('academic_interests');
@@ -204,7 +204,7 @@ class InterestsController extends Controller
             $response['interests'] = [];
             return $response;
         }
-        $interests = Teaching::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
+        $interests = Academic::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
         $idarray=[];
         foreach($interests as $interest)
         {
