@@ -28,6 +28,9 @@ class InterestsController extends Controller
             case'teaching':
                 $response = buildResponseArray('teaching_interests');
                 break;
+            case'all':
+                $response = buildResponseArray('all_interests');
+                break;
             default:
                 throw new BadRequestHttpException;
         }
@@ -82,11 +85,7 @@ class InterestsController extends Controller
         if($request->has('email')) {
             return $this->getAllPersonsInterests($request['email']);
         } else {
-            $response = buildResponseArray('interests');
-            $interests = Interest::whereNotNull('attribute_id')->get();
-            $response['count'] = "{$interests->count()}";
-            $response['interests'] = $interests;
-            return $this->sendResponse($response);
+            return $this->returnBlankEmailResponse('all');
         }
     }
 
@@ -170,6 +169,7 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
+
         $user = User::whereEmail($email)->first();
         $response = buildResponseArray('research_interests');
         if($user==null)
