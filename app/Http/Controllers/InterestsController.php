@@ -13,7 +13,10 @@ class InterestsController extends Controller
 {
 
 
-
+    /**
+     * @param $type
+     * @return array
+     */
     public function returnBlankEmailResponse($type){
         switch($type){
             case'research':
