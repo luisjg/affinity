@@ -120,25 +120,19 @@ class InterestsController extends Controller
             return $response;
         }
 // Gets Personal and Research, ignoring academic since all academic interests are included in Research
-        $interestEntity = InterestEntity::where([
-            ['entities_id', '=' , $user->user_id],
-            ['expertise_id', 'like', 'personal%'],
-        ])->get();
+        $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
         if(count($interestEntity)) {
             foreach($interestEntity as $item)
-                $researchId[] = $item->expertise_id;
-            $interests = Personal::findOrFail($researchId);
+                $interestId[] = $item->expertise_id;
+            $personal_interests = Personal::find($interestId);
+            $research_interests = Research::find($interestId);
         } else {
-            $interests = $interestEntity;
+            $personal_interests = $interestEntity;
+            $research_interests = $interestEntity;
         }
-        $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
-        foreach ($interestEntity as $interest) {
-            $expertise_id[] = $interest->expertise_id;
-        }
-        $research_interests     =   Research::find($expertise_id);
 
-        $merged_collection      =   $interests->merge($research_interests->all());
-        $response['count']      =   "{$interests->count()}";
+        $merged_collection      =   $personal_interests->merge($research_interests->all());
+        $response['count']      =   "{$merged_collection->count()}";
         $response['interests']  =   $merged_collection;
         return $this->sendResponse($response);
     }
