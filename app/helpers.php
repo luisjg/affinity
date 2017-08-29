@@ -13,7 +13,7 @@ function buildResponseArray($collection, $success = true, $status_code = 200)
 {
     return $response = [
         'success'    => ($success ? "true" : "false"),
-        'status'     => $status_code,
+        'status'     => strval($status_code),
         'api'        => 'affinity',
         'version'    => '1.0',
         'collection' => $collection
