@@ -1,7 +1,13 @@
 <?php
 
 $app->get('/', function () {
-    return view('home');
+    $email  = 'steven.fitzgerald@csun.edu';
+    $email2 = 'alexandra.monchick@csun.edu';
+    if(env('APP_ENV')=='local'){
+        $email  = 'nr_'.$email;
+        $email2 = 'nr_'.$email2;
+    }
+    return view('home',compact('email','email2'));
 });
 
 $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
