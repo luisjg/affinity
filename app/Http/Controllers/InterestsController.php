@@ -48,7 +48,7 @@ class InterestsController extends Controller
      */
     public function handleInterestType($type, Request $request)
     {
-        if($request->email=='')
+        if($request->has('email') && $request->email=='')
         {
             throw new BadRequestHttpException;
         }
