@@ -140,7 +140,6 @@
         <p>Loop through the data to display its information. See the Usage Example session.</p>
         <br>
         <h2 id="collections" class="type--header type--thin">Collections</h2>
-        {{--<h3 class="type--thin">The collection URI allows the consumer to obtain a list of interest or badges that are part of the entire data set.</h3>--}}
         <strong>All Interest Listing</strong>
         <ul>
           <li><a href="{{url('1.0/interests')}}">{{url('1.0/interests')}}</a></li>
@@ -154,45 +153,6 @@
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
-        {{--<h3 class="type--thin">The subcollection URI allows the consumer to obtain a list of interestthat are part of a specified data set.</h3>--}}
-        {{--<strong>Interest Listing</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic')}}">{{url('api/interests/academic')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/personal')}}">{{url('api/interests/personal')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<strong>Interest Listing with Attached Members</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/members')}}">{{url('api/interests/members')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/members')}}">{{url('api/interests/research/members')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/members')}}">{{url('api/interests/academic/members')}}</a></li>--}}
-{{--          <li><a href="{{url('api/interests/personal/members')}}">{{url('api/interests/personal/members')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<strong>Interest Listing with Attached Scholarship Projects</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/projects')}}">{{url('api/interests/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/projects')}}">{{url('api/interests/research/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/projects')}}">{{url('api/interests/academic/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/personal/projects')}}">{{url('api/interests/personal/projects')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<br>--}}
-        {{--<h2 id="instances" class="type--header type--thin">Instances</h2>--}}
-        {{--<h3 class="type--thin">The instance URI allows the consumer to obtain information about a single interest or a single badge.</h3>--}}
-        {{--<strong>Single Listing</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/research:1')}}">{{url('api/interests/research:1')}}</a></li>--}}
-          {{--<li><a href="{{url('api/badges/badges:1')}}">{{url('api/interests/badges:1')}}</a></li>--}}
-
-        {{--</ul>--}}
-        {{--<h2 id="query" class="type--header type--thin">Query</h2>--}}
-        {{--<h3 class="type--thin">The query URI allows a consumer to obtain a list of interest or badges that relate to a specified member.</h3>--}}
-        {{--<strong>Specified Member's Interest</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-{{--          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-        {{--</ul>--}}
         <strong>Specified person's Badges</strong>
         <ul>
           <li><a href="{{url('1.0/badges/alexandra.monchick@csun.edu')}}">{{url('1.0/badges/alexandra.monchick@csun.edu')}}</a></li>
