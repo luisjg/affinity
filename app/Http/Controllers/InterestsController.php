@@ -86,7 +86,11 @@ class InterestsController extends Controller
         if($request->has('email')) {
             return $this->getAllPersonsInterests($request['email']);
         } else {
-            throw new BadRequestHttpException;
+            $response = buildResponseArray('interests');
+            $interests = Interest::whereNotNull('attribute_id')->get();
+            $response['count'] = "{$interests->count()}";
+            $response['interests'] = $interests;
+            return $this->sendResponse($response);
         }
     }
 
