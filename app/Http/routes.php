@@ -1,8 +1,10 @@
 <?php
 
 $app->get('/', function () {
-    $email['steve']='steven.fitzgerald@csun.edu';
-    $email['alexandra']='alexandra.monchick@csun.edu';
+    $email = [
+        'steve'=>'steven.fitzgerald@csun.edu',
+        'alexandra'=>'alexandra.monchick@csun.edu'
+    ];
     if(env('APP_ENV')=='local'){
         $email['steve']  = 'nr_'.$email['steve'];
         $email['alexandra'] = 'nr_'.$email['alexandra'];

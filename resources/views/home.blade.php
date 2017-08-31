@@ -155,15 +155,15 @@
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
         <strong>Specified person's Badges</strong>
         <ul>
-          <li><a href="{{url('1.0/badges/'.$email['alexandra'])}}">{{url('1.0/badges/alexandra.monchick@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/badges?email='.$email['alexandra'])}}">{{url('1.0/badges?email=alexandra.monchick@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/badges/'.$email['alexandra'])}}">{{url('1.0/badges/'.$email['alexandra'])}}</a></li>
+          <li><a href="{{url('1.0/badges?email='.$email['alexandra'])}}">{{url('1.0/badges?email='.$email['alexandra'])}}</a></li>
         </ul>
         <strong>Specified person's Interests</strong>
         <ul>
-          <li><a href="{{url('1.0/interests?email='.$email['steve'])}}">{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/personal?email='.$email['steve'])}}">{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/research?email='.$email['steve'])}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/academic?email='.$email['steve'])}}">{{url('1.0/interests/academic?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests?email='.$email['steve'])}}">{{url('1.0/interests?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/personal?email='.$email['steve'])}}">{{url('1.0/interests/personal?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/research?email='.$email['steve'])}}">{{url('1.0/interests/research?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/academic?email='.$email['steve'])}}">{{url('1.0/interests/academic?email='.$email['steve'])}}</a></li>
         </ul>
       </div>
     </div>
