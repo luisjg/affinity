@@ -46,8 +46,6 @@ class BadgesController extends Controller
      */
     public function getPersonsBadges($email)
     {
-        if(str_contains($email, 'nr_'))
-            $email = str_replace('nr_', '', $email);
         $response = buildResponseArray('badges');
         $user = BadgeAwarded::email($email)->get();
         $response['count'] = "{$user->count()}";
