@@ -48,11 +48,8 @@ class InterestsController extends Controller
      */
     public function handleInterestType($type, Request $request)
     {
-        if($request->email=='')
-        {
-            throw new BadRequestHttpException;
-        }
-        if(!$request->has('email')) {
+
+        if(is_null($request->getQueryString())) {
 
             if($type == 'research')
                 return $this->getAllResearchInterests();
@@ -62,7 +59,8 @@ class InterestsController extends Controller
                 return $this->getAllAcademicInterests();
             else
                 throw new BadRequestHttpException;
-        } else {
+        } else if($request->has('email')){
+
             if($type == 'research')
                 return $this->getPersonsResearchInterests($request['email']);
             else if($type == 'personal')
@@ -72,6 +70,8 @@ class InterestsController extends Controller
             else
                 throw new BadRequestHttpException;
         }
+        else
+            throw new BadRequestHttpException;
     }
 
 
@@ -85,9 +85,15 @@ class InterestsController extends Controller
     {
         if($request->has('email')) {
             return $this->getAllPersonsInterests($request['email']);
-        } else {
-            throw new BadRequestHttpException;
+        } else if(is_null($request->getQueryString())) {
+            $response = buildResponseArray('interests');
+            $interests = Interest::whereNotNull('attribute_id')->get();
+            $response['count'] = "{$interests->count()}";
+            $response['interests'] = $interests;
+            return $this->sendResponse($response);
         }
+        else
+            throw new BadRequestHttpException;
     }
 
     /**
