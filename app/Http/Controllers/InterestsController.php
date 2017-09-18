@@ -161,7 +161,7 @@ class InterestsController extends Controller
     public function getAllAcademicInterests()
     {
         $response = buildResponseArray('interests');
-        $interests = Academic::all();
+        $interests = Academic::whereNotNull('attribute_id')->get();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
