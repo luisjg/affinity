@@ -48,4 +48,7 @@ class Badge extends Model
         return $this->hasMany('App\Models\BadgeAwarded', 'badge_name','name');
     }
 
+    public function individualsAwarded(){
+        return $this->hasMany('App\Models\IndividualsAwarded', 'badge_name','name');
+    }
 }

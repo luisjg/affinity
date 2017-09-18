@@ -39,7 +39,7 @@ class BadgesController extends Controller
 
     public function getAllIndividualsByBadge($badgeName){
         $response = buildResponseArray('badges');
-        $individualsWithBadge = BadgeAwarded::BadgeName($badgeName);
+        $individualsWithBadge = Badge::with('individualsAwarded')->get();
         $response['count'] = "{$individualsWithBadge->count()}";
         $response['individuals'] = $individualsWithBadge;
         return $this->sendResponse($response);
