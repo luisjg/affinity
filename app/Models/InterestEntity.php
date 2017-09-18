@@ -47,9 +47,14 @@ class InterestEntity extends Model
             ['expertise_id','LIKE','research:%:%']
             ]
         )->get();
-        foreach($academic as $interest){
-            $interests[] = str_replace(":academic", '', $interest['expertise_id']);
-        };
-        return $interests = Research::whereIn('attribute_id',$interests)->get();
+        if(is_array($academic)){
+            foreach($academic as $interest){
+                $interests[] = str_replace(":academic", '', $interest['expertise_id']);
+            };
+            return $interests = Research::whereIn('attribute_id',$interests)->get();
+        }else{
+            return $interests = collect();
+        }
+        
     }
 }

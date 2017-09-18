@@ -181,7 +181,6 @@ class InterestsController extends Controller
         $response = buildResponseArray('research_interests');
         if($user==null)
         {
-
             throw new BadRequestHttpException;
         }
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
