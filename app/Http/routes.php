@@ -13,7 +13,7 @@ $app->get('/', function () {
 });
 
 $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
-    // Badge requests
+    // Badge request
     $app->get('badges', 'BadgesController@getAllBadges');
 
     // Interest requests
