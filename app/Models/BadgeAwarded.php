@@ -41,6 +41,6 @@ class BadgeAwarded extends Model
     }
 
     public function scopeBadgeName($query, $badgeName){
-        return $query->where('badge_name', $badgeName)->get();
+        return $query->where('name', $badgeName)->get();
     }
 }
