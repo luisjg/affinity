@@ -30,4 +30,5 @@ class IndividualsAwarded extends Model
     public function scopegetIndividualsByBadge($query,$badgeName){
         return $query->where('badge_name', $badgeName)->get();
     }
+
 }

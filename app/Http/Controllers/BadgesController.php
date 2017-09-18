@@ -38,6 +38,15 @@ class BadgesController extends Controller
         }
     }
 
+    public function checkPersonsBadge($email, $badgeName){
+        $response = buildResponseArray('badges');
+//        $badgeCheck = IndividualsAwarded::where('email', $email)->where('badge_name', $badgeName)->get();
+        /*$individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
+        $response['count'] = "{$individualsWithBadge->count()}";
+        $response['individuals'] = $individualsWithBadge;
+        return $this->sendResponse($response);*/
+    }
+
     public function getAllIndividualsByBadge($badgeName){
         $response = buildResponseArray('badges');
         $individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
