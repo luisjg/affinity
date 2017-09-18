@@ -1,7 +1,15 @@
 <?php
 
 $app->get('/', function () {
-    return view('home');
+    $email = [
+        'steve'=>'steven.fitzgerald@csun.edu',
+        'alexandra'=>'alexandra.monchick@csun.edu'
+    ];
+    if(env('APP_ENV')=='local'){
+        $email['steve']  = 'nr_'.$email['steve'];
+        $email['alexandra'] = 'nr_'.$email['alexandra'];
+    }
+    return view('home',compact('email'));
 });
 
 $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
@@ -12,19 +20,6 @@ $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], functio
     // Interest requests
     $app->get('interests', 'InterestsController@getAllInterests');
     $app->get('interests/{type}', 'InterestsController@handleInterestType');
-//    $app->get('interests/{email}', 'InterestsController@getPersonsInterests');
-//    $app->get('interests/{type}/{email}', 'InterestsController@getSpecificPersonsInterestType');
-//    $app->get('interests/{email}/{type}', 'InterestsController@getSpecificPersonsInterestType');
-
-//  Not sure if these routes will be used
-//	$app->get('badges/members', 'BadgesController@getBadgesWithMembers');
-//	$app->get('badges/{id}', 'BadgesController@getBadge');
-
-//	$app->get('interests/projects', 'InterestsController@getInterestwithProjects');
-//	$app->get('interests/projects/{id}', 'InterestsController@getInterestProject');
-//	$app->get('interests/members', 'InterestsController@getInterestWithMembers');
-//	$app->get('interests/{type}', 'InterestsController@getInterestType');
-//	$app->get('interests/{type}/projects', 'InterestsController@getInterestTypeProjects');
 
 });
 

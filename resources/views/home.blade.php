@@ -11,8 +11,8 @@
   <script src="//use.typekit.net/gfb2mjm.js"></script>
   <script>try{Typekit.load();}catch(e){}</script>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic">
-  <link rel="stylesheet" href="//cdn.metalab.csun.edu/metaphor/css/metaphor.css">
-  <link rel="stylesheet" href="css/tomorrow.css.min">
+  <link rel="stylesheet" href="{{ url('css/metaphor.css') }}">
+  <link rel="stylesheet" href="{{ url('css/tomorrow.css.min') }}">
   <style>
     /* Style the tab */
     div.tab {
@@ -140,7 +140,6 @@
         <p>Loop through the data to display its information. See the Usage Example session.</p>
         <br>
         <h2 id="collections" class="type--header type--thin">Collections</h2>
-        {{--<h3 class="type--thin">The collection URI allows the consumer to obtain a list of interest or badges that are part of the entire data set.</h3>--}}
         <strong>All Interest Listing</strong>
         <ul>
           <li><a href="{{url('1.0/interests')}}">{{url('1.0/interests')}}</a></li>
@@ -154,56 +153,17 @@
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
-        {{--<h3 class="type--thin">The subcollection URI allows the consumer to obtain a list of interestthat are part of a specified data set.</h3>--}}
-        {{--<strong>Interest Listing</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/research')}}">{{url('api/interests/research')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic')}}">{{url('api/interests/academic')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/personal')}}">{{url('api/interests/personal')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<strong>Interest Listing with Attached Members</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/members')}}">{{url('api/interests/members')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/members')}}">{{url('api/interests/research/members')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/members')}}">{{url('api/interests/academic/members')}}</a></li>--}}
-{{--          <li><a href="{{url('api/interests/personal/members')}}">{{url('api/interests/personal/members')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<strong>Interest Listing with Attached Scholarship Projects</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/projects')}}">{{url('api/interests/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/projects')}}">{{url('api/interests/research/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/projects')}}">{{url('api/interests/academic/projects')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/personal/projects')}}">{{url('api/interests/personal/projects')}}</a></li>--}}
-        {{--</ul>--}}
-        {{--<br>--}}
-        {{--<h2 id="instances" class="type--header type--thin">Instances</h2>--}}
-        {{--<h3 class="type--thin">The instance URI allows the consumer to obtain information about a single interest or a single badge.</h3>--}}
-        {{--<strong>Single Listing</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/research:1')}}">{{url('api/interests/research:1')}}</a></li>--}}
-          {{--<li><a href="{{url('api/badges/badges:1')}}">{{url('api/interests/badges:1')}}</a></li>--}}
-
-        {{--</ul>--}}
-        {{--<h2 id="query" class="type--header type--thin">Query</h2>--}}
-        {{--<h3 class="type--thin">The query URI allows a consumer to obtain a list of interest or badges that relate to a specified member.</h3>--}}
-        {{--<strong>Specified Member's Interest</strong>--}}
-        {{--<ul>--}}
-          {{--<li><a href="{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/research/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-          {{--<li><a href="{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/academic/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-{{--          <li><a href="{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}">{{url('api/interests/personal/members?email=steven.fitzgerald@csun.edu')}}</a></li>--}}
-        {{--</ul>--}}
         <strong>Specified person's Badges</strong>
         <ul>
-          <li><a href="{{url('1.0/badges/alexandra.monchick@csun.edu')}}">{{url('1.0/badges/alexandra.monchick@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/badges?email=alexandra.monchick@csun.edu')}}">{{url('1.0/badges?email=alexandra.monchick@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/badges/'.$email['alexandra'])}}">{{url('1.0/badges/'.$email['alexandra'])}}</a></li>
+          <li><a href="{{url('1.0/badges?email='.$email['alexandra'])}}">{{url('1.0/badges?email='.$email['alexandra'])}}</a></li>
         </ul>
         <strong>Specified person's Interests</strong>
         <ul>
-          <li><a href="{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/personal?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/research?email=steven.fitzgerald@csun.edu')}}</a></li>
-          <li><a href="{{url('1.0/interests/academic?email=steven.fitzgerald@csun.edu')}}">{{url('1.0/interests/academic?email=steven.fitzgerald@csun.edu')}}</a></li>
+          <li><a href="{{url('1.0/interests?email='.$email['steve'])}}">{{url('1.0/interests?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/personal?email='.$email['steve'])}}">{{url('1.0/interests/personal?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/research?email='.$email['steve'])}}">{{url('1.0/interests/research?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('1.0/interests/academic?email='.$email['steve'])}}">{{url('1.0/interests/academic?email='.$email['steve'])}}</a></li>
         </ul>
       </div>
     </div>
@@ -232,8 +192,8 @@
   </div>
 </div>
 
-<script src="//cdn.metalab.csun.edu/metaphor/js/metaphor.js"></script>
-<script src="//cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+<script src="{{ url('js/metaphor.js') }}"></script>
+<script src="{{ url('js/run_prettify.js') }}"></script>
 <script>
   $(document).ready(function(){
       $("#badges-btn").click(function(){

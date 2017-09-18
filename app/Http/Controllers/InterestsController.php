@@ -12,6 +12,34 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class InterestsController extends Controller
 {
 
+
+    /**
+     * (Unused as of AFFINITY-55)
+     * @param $type
+     * @return array
+     */
+    public function returnBlankEmailResponse($type){
+        switch($type){
+            case'research':
+                $response = buildResponseArray('research_interests');
+                break;
+            case'personal':
+                $response = buildResponseArray('personal_interests');
+                break;
+            case'teaching':
+                $response = buildResponseArray('teaching_interests');
+                break;
+            case'all':
+                $response = buildResponseArray('all_interests');
+                break;
+            default:
+                throw new BadRequestHttpException;
+        }
+        $response['count']='0';
+        $response['interests'] = [];
+        return $response;
+    }
+
     /**
      * Handles which type of interest to retrieve
      * @param string $type interest type
@@ -20,7 +48,9 @@ class InterestsController extends Controller
      */
     public function handleInterestType($type, Request $request)
     {
-        if(!$request->has('email')) {
+
+        if(is_null($request->getQueryString())) {
+
             if($type == 'research')
                 return $this->getAllResearchInterests();
             else if($type == 'personal')
@@ -29,7 +59,8 @@ class InterestsController extends Controller
                 return $this->getAllAcademicInterests();
             else
                 throw new BadRequestHttpException;
-        } else {
+        } else if($request->has('email')){
+
             if($type == 'research')
                 return $this->getPersonsResearchInterests($request['email']);
             else if($type == 'personal')
@@ -39,7 +70,11 @@ class InterestsController extends Controller
             else
                 throw new BadRequestHttpException;
         }
+        else
+            throw new BadRequestHttpException;
     }
+
+
 
     /**
      * Retrieves all the interests
@@ -50,13 +85,15 @@ class InterestsController extends Controller
     {
         if($request->has('email')) {
             return $this->getAllPersonsInterests($request['email']);
-        } else {
+        } else if(is_null($request->getQueryString())) {
             $response = buildResponseArray('interests');
             $interests = Interest::whereNotNull('attribute_id')->get();
             $response['count'] = "{$interests->count()}";
             $response['interests'] = $interests;
             return $this->sendResponse($response);
         }
+        else
+            throw new BadRequestHttpException;
     }
 
     /**
@@ -80,23 +117,27 @@ class InterestsController extends Controller
      */
     public function getAllPersonsInterests($email)
     {
-        $user = User::whereEmail($email)->firstOrFail();
-        $response = buildResponseArray('interests');
-        $interestEntity = InterestEntity::where('entities_id',$user->user_id)->get();
+        $user = User::whereEmail($email)->first();
+        $response = buildResponseArray('all_interests');
+        if($user==null)
+        {
+            throw new BadRequestHttpException;
+        }
+// Gets Personal and Research, ignoring academic since all academic interests are included in Research
+        $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
         if(count($interestEntity)) {
             foreach($interestEntity as $item)
-                if(strpos($item->expertise_id, 'academic') !== false){
-                    $researchId[] = substr($item->expertise_id, 0,-9);
-                }else{
-                    $researchId[] = $item->expertise_id;
-                }
-            $interests = Interest::find($researchId);
-
+                $interestId[] = $item->expertise_id;
+            $personal_interests = Personal::find($interestId);
+            $research_interests = Research::find($interestId);
         } else {
-            $interests = $interestEntity;
+            $personal_interests = $interestEntity;
+            $research_interests = $interestEntity;
         }
-        $response['count'] = "{$interests->count()}";
-        $response['interests'] = $interests;
+
+        $merged_collection      =   $personal_interests->merge($research_interests->all());
+        $response['count']      =   "{$merged_collection->count()}";
+        $response['interests']  =   $merged_collection;
         return $this->sendResponse($response);
     }
 
@@ -133,31 +174,23 @@ class InterestsController extends Controller
      */
     public function getPersonsResearchInterests($email)
     {
+
         $user = User::whereEmail($email)->first();
         $response = buildResponseArray('research_interests');
         if($user==null)
         {
 
-            $response['count']='0';
-            $response['interests'] = [];
-            return $response;
+            throw new BadRequestHttpException;
         }
-
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
-
         foreach ($interestEntity as $interest) {
             $expertise_id[] = $interest->expertise_id;
         }
-
         $research_interests = Research::find($expertise_id);
-
         $response['count'] = "{$research_interests->count()}";
-
         $response['interests'] = $research_interests;
-
         return $this->sendResponse($response);
     }
-
     /**
      * Retrieves all of the interests of one given person
      * @param string $email
@@ -169,9 +202,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('personal_interests');
         if($user==null)
         {
-            $response['count']='0';
-            $response['interests'] = [];
-            return $response;
+            throw new BadRequestHttpException;
         }
         $interestEntity = InterestEntity::where([
             ['entities_id', '=' , $user->user_id],
@@ -200,9 +231,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('academic_interests');
         if($user==null)
         {
-            $response['count']='0';
-            $response['interests'] = [];
-            return $response;
+            throw new BadRequestHttpException;
         }
         $interests = Academic::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
         $idarray=[];
