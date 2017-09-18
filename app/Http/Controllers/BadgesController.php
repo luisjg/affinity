@@ -21,6 +21,10 @@ class BadgesController extends Controller
             return $this->sendResponse($response);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function handleBasedOnQuery(Request $request){
         if($request->has('email') && $request->has('name')){
             //return true or false
@@ -31,6 +35,10 @@ class BadgesController extends Controller
         }else {
             return $this->getAllBadges($request);
         }
+    }
+
+    public function getAllIndividualsByBadge(){
+
     }
 
 
