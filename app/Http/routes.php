@@ -14,7 +14,7 @@ $app->get('/', function () {
 
 $app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
     // Badge requests
-    $app->get('badges', 'BadgesController@getAllBadges');
+    $app->get('badges', 'BadgesController@handleBasedOnQuery');
     $app->get('badges/{email}', 'BadgesController@getPersonsBadges');
 
     // Interest requests

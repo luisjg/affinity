@@ -14,16 +14,25 @@ class BadgesController extends Controller
      */
     public function getAllBadges(Request $request)
     {
-        if($request->has('email'))
-            return $this->getPersonsBadges($request['email']);
-        else {
             $response = buildResponseArray('badges');
             $badges = Badge::active()->get();
             $response['count'] = "{$badges->count()}";
             $response['badges'] = $badges;
             return $this->sendResponse($response);
+    }
+
+    public function handleBasedOnQuery(Request $request){
+        if($request->has('email') && $request->has('name')){
+            //return true or false
+        } elseif($email = $request->has('email')){
+            return $this->getPersonsBadges($email);
+        } elseif($request->has('name')){
+            //returns individuals with that badge
+        }else {
+            return $this->getAllBadges($request);
         }
     }
+
 
     /**
      * Returns all the badges with their members
