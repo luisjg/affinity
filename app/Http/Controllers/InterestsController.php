@@ -165,7 +165,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('interests');
         $interests = InterestEntity::getAcademicInterest();
         $response['count'] = "{$interests->count()}";
-        $response['interests'] = $interests;
+        $response['academic_interests'] = $interests;
         return $this->sendResponse($response);
     }
 
