@@ -7,8 +7,13 @@ class Academic extends Model
     /**
      * @var string
      */
-    protected $table = 'fresco.teaching_interests';
-
+    protected $table = 'fresco.research_interest';
+    
+    
+    public function academic()
+    {
+        return $this->belongsTo('App\Models\Research','fresco.expertise_entity','fresco.research_interest');
+    }
     /**
      * @var string
      */

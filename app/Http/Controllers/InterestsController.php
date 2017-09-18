@@ -156,12 +156,14 @@ class InterestsController extends Controller
 
     /**
      * Retrieves all the academic interests
+     * 
      * @return array JSON Response
      */
+    
     public function getAllAcademicInterests()
     {
         $response = buildResponseArray('interests');
-        $interests = Academic::whereNotNull('attribute_id')->get();
+        $interests = InterestEntity::getAcademicInterest();
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
@@ -233,14 +235,7 @@ class InterestsController extends Controller
         {
             throw new BadRequestHttpException;
         }
-        $interests = Academic::where('expertise_id', 'LIKE','%academic%')->where('entities_id', $user->user_id)->get();
-        $idarray=[];
-        foreach($interests as $interest)
-        {
-            $interest->expertise_id = substr($interest->expertise_id, 0, -9);
-            $idarray[$interest->expertise_id]=$interest->expertise_id;
-        }
-        $interests=Research::whereIn('attribute_id',$idarray)->get();
+        $interests = InterestEntity::getPersonsAcademicInterest($user->user_id);
         $response['count'] = "{$interests->count()}";
         $response['interests'] = $interests;
         return $this->sendResponse($response);
