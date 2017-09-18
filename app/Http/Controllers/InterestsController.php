@@ -162,10 +162,10 @@ class InterestsController extends Controller
     
     public function getAllAcademicInterests()
     {
-        $response = buildResponseArray('interests');
+        $response = buildResponseArray('academic_interests');
         $interests = InterestEntity::getAcademicInterest();
         $response['count'] = "{$interests->count()}";
-        $response['academic_interests'] = $interests;
+        $response['interests'] = $interests;
         return $this->sendResponse($response);
     }
 
