@@ -2,6 +2,7 @@
 
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
+use App\Models\IndividualsAwarded;
 use Illuminate\Http\Request;
 
 class BadgesController extends Controller
@@ -39,7 +40,7 @@ class BadgesController extends Controller
 
     public function getAllIndividualsByBadge($badgeName){
         $response = buildResponseArray('badges');
-        $individualsWithBadge = Badge::with('individualsAwarded')->get();
+        $individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
         $response['count'] = "{$individualsWithBadge->count()}";
         $response['individuals'] = $individualsWithBadge;
         return $this->sendResponse($response);

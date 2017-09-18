@@ -19,7 +19,7 @@ class IndividualsAwarded extends Model
      */
     protected $hidden = [
         'updated_at',
-        'created_at',
+        'created_at'
     ];
 
     /**
@@ -27,5 +27,7 @@ class IndividualsAwarded extends Model
      */
     public $incrementing = false;
 
-
+    public function scopegetIndividualsByBadge($query,$badgeName){
+        return $query->where('badge_name', $badgeName)->get();
+    }
 }
