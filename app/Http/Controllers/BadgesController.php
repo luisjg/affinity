@@ -37,8 +37,13 @@ class BadgesController extends Controller
         }
     }
 
-    public function getAllIndividualsByBadge(){
-
+    public function getAllIndividualsByBadge($badgeName){
+        $response = buildResponseArray('badges');
+        $IndividualsWithBadge =
+        //ping model for a list of individuals
+        //add  a count of all individuals to response array
+        //add individuals to the response array
+        //return response
     }
 
 
