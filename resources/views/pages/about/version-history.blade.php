@@ -29,10 +29,10 @@
 			<div class="col-md-3">
 				<a class="header--sm" href="{{ url('/') }}"><strong>DOCUMENTATION</strong></a>
 				<ul class="nav">
-					<li class="nav__item"><a class="nav__link" href="#introduction">Introduction</a></li>
-					<li class="nav__item"><a class="nav__link" href="#getting-started">Getting Started</a></li>
-					<li class="nav__item"><a class="nav__link" href="#collections">Collections</a></li>
-					<li class="nav__item"><a class="nav__link" href="#subcollections">Subcollections</a></li>
+					<li class="nav__item"><a class="nav__link" href="{{ url('/#introduction')}}">Introduction</a></li>
+					<li class="nav__item"><a class="nav__link" href="{{ url('/#getting-started')}}">Getting Started</a></li>
+					<li class="nav__item"><a class="nav__link" href="{{ url('/#collections')}}">Collections</a></li>
+					<li class="nav__item"><a class="nav__link" href="{{ url('/#subcollections')}}">Subcollections</a></li>
 				</ul>
 				<a class="header--sm" href="{{ url('/about/version-history') }}"><strong>Version History</strong></a>
 
