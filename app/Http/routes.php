@@ -12,8 +12,8 @@ $app->get('/', function () {
     return view('home',compact('email'));
 });
 
-$app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
-    // Badge request
+$app->group(['prefix' => 'api/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
+    // Badge requests
     $app->get('badges', 'BadgesController@getAllBadges');
 
     // Interest requests
