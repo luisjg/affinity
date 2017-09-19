@@ -22,7 +22,9 @@ try {
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
+
 $app->withFacades();
+
 $app->withEloquent();
 
 /*
@@ -57,15 +59,19 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//     Clockwork\Support\Lumen\ClockworkMiddleware::class
-// ]);
-
 $app->routeMiddleware([
     'auth'  => App\Http\Middleware\Authenticate::class,
     'badge' => App\Http\Middleware\BadgesMiddleware::class,
     'interest'  =>  App\Http\Middleware\InterestsMiddleware::class,
 ]);
+
+// $app->middleware([
+//    App\Http\Middleware\ExampleMiddleware::class
+// ]);
+
+// $app->routeMiddleware([
+//     'auth' => App\Http\Middleware\Authenticate::class,
+// ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -80,8 +86,6 @@ $app->routeMiddleware([
 
 $app->configure('proxypass');
 $app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::class);
-
-// $app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
