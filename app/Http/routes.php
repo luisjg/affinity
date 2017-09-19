@@ -1,5 +1,9 @@
 <?php
 
+$app->get('/about/version-history', function() {
+    return view('pages.about.version-history');
+});
+
 $app->get('/', function () {
     $email = [
         'steve'=>'steven.fitzgerald@csun.edu',

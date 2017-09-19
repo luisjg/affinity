@@ -66,13 +66,15 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <p class="header--sm"><strong>Documentation</strong></p>
+        <a class="header--sm" href="{{ url('/') }}"><strong>DOCUMENTATION</strong></a>
         <ul class="nav">
           <li class="nav__item"><a class="nav__link" href="#introduction">Introduction</a></li>
           <li class="nav__item"><a class="nav__link" href="#getting-started">Getting Started</a></li>
           <li class="nav__item"><a class="nav__link" href="#collections">Collections</a></li>
           <li class="nav__item"><a class="nav__link" href="#subcollections">Subcollections</a></li>
         </ul>
+        <a class="header--sm" href="{{ url('/about/version-history') }}"><strong>Version History</strong></a>
+
       </div>
 
       <div class="col-md-9">
