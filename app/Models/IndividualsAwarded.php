@@ -18,8 +18,8 @@ class IndividualsAwarded extends Model
         'created_at'
     ];
 
-    public function scopegetIndividualsByBadge($query, $badgeName){
-        return $query->where('badge_name', $badgeName)->get();
+    public function scopegetPublishedBadgeHolders($query, $badgeName){
+        return $query->where('badge_name', $badgeName)->where('published', 'TRUE')->get();
     }
 
 }

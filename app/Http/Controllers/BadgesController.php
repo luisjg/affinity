@@ -47,7 +47,7 @@ class BadgesController extends Controller
     public function checkPersonsBadge($email, $badgeName){
         $isBadgeHolder = false;
         $response = buildResponseArray('badges');
-        $badgeHolders = IndividualsAwarded::getIndividualsByBadge($badgeName);
+        $badgeHolders = IndividualsAwarded::getPublishedBadgeHolders($badgeName);
         if($badgeHolders->contains('email', $email)){
             $isBadgeHolder = true;
         }
@@ -61,13 +61,17 @@ class BadgesController extends Controller
      */
     public function getAllIndividualsByBadge($badgeName){
         $response = buildResponseArray('badges');
-        $individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
+        $individualsWithBadge = IndividualsAwarded::getPublishedBadgeHolders($badgeName);
         $response['count'] = "{$individualsWithBadge->count()}";
         $mappedIndividuals = $this->buildSimpleIndividualsArray($individualsWithBadge);
         $response['individuals'] = $mappedIndividuals;
         return $this->sendResponse($response);
     }
 
+    /**
+     * @param $individualsWithBadge
+     * @return mixed
+     */
     public function buildSimpleIndividualsArray($individualsWithBadge){
         return $individualsWithBadge->map(function ($key) {
             return [
@@ -75,11 +79,9 @@ class BadgesController extends Controller
                 'email'      => $key->email,
                 'badge_name' => $key->badge_name,
                 'award_date' => $key->award_date
-
             ];
         });
     }
-
 
     /**
      * Returns all the badges with their members
