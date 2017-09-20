@@ -38,6 +38,11 @@ class BadgesController extends Controller
         }
     }
 
+    /**
+     * @param $email
+     * @param $badgeName
+     * @return array
+     */
     public function checkPersonsBadge($email, $badgeName){
         $isBadgeHolder = false;
         $response = buildResponseArray('badges');
@@ -49,6 +54,10 @@ class BadgesController extends Controller
         return $this->sendResponse($response);
     }
 
+    /**
+     * @param $badgeName
+     * @return array
+     */
     public function getAllIndividualsByBadge($badgeName){
         $response = buildResponseArray('badges');
         $individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);

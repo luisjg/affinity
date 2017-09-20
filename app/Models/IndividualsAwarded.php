@@ -25,9 +25,9 @@ class IndividualsAwarded extends Model
     /**
      * @var bool
      */
-    public $incrementing = false;
+    public $incrementing = true;
 
-    public function scopegetIndividualsByBadge($query,$badgeName){
+    public function scopegetIndividualsByBadge($query, $badgeName){
         return $query->where('badge_name', $badgeName)->get();
     }
 
