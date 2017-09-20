@@ -4,6 +4,7 @@ use App\Models\Badge;
 use App\Models\BadgeAwarded;
 use App\Models\IndividualsAwarded;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class BadgesController extends Controller
 {
@@ -62,16 +63,21 @@ class BadgesController extends Controller
         $response = buildResponseArray('badges');
         $individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
         $response['count'] = "{$individualsWithBadge->count()}";
-        $mappedIndividuals = $individualsWithBadge->map(function ($key) {
+        $mappedIndividuals = $this->buildSimpleIndividualsArray($individualsWithBadge);
+        $response['individuals'] = $mappedIndividuals;
+        return $this->sendResponse($response);
+    }
+
+    public function buildSimpleIndividualsArray($individualsWithBadge){
+        return $individualsWithBadge->map(function ($key) {
             return [
                 'name'       => $key->empl_name,
                 'email'      => $key->email,
                 'badge_name' => $key->badge_name,
                 'award_date' => $key->award_date
+
             ];
         });
-        $response['individuals'] = $mappedIndividuals;
-        return $this->sendResponse($response);
     }
 
 
