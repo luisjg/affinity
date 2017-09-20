@@ -10,22 +10,13 @@ class IndividualsAwarded extends Model
     protected $table = 'exploration.badges_awarded';
 
     /**
-     * @var string
-     */
-    protected $primaryKey = 'id';
-
-    /**
      * @var array
      */
     protected $hidden = [
+        'id',
         'updated_at',
         'created_at'
     ];
-
-    /**
-     * @var bool
-     */
-    public $incrementing = true;
 
     public function scopegetIndividualsByBadge($query, $badgeName){
         return $query->where('badge_name', $badgeName)->get();
