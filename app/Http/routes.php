@@ -1,5 +1,9 @@
 <?php
 
+$app->get('/about/version-history', function() {
+    return view('pages.about.version-history');
+});
+
 $app->get('/', function () {
     $email = [
         'steve'=>'steven.fitzgerald@csun.edu',
@@ -12,7 +16,7 @@ $app->get('/', function () {
     return view('home',compact('email'));
 });
 
-$app->group(['prefix' => '/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
+$app->group(['prefix' => 'api/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
     // Badge requests
     $app->get('badges', 'BadgesController@handleBasedOnQuery');
     $app->get('badges/{email}', 'BadgesController@getPersonsBadges');

@@ -66,13 +66,15 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-        <p class="header--sm"><strong>Documentation</strong></p>
+        <a class="header--sm" href="{{ url('/') }}"><strong>DOCUMENTATION</strong></a>
         <ul class="nav">
           <li class="nav__item"><a class="nav__link" href="#introduction">Introduction</a></li>
           <li class="nav__item"><a class="nav__link" href="#getting-started">Getting Started</a></li>
           <li class="nav__item"><a class="nav__link" href="#collections">Collections</a></li>
           <li class="nav__item"><a class="nav__link" href="#subcollections">Subcollections</a></li>
         </ul>
+        <a class="header--sm" href="{{ url('/about/version-history') }}"><strong>Version History</strong></a>
+
       </div>
 
       <div class="col-md-9">
@@ -140,23 +142,23 @@
         <p>Loop through the data to display its information. See the Usage Example session.</p>
         <br>
         <h2 id="collections" class="type--header type--thin">Collections</h2>
-        <strong>All Interest Listing</strong>
-        <ul>
-          <li><a href="{{url('1.0/interests')}}">{{url('1.0/interests')}}</a></li>
-          <li><a href="{{url('1.0/interests/personal')}}">{{url('1.0/interests/personal')}}</a></li>
-          <li><a href="{{url('1.0/interests/research')}}">{{url('1.0/interests/research')}}</a></li>
-          <li><a href="{{url('1.0/interests/academic')}}">{{url('1.0/interests/academic')}}</a></li>
-        </ul>
         <strong>All Badges Listing</strong>
         <ul>
           <li><a href="{{url('/1.0/badges')}}">{{url('api/1.0/badges')}}</a></li>
+        </ul>
+        <strong>All Interest Listing</strong>
+        <ul>
+          <li><a href="{{url('api/1.0/interests')}}">{{url('api/1.0/interests')}}</a></li>
+          <li><a href="{{url('api/1.0/interests/personal')}}">{{url('api/1.0/interests/personal')}}</a></li>
+          <li><a href="{{url('api/1.0/interests/research')}}">{{url('api/1.0/interests/research')}}</a></li>
+          <li><a href="{{url('api/1.0/interests/academic')}}">{{url('api/1.0/interests/academic')}}</a></li>
         </ul>
         <br>
         <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
         <strong>Specified person's Badges</strong>
         <ul>
-          <li><a href="{{url('1.0/badges/'.$email['alexandra'])}}">{{url('1.0/badges/'.$email['alexandra'])}}</a></li>
-          <li><a href="{{url('1.0/badges?email='.$email['alexandra'])}}">{{url('1.0/badges?email='.$email['alexandra'])}}</a></li>
+          <li><a href="{{url('api/1.0/badges/'.$email['alexandra'])}}">{{url('api/1.0/badges/'.$email['alexandra'])}}</a></li>
+          <li><a href="{{url('api/1.0/badges?email='.$email['alexandra'])}}">{{url('api/1.0/badges?email='.$email['alexandra'])}}</a></li>
         </ul>
         <strong>Specified persons by Badge</strong>
         <ul>
@@ -165,10 +167,10 @@
         </ul>
         <strong>Specified person's Interests</strong>
         <ul>
-          <li><a href="{{url('1.0/interests?email='.$email['steve'])}}">{{url('1.0/interests?email='.$email['steve'])}}</a></li>
-          <li><a href="{{url('1.0/interests/personal?email='.$email['steve'])}}">{{url('1.0/interests/personal?email='.$email['steve'])}}</a></li>
-          <li><a href="{{url('1.0/interests/research?email='.$email['steve'])}}">{{url('1.0/interests/research?email='.$email['steve'])}}</a></li>
-          <li><a href="{{url('1.0/interests/academic?email='.$email['steve'])}}">{{url('1.0/interests/academic?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('api/1.0/interests?email='.$email['steve'])}}">{{url('api/1.0/interests?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('api/1.0/interests/personal?email='.$email['steve'])}}">{{url('api/1.0/interests/personal?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('api/1.0/interests/research?email='.$email['steve'])}}">{{url('api/1.0/interests/research?email='.$email['steve'])}}</a></li>
+          <li><a href="{{url('api/1.0/interests/academic?email='.$email['steve'])}}">{{url('api/1.0/interests/academic?email='.$email['steve'])}}</a></li>
         </ul>
       </div>
     </div>
