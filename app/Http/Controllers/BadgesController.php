@@ -28,7 +28,7 @@ class BadgesController extends Controller
      */
     public function handleBasedOnQuery(Request $request){
         if($request->has('email') && $request->has('name')){
-            //return true or false
+            return $this->checkPersonsBadge($request['email'], $request['name']);
         } elseif($request->has('email')){
             return $this->getPersonsBadges($request['email']);
         } elseif($request->has('name')){
@@ -39,12 +39,14 @@ class BadgesController extends Controller
     }
 
     public function checkPersonsBadge($email, $badgeName){
+        $isBadgeHolder = false;
         $response = buildResponseArray('badges');
-//        $badgeCheck = IndividualsAwarded::where('email', $email)->where('badge_name', $badgeName)->get();
-        /*$individualsWithBadge = IndividualsAwarded::getIndividualsByBadge($badgeName);
-        $response['count'] = "{$individualsWithBadge->count()}";
-        $response['individuals'] = $individualsWithBadge;
-        return $this->sendResponse($response);*/
+        $badgeHolders = IndividualsAwarded::getIndividualsByBadge($badgeName);
+        if($badgeHolders->contains('email', $email)){
+            $isBadgeHolder = true;
+        }
+        $response['BadgeHolder'] = $isBadgeHolder;
+        return $this->sendResponse($response);
     }
 
     public function getAllIndividualsByBadge($badgeName){
