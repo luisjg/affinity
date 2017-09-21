@@ -39,6 +39,7 @@
     /* Create an active/current tablink class */
     div.tab button.active {
       background-color: #ccc;
+      font-weight: bold;
     }
 
     /* Style the tab content */

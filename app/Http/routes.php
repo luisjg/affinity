@@ -9,7 +9,7 @@ $app->get('/', function () {
         'steve'=>'steven.fitzgerald@csun.edu',
         'alexandra'=>'alexandra.monchick@csun.edu'
     ];
-    if(env('APP_ENV')=='local'){
+    if(env('APP_ENV') =='local' || env('APP_ENV') == 'demo'){
         $email['steve']  = 'nr_'.$email['steve'];
         $email['alexandra'] = 'nr_'.$email['alexandra'];
     }
