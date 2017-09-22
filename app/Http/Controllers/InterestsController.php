@@ -60,7 +60,7 @@ class InterestsController extends Controller
             else if($type == 'academic')
                 return $this->getAllAcademicInterests();
             else
-                throw new BadRequestHttpException;
+                throw new NotAcceptableHttpException;
         } else if($request->has('email')){
 
             if($type == 'research')
@@ -70,7 +70,7 @@ class InterestsController extends Controller
             else if($type == 'academic')
                 return $this->getPersonsAcademicInterests($request['email']);
             else
-                throw new BadRequestHttpException;
+                throw new NotAcceptableHttpException;
         }
         else
             throw new NotAcceptableHttpException;

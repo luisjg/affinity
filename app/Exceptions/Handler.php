@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
         }
         if($e instanceof NotFoundHttpException)
         {
-            return $this->buildResponse('User not found',404);
+            return $this->buildResponse('Item not found',404);
         }
         if($e instanceof BadRequestHttpException)
         {
