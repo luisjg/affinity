@@ -32,24 +32,28 @@ class BadgesController extends Controller
     public function handleBasedOnQuery(Request $request){
         if(is_null($request->getQueryString())){
             return $this->getAllBadges($request);
-        } else if($request->has('email') && $request->has('name')){
+        }
+        else if($request->has('email') && $request->has('name')){
             $this->checkIfUserExists($request['email']);
             $this->checkIfBadgeNameExists($request['name']);
             return $this->checkPersonsBadge($request['email'], $request['name']);
-        } else if($request->has('email')){
+        }
+        else if($request->has('email')){
             $this->checkIfUserExists($request['email']);
             return $this->getPersonsBadges($request['email']);
-        } else if($request->has('name')){
+        }
+        else if($request->has('name')){
             $this->checkIfBadgeNameExists($request['name']);
             return $this->getAllIndividualsByBadge($request['name']);
-        } else {
+        }
+        else {
             throw new BadRequestHttpException;
         }
     }
 
-
     public function checkIfUserExists($email){
-        $user = Person::whereEmail(substr($email, 3))->first();
+        dd('fsdf');
+        $user = Person::whereEmail($email)->first();
         if($user == null){
             throw new BadRequestHttpException;
         }
