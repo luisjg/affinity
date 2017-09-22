@@ -47,6 +47,7 @@ class BadgesController extends Controller
         }
     }
 
+
     public function checkIfUserExists($email){
         $user = Person::whereEmail(substr($email, 3))->first();
         if($user == null){
