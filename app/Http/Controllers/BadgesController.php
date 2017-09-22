@@ -5,6 +5,7 @@ use App\Models\BadgeAwarded;
 use App\Models\IndividualsAwarded;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BadgesController extends Controller
 {
@@ -28,15 +29,18 @@ class BadgesController extends Controller
      * @return array
      */
     public function handleBasedOnQuery(Request $request){
-        if($request->has('email') && $request->has('name')){
+        if(is_null($request->getQueryString())){
+            return $this->getAllBadges($request);
+        } else if($request->has('email') && $request->has('name')){
             return $this->checkPersonsBadge($request['email'], $request['name']);
         } elseif($request->has('email')){
             return $this->getPersonsBadges($request['email']);
         } elseif($request->has('name')){
             return $this->getAllIndividualsByBadge($request['name']);
-        }else {
-            return $this->getAllBadges($request);
+        } else {
+            throw new BadRequestHttpException;
         }
+
     }
 
     /**
@@ -106,6 +110,9 @@ class BadgesController extends Controller
     {
         $response = buildResponseArray('badges');
         $user = BadgeAwarded::email($email)->get();
+        if($user == null){
+            throw new BadRequestHttpException;
+        }
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
         return $this->sendResponse($response);
