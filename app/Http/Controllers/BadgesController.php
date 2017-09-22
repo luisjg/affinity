@@ -3,6 +3,7 @@
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
 use App\Models\IndividualsAwarded;
+use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -32,17 +33,23 @@ class BadgesController extends Controller
         if(is_null($request->getQueryString())){
             return $this->getAllBadges($request);
         } else if($request->has('email') && $request->has('name')){
-            if(People::)
+            $this->checkIfUserExists($request['email']);
             return $this->checkPersonsBadge($request['email'], $request['name']);
-        } elseif($request->has('email')){
-            //check if user exists
+        } else if($request->has('email')){
+            $this->checkIfUserExists($request['email']);
             return $this->getPersonsBadges($request['email']);
-        } elseif($request->has('name')){
+        } else if($request->has('name')){
             return $this->getAllIndividualsByBadge($request['name']);
         } else {
             throw new BadRequestHttpException;
         }
+    }
 
+    public function checkIfUserExists($email){
+        $user = Person::whereEmail(substr($email, 3))->first();
+        if($user == null){
+            throw new BadRequestHttpException;
+        }
     }
 
     /**
