@@ -32,8 +32,10 @@ class BadgesController extends Controller
         if(is_null($request->getQueryString())){
             return $this->getAllBadges($request);
         } else if($request->has('email') && $request->has('name')){
+            if(People::)
             return $this->checkPersonsBadge($request['email'], $request['name']);
         } elseif($request->has('email')){
+            //check if user exists
             return $this->getPersonsBadges($request['email']);
         } elseif($request->has('name')){
             return $this->getAllIndividualsByBadge($request['name']);
@@ -110,9 +112,6 @@ class BadgesController extends Controller
     {
         $response = buildResponseArray('badges');
         $user = BadgeAwarded::email($email)->get();
-        if(count($user) == 0){
-            throw new BadRequestHttpException;
-        }
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
         return $this->sendResponse($response);
