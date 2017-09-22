@@ -52,7 +52,6 @@ class BadgesController extends Controller
     }
 
     public function checkIfUserExists($email){
-        dd('fsdf');
         $user = Person::whereEmail($email)->first();
         if($user == null){
             throw new BadRequestHttpException;
