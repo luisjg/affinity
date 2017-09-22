@@ -34,11 +34,13 @@ class BadgesController extends Controller
             return $this->getAllBadges($request);
         } else if($request->has('email') && $request->has('name')){
             $this->checkIfUserExists($request['email']);
+            $this->checkIfBadgeNameExists($request['name']);
             return $this->checkPersonsBadge($request['email'], $request['name']);
         } else if($request->has('email')){
             $this->checkIfUserExists($request['email']);
             return $this->getPersonsBadges($request['email']);
         } else if($request->has('name')){
+            $this->checkIfBadgeNameExists($request['name']);
             return $this->getAllIndividualsByBadge($request['name']);
         } else {
             throw new BadRequestHttpException;
@@ -48,6 +50,13 @@ class BadgesController extends Controller
     public function checkIfUserExists($email){
         $user = Person::whereEmail(substr($email, 3))->first();
         if($user == null){
+            throw new BadRequestHttpException;
+        }
+    }
+
+    public function checkIfBadgeNameExists($name){
+        $badge = Badge::where('name', $name);
+        if($badge->count() == 0){
             throw new BadRequestHttpException;
         }
     }
