@@ -110,7 +110,7 @@ class BadgesController extends Controller
     {
         $response = buildResponseArray('badges');
         $user = BadgeAwarded::email($email)->get();
-        if($user == null){
+        if(count($user) == 0){
             throw new BadRequestHttpException;
         }
         $response['count'] = "{$user->count()}";
