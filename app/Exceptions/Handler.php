@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
         if($e instanceof NotFoundHttpException)
         {
             $response = buildResponseArray('errors', false,404);
-            $errors = ['Item not found'];
+            $errors = ['User not found'];
             $response['errors'] = $errors;
             return response($response,404);
         }
