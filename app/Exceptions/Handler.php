@@ -41,6 +41,21 @@ class Handler extends ExceptionHandler
         parent::report($e);
     }
 
+
+    /**
+     * Constructs the response object
+     *
+     * @param $message
+     * @param $status
+     * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function buildResponse($message,$status){
+        $response = buildResponseArray('errors', false,$status);
+        $errors = [$message];
+        $response['errors'] = $errors;
+        return response($response,$status);
+    }
+
     /**
      * Render an exception into an HTTP response.
      *
@@ -52,38 +67,23 @@ class Handler extends ExceptionHandler
     {
         if($e instanceof PDOException)
         {
-            $response = buildResponseArray('errors', false,500);
-            $errors = ['Error connecting to database'];
-            $response['errors'] = $errors;
-            return response($response,500);
+            return $this->buildResponse('Error connecting to database',500);
         }
         if($e instanceof NotAcceptableHttpException)
         {
-            $response = buildResponseArray('errors', false,406);
-            $errors = ['Invalid query parameters'];
-            $response['errors'] = $errors;
-            return response($response,406);
+            return $this->buildResponse('Invalid query parameters',406);
         }
         if($e instanceof NotFoundHttpException)
         {
-            $response = buildResponseArray('errors', false,404);
-            $errors = ['User not found'];
-            $response['errors'] = $errors;
-            return response($response,404);
+            return $this->buildResponse('User not found',404);
         }
         if($e instanceof BadRequestHttpException)
         {
-            $response = buildResponseArray('errors', false,400);
-            $errors = ['Bad Request'];
-            $response['errors'] = $errors;
-            return response($response,400);
+            return $this->buildResponse('Bad Request',400);
         }
         if($e instanceof HttpException || $e instanceof ModelNotFoundException)
         {
-            $response = buildResponseArray('errors', false,409);
-            $errors = ['Resource could not be resolved'];
-            $response['errors'] = $errors;
-            return response($response,409);
+            return $this->buildResponse('Resource could not be resolved',409);
         }
 
         return parent::render($request, $e);
