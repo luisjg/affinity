@@ -29,7 +29,7 @@ class InterestEntity extends Model
     ];
 
     /*
-     * In order to retrieve must truncate academic flag set in 
+     * In order to retrieve must truncate academic flag set in
      * interest entity to grab list of research / academic results.
      */
     public static function getAcademicInterest()
@@ -47,7 +47,7 @@ class InterestEntity extends Model
             ['expertise_id','LIKE','research:%:%']
             ]
         )->get();
-        if(is_array($academic)){
+        if($academic->count()){
             foreach($academic as $interest){
                 $interests[] = str_replace(":academic", '', $interest['expertise_id']);
             };
@@ -55,6 +55,6 @@ class InterestEntity extends Model
         }else{
             return $interests = collect();
         }
-        
+
     }
 }
