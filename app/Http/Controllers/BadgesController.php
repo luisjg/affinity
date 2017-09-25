@@ -63,6 +63,7 @@ class BadgesController extends Controller
         if($badge->count() == 0){
             throw new BadRequestHttpException;
         }
+        return true;
     }
 
     /**
