@@ -2,7 +2,11 @@
 
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
+use App\Models\IndividualsAwarded;
+use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BadgesController extends Controller
 {
@@ -14,15 +18,95 @@ class BadgesController extends Controller
      */
     public function getAllBadges(Request $request)
     {
-        if($request->has('email'))
-            return $this->getPersonsBadges($request['email']);
-        else {
             $response = buildResponseArray('badges');
             $badges = Badge::active()->get();
             $response['count'] = "{$badges->count()}";
             $response['badges'] = $badges;
             return $this->sendResponse($response);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function handleBasedOnQuery(Request $request){
+        if(is_null($request->getQueryString())){
+            return $this->getAllBadges($request);
         }
+        else if($request->has('email') && $request->has('name')){
+            $this->checkIfUserExists($request['email']);
+            $this->checkIfBadgeNameExists($request['name']);
+            return $this->checkPersonsBadge($request['email'], $request['name']);
+        }
+        else if($request->has('email')){
+            $this->checkIfUserExists($request['email']);
+            return $this->getPersonsBadges($request['email']);
+        }
+        else if($request->has('name')){
+            $this->checkIfBadgeNameExists($request['name']);
+            return $this->getAllIndividualsByBadge($request['name']);
+        }
+        else {
+            throw new BadRequestHttpException;
+        }
+    }
+
+    public function checkIfUserExists($email){
+        $user = Person::whereEmail($email)->first();
+        if($user == null){
+            throw new BadRequestHttpException;
+        }
+    }
+
+    public function checkIfBadgeNameExists($name){
+        $badge = Badge::where('name', $name);
+        if($badge->count() == 0){
+            throw new BadRequestHttpException;
+        }
+    }
+
+    /**
+     * @param $email
+     * @param $badgeName
+     * @return array
+     */
+    public function checkPersonsBadge($email, $badgeName){
+        $isBadgeHolder = false;
+        $response = buildResponseArray('badges');
+        $badgeHolders = IndividualsAwarded::getPublishedBadgeHolders($badgeName);
+        if($badgeHolders->contains('email', $email)){
+            $isBadgeHolder = true;
+        }
+        $response['BadgeHolder'] = $isBadgeHolder;
+        return $this->sendResponse($response);
+    }
+
+    /**
+     * @param $badgeName
+     * @return array
+     */
+    public function getAllIndividualsByBadge($badgeName){
+        $response = buildResponseArray('badges');
+        $individualsWithBadge = IndividualsAwarded::getPublishedBadgeHolders($badgeName);
+        $response['count'] = "{$individualsWithBadge->count()}";
+        $mappedIndividuals = $this->buildSimpleIndividualsArray($individualsWithBadge);
+        $response['individuals'] = $mappedIndividuals;
+        return $this->sendResponse($response);
+    }
+
+    /**
+     * @param $individualsWithBadge
+     * @return mixed
+     */
+    public function buildSimpleIndividualsArray($individualsWithBadge){
+        return $individualsWithBadge->map(function ($key) {
+            return [
+                'name'       => $key->empl_name,
+                'email'      => $key->email,
+                'badge_name' => $key->badge_name,
+                'award_date' => $key->award_date
+            ];
+        });
     }
 
     /**

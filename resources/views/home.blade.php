@@ -160,6 +160,11 @@
         <ul>
           <li><a href="{{url('api/1.0/badges?email='.$email['alexandra'])}}">{{url('api/1.0/badges?email='.$email['alexandra'])}}</a></li>
         </ul>
+        <strong>Specified persons by Badge</strong>
+        <ul>
+          <li><a href="{{url('api/1.0/badges?name=Teaching Conference Grant')}}">{{url('api/1.0/badges?name=Teaching Conference Grant')}}</a></li>
+          <li><a href="{{url('api/1.0/badges?name=Teaching Conference Grant&email='.$email['alexandra'])}}">{{url('api/1.0/badges?name=Teaching Conference Grant&email='.$email['alexandra'])}}</a></li>
+        </ul>
         <strong>Specified person's Interests</strong>
         <ul>
           <li><a href="{{url('api/1.0/interests?email='.$email['steve'])}}">{{url('api/1.0/interests?email='.$email['steve'])}}</a></li>
