@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
         }
         if($e instanceof NotFoundHttpException)
         {
-            return $this->buildResponse('Item not found',404);
+            return $this->buildResponse('Resource Not Found',404);
         }
         if($e instanceof BadRequestHttpException)
         {
