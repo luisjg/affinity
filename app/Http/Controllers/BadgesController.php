@@ -6,7 +6,8 @@ use App\Models\IndividualsAwarded;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BadgesController extends Controller
 {
@@ -47,21 +48,21 @@ class BadgesController extends Controller
             return $this->getAllIndividualsByBadge($request['name']);
         }
         else {
-            throw new BadRequestHttpException;
+            throw new NotAcceptableHttpException;
         }
     }
 
     public function checkIfUserExists($email){
         $user = Person::whereEmail($email)->first();
         if($user == null){
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
     }
 
     public function checkIfBadgeNameExists($name){
         $badge = Badge::where('name', $name);
         if($badge->count() == 0){
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
     }
 

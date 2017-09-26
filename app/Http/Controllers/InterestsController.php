@@ -8,6 +8,9 @@ use App\Models\Academic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class InterestsController extends Controller
 {
@@ -48,7 +51,6 @@ class InterestsController extends Controller
      */
     public function handleInterestType($type, Request $request)
     {
-
         if(is_null($request->getQueryString())) {
 
             if($type == 'research')
@@ -58,7 +60,7 @@ class InterestsController extends Controller
             else if($type == 'academic')
                 return $this->getAllAcademicInterests();
             else
-                throw new BadRequestHttpException;
+                throw new NotAcceptableHttpException;
         } else if($request->has('email')){
 
             if($type == 'research')
@@ -68,10 +70,10 @@ class InterestsController extends Controller
             else if($type == 'academic')
                 return $this->getPersonsAcademicInterests($request['email']);
             else
-                throw new BadRequestHttpException;
+                throw new NotAcceptableHttpException;
         }
         else
-            throw new BadRequestHttpException;
+            throw new NotAcceptableHttpException;
     }
 
 
@@ -93,7 +95,7 @@ class InterestsController extends Controller
             return $this->sendResponse($response);
         }
         else
-            throw new BadRequestHttpException;
+            throw new NotAcceptableHttpException;
     }
 
     /**
@@ -121,7 +123,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('all_interests');
         if($user==null)
         {
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
 // Gets Personal and Research, ignoring academic since all academic interests are included in Research
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
@@ -179,7 +181,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('research_interests');
         if($user==null)
         {
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
         $expertise_id = [];
@@ -202,7 +204,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('personal_interests');
         if($user==null)
         {
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
         $interestEntity = InterestEntity::where([
             ['entities_id', '=' , $user->user_id],
@@ -231,7 +233,7 @@ class InterestsController extends Controller
         $response = buildResponseArray('academic_interests');
         if($user==null)
         {
-            throw new BadRequestHttpException;
+            throw new NotFoundHttpException;
         }
         $interests = InterestEntity::getPersonsAcademicInterest($user->user_id);
         $response['count'] = "{$interests->count()}";

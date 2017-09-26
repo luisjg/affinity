@@ -7,8 +7,11 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use PDOException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -38,6 +41,21 @@ class Handler extends ExceptionHandler
         parent::report($e);
     }
 
+
+    /**
+     * Constructs the response object
+     *
+     * @param $message
+     * @param $status
+     * @return \Laravel\Lumen\Http\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function buildResponse($message,$status){
+        $response = buildResponseArray('errors', false,$status);
+        $errors = [$message];
+        $response['errors'] = $errors;
+        return response($response,$status);
+    }
+
     /**
      * Render an exception into an HTTP response.
      *
@@ -47,19 +65,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof HttpException || $e instanceof ModelNotFoundException || $e instanceof PDOException)
+        if($e instanceof PDOException)
         {
-            $response = buildResponseArray('errors', false,404);
-            $errors = ['Resource could not be resolved'];
-            $response['errors'] = $errors;
-            return response($response,404);
-//            return json_encode([
-//                'version'  => 'affinity-2.0',
-//                'status'   => app('Illuminate\Http\Response')->status(),
-//                'success'  => 'false',
-//                'type':'errors',
-//                'errors':
-//            ]);
+            return $this->buildResponse('Error connecting to database',500);
+        }
+        if($e instanceof NotAcceptableHttpException)
+        {
+            return $this->buildResponse('Invalid query parameters',406);
+        }
+        if($e instanceof NotFoundHttpException)
+        {
+            return $this->buildResponse('Resource Not Found',404);
+        }
+        if($e instanceof BadRequestHttpException)
+        {
+            return $this->buildResponse('Bad Request',400);
+        }
+        if($e instanceof HttpException || $e instanceof ModelNotFoundException)
+        {
+            return $this->buildResponse('Resource could not be resolved',409);
         }
 
         return parent::render($request, $e);
