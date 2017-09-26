@@ -158,10 +158,8 @@ class InterestsController extends Controller
 
     /**
      * Retrieves all the academic interests
-     * 
      * @return array JSON Response
      */
-    
     public function getAllAcademicInterests()
     {
         $response = buildResponseArray('academic_interests');
