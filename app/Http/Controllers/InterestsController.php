@@ -156,8 +156,15 @@ class InterestsController extends Controller
 
     /**
      * Retrieves all the academic interests
+<<<<<<< Updated upstream
      * @return array JSON Response
      */
+=======
+     *
+     * @return array JSON Response
+     */
+
+>>>>>>> Stashed changes
     public function getAllAcademicInterests()
     {
         $response = buildResponseArray('academic_interests');
@@ -182,6 +189,7 @@ class InterestsController extends Controller
             throw new BadRequestHttpException;
         }
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
+        $expertise_id = [];
         foreach ($interestEntity as $interest) {
             $expertise_id[] = $interest->expertise_id;
         }
