@@ -156,15 +156,8 @@ class InterestsController extends Controller
 
     /**
      * Retrieves all the academic interests
-<<<<<<< Updated upstream
      * @return array JSON Response
      */
-=======
-     *
-     * @return array JSON Response
-     */
-
->>>>>>> Stashed changes
     public function getAllAcademicInterests()
     {
         $response = buildResponseArray('academic_interests');
