@@ -23,6 +23,6 @@ class BadgesControllerTest extends TestCase
         $content = json_decode($data->content(), true);
         $this->assertEquals(200,$content['status']);
         $this->assertEquals(11,$content['count']);
-
+        $this->assertEquals(count($content['badges']), $content['count']);
     }
 }
