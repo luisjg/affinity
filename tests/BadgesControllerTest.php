@@ -6,19 +6,23 @@ use Illuminate\Http\Request;
 class BadgesControllerTest extends TestCase
 {
     protected $badgesController;
+    protected $validEmail = 'nr_alexandra.monchick@csun.edu';
+    protected $invalidEmail = "Imaginary.User@csun.edu";
+    protected $invalidBadgeName = 'Not Real Badge Name';
+    protected $validBadgeName = 'Teaching Conference Grant';
 
     public function setUp(){
         $this->badgesController = new BadgesController;
     }
 
     public function testCheckIfBadgeNameExists_returns_true(){
-        $data = $this->badgesController->checkIfBadgeNameExists('Teaching Conference Grant');
+        $data = $this->badgesController->checkIfBadgeNameExists($this->validBadgeName);
         $this->assertEquals(true, $data);
     }
 
     public function testCheckIfBadgeNameExists_throws_BadRequestHttpException(){
         $this->setExpectedException(NotFoundHttpException::class);
-        $this->badgesController->checkIfBadgeNameExists('A non-existent badge name');
+        $this->badgesController->checkIfBadgeNameExists($this->invalidBadgeName);
     }
 
     public function testGetAllBadges_returns_status_code_and_badge_count(){
@@ -30,33 +34,29 @@ class BadgesControllerTest extends TestCase
     }
 
     public function testCheckIfUserExists_returns_true(){
-        $data = $this->badgesController->checkIfUserExists('nr_alexandra.monchick@csun.edu');
+        $data = $this->badgesController->checkIfUserExists($this->validEmail);
         $this->assertEquals(true,$data);
     }
 
     public function testCheckIfUserExists_throws_NotFoundHttpException(){
         $this->setExpectedException(NotFoundHttpException::class);
-        $this->badgesController->checkIfUserExists('nr_imaginary.user@csun.edu');
+        $this->badgesController->checkIfUserExists($this->invalidEmail);
     }
 
     public function testCheckPersonsBadge_returns_true(){
-        $email = 'nr_alexandra.monchick@csun.edu';
-        $badgeName = 'Teaching Conference Grant';
-        $this->makeAssertionsForCheckPersonsBadge($email, $badgeName, 200, true);
+        $this->makeAssertionsForCheckPersonsBadge($this->validEmail, $this->validBadgeName, 200, true);
     }
 
     public function testCheckPersonsBadge_returns_false(){
-        $email = 'nr_alexandra.monchick@csun.edu';
         $badgeName = 'Learning-Centered Beck Grant';
-        $this->makeAssertionsForCheckPersonsBadge($email, $badgeName, 200, false);
+        $this->makeAssertionsForCheckPersonsBadge($this->validEmail, $badgeName, 200, false);
     }
 
-    public function makeAssertionsForCheckPersonsBadge($email,$badgeName,$statusCode,$testBool){
+    public function makeAssertionsForCheckPersonsBadge($email, $badgeName, $statusCode, $testBool){
         $data = $this->badgesController->checkPersonsBadge($email, $badgeName);
         $content = json_decode($data->content(), true);
         $this->assertEquals($statusCode, $content['status']);
         $this->assertEquals($testBool, $content['BadgeHolder']);
     }
-
 
 }
