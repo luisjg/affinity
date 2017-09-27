@@ -30,6 +30,12 @@ class BadgesControllerTest extends TestCase
     }
 
     public function testCheckIfUserExists_returns_true(){
+        $data = $this->badgesController->checkIfUserExists('nr_alexandra.monchick@csun.edu');
+        $this->assertEquals(true,$data);
+    }
 
+    public function testCheckIfUserExists_throws_NotFoundHttpException(){
+        $this->setExpectedException(NotFoundHttpException::class);
+        $this->badgesController->checkIfUserExists('nr_imaginary.user@csun.edu');
     }
 }
