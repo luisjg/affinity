@@ -1,7 +1,6 @@
 <?php
 use App\Http\Controllers\BadgesController;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BadgesControllerTest extends TestCase
 {
@@ -13,7 +12,7 @@ class BadgesControllerTest extends TestCase
 
     public function testCheckIfBadgeNameExists_throws_BadRequestHttpException(){
         $badgesController = new BadgesController;
-        $this->setExpectedException(BadRequestHttpException::class);
+        $this->setExpectedException(NotFoundHttpException::class);
         $badgesController->checkIfBadgeNameExists('A non-existent badge name');
     }
 }
