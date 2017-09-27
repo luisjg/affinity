@@ -38,4 +38,11 @@ class BadgesControllerTest extends TestCase
         $this->setExpectedException(NotFoundHttpException::class);
         $this->badgesController->checkIfUserExists('nr_imaginary.user@csun.edu');
     }
+
+    public function testCheckPersonsBadge_returns_true(){
+        $data = $this->badgesController->checkPersonsBadge('nr_alexandra.monchick@csun.edu','Teaching Conference Grant');
+        $content = json_decode($data->content(), true);
+        $this->assertEquals(200, $content['status']);
+        $this->assertEquals()
+    }
 }
