@@ -64,6 +64,7 @@ class BadgesController extends Controller
         if($badge->count() == 0){
             throw new NotFoundHttpException;
         }
+        return true;
     }
 
     /**
