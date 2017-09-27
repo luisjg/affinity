@@ -40,9 +40,23 @@ class BadgesControllerTest extends TestCase
     }
 
     public function testCheckPersonsBadge_returns_true(){
-        $data = $this->badgesController->checkPersonsBadge('nr_alexandra.monchick@csun.edu','Teaching Conference Grant');
-        $content = json_decode($data->content(), true);
-        $this->assertEquals(200, $content['status']);
-        $this->assertEquals()
+        $email = 'nr_alexandra.monchick@csun.edu';
+        $badgeName = 'Teaching Conference Grant';
+        $this->makeAssertionsForCheckPersonsBadge($email, $badgeName, 200, true);
     }
+
+    public function testCheckPersonsBadge_returns_false(){
+        $email = 'nr_alexandra.monchick@csun.edu';
+        $badgeName = 'Learning-Centered Beck Grant';
+        $this->makeAssertionsForCheckPersonsBadge($email, $badgeName, 200, false);
+    }
+
+    public function makeAssertionsForCheckPersonsBadge($email,$badgeName,$statusCode,$testBool){
+        $data = $this->badgesController->checkPersonsBadge($email, $badgeName);
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($statusCode, $content['status']);
+        $this->assertEquals($testBool, $content['BadgeHolder']);
+    }
+
+
 }
