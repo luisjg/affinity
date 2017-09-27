@@ -57,6 +57,7 @@ class BadgesController extends Controller
         if($user == null){
             throw new NotFoundHttpException;
         }
+        return true;
     }
 
     public function checkIfBadgeNameExists($name){
