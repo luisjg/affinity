@@ -7,9 +7,9 @@ class BadgesControllerTest extends TestCase
 {
     protected $badgesController;
     protected $validEmail = 'nr_alexandra.monchick@csun.edu';
+    protected $validBadgeName = 'Teaching Conference Grant';
     protected $invalidEmail = "Imaginary.User@csun.edu";
     protected $invalidBadgeName = 'Not Real Badge Name';
-    protected $validBadgeName = 'Teaching Conference Grant';
 
     public function setUp(){
         $this->badgesController = new BadgesController;
