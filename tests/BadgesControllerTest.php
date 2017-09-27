@@ -28,4 +28,8 @@ class BadgesControllerTest extends TestCase
         $this->assertEquals(11,$content['count']);
         $this->assertEquals(count($content['badges']), $content['count']);
     }
+
+    public function testCheckIfUserExists_returns_true(){
+
+    }
 }
