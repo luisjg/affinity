@@ -59,4 +59,17 @@ class BadgesControllerTest extends TestCase
         $this->assertEquals($testBool, $content['BadgeHolder']);
     }
 
+    public function testGetPersonsBadges_returns_status_code_and_badge_count(){
+        $data = $this->badgesController->getPersonsBadges($this->validEmail);
+        $content = json_decode($data->content(), true);
+        $this->assertEquals('badges', $content['collection']);
+        $this->makeAssertionsForStatusAndCount(200, 2, $content);
+    }
+
+    public function makeAssertionsForStatusAndCount($statusCode, $count, $content){
+        $this->assertEquals($statusCode, $content['status']);
+        $this->assertEquals($count,$content['count']);
+        $this->assertEquals(count($content['badges']), $content['count']);
+    }
+
 }
