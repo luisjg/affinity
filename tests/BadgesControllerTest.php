@@ -28,9 +28,8 @@ class BadgesControllerTest extends TestCase
     public function testGetAllBadges_returns_status_code_and_badge_count(){
         $data = $this->badgesController->getAllBadges(new Request());
         $content = json_decode($data->content(), true);
-        $this->assertEquals(200,$content['status']);
-        $this->assertEquals(11,$content['count']);
-        $this->assertEquals(count($content['badges']), $content['count']);
+        $this->assertEquals('badges', $content['collection']);
+        $this->makeAssertionsForStatusAndCount(200, 11, $content);
     }
 
     public function testCheckIfUserExists_returns_true(){
