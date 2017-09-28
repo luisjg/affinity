@@ -11,7 +11,6 @@ class InterestsControllerTest extends TestCase
     }
 
     public function testGetAllPersonalInterests_return_all_personal_interests(){
-        $this->interestController = new InterestsController;
         $data = $this->interestController->getAllPersonalInterests();
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
