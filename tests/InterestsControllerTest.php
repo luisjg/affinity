@@ -6,6 +6,7 @@ class InterestsControllerTest extends TestCase
     protected $interestController;
     protected $validEmail = 'nr_steven.fitzgerald@csun.edu';
     protected $invalidEmail = 'Invalid@Email.edu';
+    
     public function setUp(){
         $this->interestController = new InterestsController;
     }
