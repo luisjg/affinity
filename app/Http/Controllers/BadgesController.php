@@ -6,8 +6,7 @@ use App\Models\IndividualsAwarded;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BadgesController extends Controller
 {
@@ -17,7 +16,7 @@ class BadgesController extends Controller
      * @param Request $request
      * @return array JSON Response
      */
-    public function getAllBadges(Request $request)
+    public function getAllBadges()
     {
             $response = buildResponseArray('badges');
             $badges = Badge::active()->get();
