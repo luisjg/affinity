@@ -7,6 +7,7 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BadgesController extends Controller
 {
