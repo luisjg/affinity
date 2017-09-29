@@ -26,6 +26,7 @@ class InterestsControllerTest extends TestCase
     public function testGetAllPersonsInterests_throws_NotFoundHttpException(){
         $this->setExpectedException(NotFoundHttpException::class);
         $this->interestController->getAllPersonsInterests($this->invalidEmail);
+
     }
    public function testGetAllResearchInterest_returns_all_research_interests(){
         $data = $this->interestController->getAllResearchInterests();
