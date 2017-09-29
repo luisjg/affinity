@@ -29,7 +29,7 @@ class BadgesControllerTest extends TestCase
         $data = $this->badgesController->getAllBadges(new Request());
         $content = json_decode($data->content(), true);
         $this->assertEquals('badges', $content['collection']);
-        $this->makeAssertionsForStatusAndCount(200, 11, $content);
+        $this->makeAssertionsForStatusAndCount(200, 11, $content,'badges');
     }
 
     public function testCheckIfUserExists_returns_true(){
@@ -62,13 +62,20 @@ class BadgesControllerTest extends TestCase
         $data = $this->badgesController->getPersonsBadges($this->validEmail);
         $content = json_decode($data->content(), true);
         $this->assertEquals('badges', $content['collection']);
-        $this->makeAssertionsForStatusAndCount(200, 2, $content);
+        $this->makeAssertionsForStatusAndCount(200, 2, $content, 'badges');
     }
 
-    public function makeAssertionsForStatusAndCount($statusCode, $count, $content){
+    public function makeAssertionsForStatusAndCount($statusCode, $count, $content, $key){
         $this->assertEquals($statusCode, $content['status']);
         $this->assertEquals($count,$content['count']);
-        $this->assertEquals(count($content['badges']), $content['count']);
+        $this->assertEquals(count($content[$key]), $content['count']);
+    }
+
+    public function testGetAllIndividualsByBadge_returns_status_count_and_individuals(){
+        $data = $this->badgesController->getAllIndividualsByBadge($this->validBadgeName);
+        $content = json_decode($data->content(), true);
+        $this->makeAssertionsForStatusAndCount(200, 42, $content, 'individuals');
+
     }
 
 }
