@@ -74,8 +74,8 @@ class BadgesControllerTest extends TestCase
     public function testGetAllIndividualsByBadge_returns_status_count_and_individuals(){
         $data = $this->badgesController->getAllIndividualsByBadge($this->validBadgeName);
         $content = json_decode($data->content(), true);
+        $this->assertEquals('badges', $content['collection']);
         $this->makeAssertionsForStatusAndCount(200, 42, $content, 'individuals');
-
     }
 
 }
