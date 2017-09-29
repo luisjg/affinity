@@ -10,7 +10,6 @@ class InterestsControllerTest extends TestCase
         $this->interestController = new InterestsController;
         }
     public function testGetAllResearchInterest_returns_all_research_interests(){
-        $this->interestController = new InterestsController;
         $data = $this->interestController->getAllResearchInterests();
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
