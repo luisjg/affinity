@@ -13,7 +13,7 @@ class InterestsControllerTest extends TestCase
         $this->interestController = new InterestsController;
     }
 
-    public function testGetPersonsResearchInterests_returns_all_persons_research_interests(){
+        public function testGetPersonsResearchInterests_returns_all_persons_research_interests(){
         $data = $this->interestController->getPersonsResearchInterests($this->validEmail);
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
@@ -21,8 +21,48 @@ class InterestsControllerTest extends TestCase
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 
+    public function testGetAllPersonsInterests_returns_all_persons_interests(){
+
+        $data = $this->interestController->getAllPersonsInterests($this->validEmail);
+        $this->assertEquals($data->status(),200);
+        $content = json_decode($data->content(),true);
+        $this->assertEquals($content['count'],7);
+        $this->assertEquals(count($content['interests']),$content['count']);
+    }
+
+
     public function testGetPersonsResearchInterests_throws_NotFoundHttpException(){
        $this->setExpectedException(NotFoundHttpException::class);
        $this->interestController->getPersonsResearchInterests($this->invalidEmail);
     }
+
+    public function testGetAllPersonsInterests_throws_NotFoundHttpException(){
+        $this->setExpectedException(NotFoundHttpException::class);
+        $this->interestController->getAllPersonsInterests($this->invalidEmail);
+
+    }
+   public function testGetAllResearchInterest_returns_all_research_interests(){
+        $data = $this->interestController->getAllResearchInterests();
+        $this->assertEquals($data->status(),200);
+        $content = json_decode($data->content(),true);
+        $this->assertEquals($content['count'],1307);
+        $this->assertEquals(count($content['interests']),$content['count']);
+    }
+
+    public function testGetAllAcademicInterests_return_all_academic_interests()
+    {
+        $data = $this->interestController->getAllAcademicInterests();
+        $this->assertEquals($data->status(), 200);
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($content['count'], 3);
+        $this->assertEquals(count($content['interests']), $content['count']);
+    }
+  public function testGetAllPersonalInterests_return_all_personal_interests(){
+        $data = $this->interestController->getAllPersonalInterests();
+        $this->assertEquals($data->status(),200);
+        $content = json_decode($data->content(),true);
+        $this->assertEquals($content['count'],511);
+        $this->assertEquals(count($content['interests']),$content['count']);
+    }
+
 }
