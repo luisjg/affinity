@@ -184,6 +184,7 @@ class InterestsController extends Controller
             throw new NotFoundHttpException;
         }
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
+        $expertise_id = [];
         foreach ($interestEntity as $interest) {
             $expertise_id[] = $interest->expertise_id;
         }
