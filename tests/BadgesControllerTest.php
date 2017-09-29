@@ -20,6 +20,7 @@ class BadgesControllerTest extends TestCase
         $this->assertEquals(true, $data);
     }
 
+
     public function testCheckIfBadgeNameExists_throws_BadRequestHttpException(){
         $this->setExpectedException(NotFoundHttpException::class);
         $this->badgesController->checkIfBadgeNameExists($this->invalidBadgeName);
