@@ -138,7 +138,6 @@ class BadgesController extends Controller
         $user = BadgeAwarded::email($email)->get();
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
-//        dd($response);
         return $this->sendResponse($response);
     }
 
