@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class BadgesController extends Controller
 {
@@ -137,6 +138,7 @@ class BadgesController extends Controller
         $user = BadgeAwarded::email($email)->get();
         $response['count'] = "{$user->count()}";
         $response['badges'] = $user;
+//        dd($response);
         return $this->sendResponse($response);
     }
 
