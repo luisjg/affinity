@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\BadgesController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Illuminate\Http\Request;
 
 class BadgesControllerTest extends TestCase
@@ -12,6 +13,7 @@ class BadgesControllerTest extends TestCase
     protected $invalidBadgeName = 'Not Real Badge Name';
 
     public function setUp(){
+        parent::setUp();
         $this->badgesController = new BadgesController;
     }
 
@@ -79,4 +81,28 @@ class BadgesControllerTest extends TestCase
         $this->makeAssertionsForStatusAndCount(200, 42, $content, 'individuals');
     }
 
+    public function testHandleBasedOnQuery_returns_get_persons_badge(){
+        $data = $this->call('GET', 'api/1.0/badges?email='.$this->validEmail);
+        $this->assertEquals($this->badgesController->getPersonsBadges($this->validEmail),$data);
+    }
+
+    public function testHandleBasedOnQuery_returns_check_persons_badge(){
+        $data = $this->call('GET', 'api/1.0/badges?email='.$this->validEmail.'&name='.$this->validBadgeName);
+        $this->assertEquals($this->badgesController->checkPersonsBadge($this->validEmail, $this->validBadgeName),$data);
+    }
+
+    public function testHandleBasedOnQuery_returns_get_all_individuals_by_badge(){
+        $data = $this->call('GET', 'api/1.0/badges?name='.$this->validBadgeName);
+        $this->assertEquals($this->badgesController->getAllIndividualsByBadge($this->validBadgeName),$data);
+    }
+
+    public function testHandleBasedOnQuery_throws_NotAcceptableHttpException(){
+        $data = $this->call('GET', 'api/1.0/badges?invalidquery='.$this->validBadgeName);
+        $this->assertEquals($data->status(), 406);
+    }
+
+    public function testHandleBasedOnQuery_returns_get_all_badges(){
+        $data = $this->call('GET', 'api/1.0/badges');
+        $this->assertEquals($this->badgesController->getAllBadges(),$data);
+    }
 }

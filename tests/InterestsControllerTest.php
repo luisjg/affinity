@@ -9,6 +9,7 @@ class InterestsControllerTest extends TestCase
     protected $invalidEmail = 'Invalid@Email.edu';
 
     public function setUp(){
+        parent::setUp();
         $this->interestController = new InterestsController;
     }
     public function testGetPersonsAcademicInterests_returns_all_persons_academic_interests()
