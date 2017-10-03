@@ -12,6 +12,23 @@ class InterestsControllerTest extends TestCase
         parent::setUp();
         $this->interestController = new InterestsController;
     }
+
+    public function testGetAllInterests_return_all_interests()
+    {
+        $data = $this->call('GET', 'api/1.0/interests');
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($content['count'],1819);
+        $this->assertEquals($content['count'],count($content['interests']));
+    }
+    public function testGetAllInterests_return_persons_interests()
+    {
+        $data = $this->call('GET', 'api/1.0/interests?email='.$this->validEmail);
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($content['count'],7);
+        $this->assertEquals($content['count'],count($content['interests']));
+    }
+
+
     public function testGetPersonsAcademicInterests_returns_all_persons_academic_interests()
     {
         $data = $this->interestController->getPersonsAcademicInterests('nr_jeffrey.wiegley@csun.edu');
