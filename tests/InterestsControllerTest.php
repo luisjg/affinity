@@ -15,6 +15,22 @@ class InterestsControllerTest extends TestCase
         $this->interestController = new InterestsController;
     }
 
+    public function testGetAllInterests_return_all_interests()
+    {
+        $data = $this->call('GET', 'api/1.0/interests');
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($content['count'],1819);
+        $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['status'],200);
+    }
+    public function testGetAllInterests_return_persons_interests()
+    {
+        $data = $this->call('GET', 'api/1.0/interests?email='.$this->validEmail);
+        $content = json_decode($data->content(), true);
+        $this->assertEquals($content['count'],7);
+        $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['status'],200);
+    }
     public function testHandleInterestType_returns_all_research_interests(){
         $data = $this->call('GET', 'api/1.0/interests/research');
         $this->assertEquals($this->interestController->getAllResearchInterests(),$data);
