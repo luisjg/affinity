@@ -19,6 +19,7 @@ class InterestsControllerTest extends TestCase
         $content = json_decode($data->content(), true);
         $this->assertEquals($content['count'],1819);
         $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['status'],200);
     }
     public function testGetAllInterests_return_persons_interests()
     {
@@ -26,6 +27,7 @@ class InterestsControllerTest extends TestCase
         $content = json_decode($data->content(), true);
         $this->assertEquals($content['count'],7);
         $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['status'],200);
     }
 
 
