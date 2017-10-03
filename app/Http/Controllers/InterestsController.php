@@ -52,7 +52,6 @@ class InterestsController extends Controller
     public function handleInterestType($type, Request $request)
     {
         if(is_null($request->getQueryString())) {
-
             if($type == 'research')
                 return $this->getAllResearchInterests();
             else if($type == 'personal')
