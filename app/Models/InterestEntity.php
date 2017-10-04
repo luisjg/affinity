@@ -35,10 +35,13 @@ class InterestEntity extends Model
     public static function getAcademicInterest()
     {
         $academic = static::where('expertise_id','LIKE','research:%:%')->get();
-        foreach($academic as $interest){
-            $interests[] = str_replace(":academic", '', $interest['expertise_id']);
-        };
-        return $interests = Research::whereIn('attribute_id',$interests)->get();
+        if($academic->count()) {
+            foreach($academic as $interest){
+                $interests[] = str_replace(":academic", '', $interest['expertise_id']);
+            };
+            return $interests = Research::whereIn('attribute_id',$interests)->get();
+        }
+        return $interests = collect();
     }
     public static function getPersonsAcademicInterest($user_id)
     {
@@ -47,14 +50,12 @@ class InterestEntity extends Model
             ['expertise_id','LIKE','research:%:%']
             ]
         )->get();
-        if($academic->count()){
+        if($academic->count()) {
             foreach($academic as $interest){
                 $interests[] = str_replace(":academic", '', $interest['expertise_id']);
             };
             return $interests = Research::whereIn('attribute_id',$interests)->get();
-        }else{
-            return $interests = collect();
         }
-
+        return $interests = collect();
     }
 }
