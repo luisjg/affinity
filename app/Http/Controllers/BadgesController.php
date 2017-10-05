@@ -3,12 +3,10 @@
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
 use App\Models\IndividualsAwarded;
-use App\Models\Person;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BadgesController extends Controller
 {
@@ -54,7 +52,7 @@ class BadgesController extends Controller
     }
 
     public function checkIfUserExists($email){
-        $user = Person::whereEmail($email)->first();
+        $user = User::whereEmail($email)->first();
         if($user == null){
             throw new NotFoundHttpException;
         }
