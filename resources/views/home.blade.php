@@ -189,11 +189,11 @@ $(document).ready(function() {
     url: url
   }).done(function(data) {
     // save the degree list
-    var degreeList = data.degrees;
+    var badgeList = data.badges;
     //iterate over the degree list
-    $(degreeList).each(function(index, degree) {
+    $(badgeList).each(function(index, badge) {
       //append each degree and institute
-      $('#degree-results').append(degree.degree + ' ' + degree.institute + '<br>');
+      $('#badge-results').append('<strong>'+ badge.name + '</strong><br>by: ' + badge.issuer + '<br>');
       });
     });
 });
@@ -214,8 +214,8 @@ $data = file_get_contents($url);
 $data = json_decode($data, true);
 
 //iterate over the list of data and print
-foreach($data['degrees'] as $degree){
-	echo = $degree['degree'] . ' ' . $degree['institute'].'<br>';
+foreach($data['badges'] as $badge){
+	echo = $badge['name'] . '<br>by: ' . $badge['issuer'].'<br>';
 }
 							</code>
 						</pre>
@@ -242,8 +242,8 @@ except Exception as e:
 data = json.loads(data)
 
 #iterate over the json object and print
-for degree in data['degrees']:
-  print degrees['degree'] + ' ' + degrees['institute']
+for badge in data['badges']:
+  print badge['name'] + '\nby: ' + badge['issuer']
 								</code>
 							</pre>
           </dd>
@@ -264,11 +264,11 @@ uri = URI.parse(source)
 response = Net::HTTP.get(uri)
 
 #parse the json
-degrees = JSON.parse(response)
+badges = JSON.parse(response)
 
 #print the json
-degrees['degrees'].each do |degree|
-  puts "#{degree['degree']} #{degree['institute']}"
+badges['badges'].each do |badge|
+  puts "#{badge['name']}\nby: #{badge['issuer']}"
 							</code>
 						</pre>
           </dd>
@@ -288,11 +288,11 @@ $(document).ready(function() {
     url: url
   }).done(function(data) {
     // save the degree list
-    var degreeList = data.degrees;
+    var interestList = data.interests;
     //iterate over the degree list
-    $(degreeList).each(function(index, degree) {
+    $(interestList).each(function(index, interest) {
       //append each degree and institute
-      $('#degree-results').append(degree.degree + ' ' + degree.institute + '<br>');
+      $('#interest-results').append(interest.title + '<br>');
       });
     });
 });
@@ -313,8 +313,8 @@ $data = file_get_contents($url);
 $data = json_decode($data, true);
 
 //iterate over the list of data and print
-foreach($data['degrees'] as $degree){
-	echo = $degree['degree'] . ' ' . $degree['institute'].'<br>';
+foreach($data['interests'] as $interest){
+	echo = $interest['title'] .'<br>';
 }
 							</code>
 						</pre>
@@ -341,8 +341,8 @@ except Exception as e:
 data = json.loads(data)
 
 #iterate over the json object and print
-for degree in data['degrees']:
-  print degrees['degree'] + ' ' + degrees['institute']
+for interest in data['interests']:
+  print interest['title']
 								</code>
 							</pre>
           </dd>
@@ -363,11 +363,11 @@ uri = URI.parse(source)
 response = Net::HTTP.get(uri)
 
 #parse the json
-degrees = JSON.parse(response)
+interests = JSON.parse(response)
 
 #print the json
-degrees['degrees'].each do |degree|
-  puts "#{degree['degree']} #{degree['institute']}"
+interests['interests'].each do |interest|
+  puts "#{interest['title']}"
 							</code>
 						</pre>
           </dd>
