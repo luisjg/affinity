@@ -33,7 +33,8 @@
 					<li class="nav__item"><a class="nav__link" href="{{ url('/#getting-started')}}">Getting Started</a></li>
 					<li class="nav__item"><a class="nav__link" href="{{ url('/#collections')}}">Collections</a></li>
 					<li class="nav__item"><a class="nav__link" href="{{ url('/#subcollections')}}">Subcollections</a></li>
-				</ul>
+          <li class="nav__item"><a class="nav__link" href="{{ url('/#code-examples') }}">Code Examples</a></li>
+        </ul>
 				<a class="header--sm" href="{{ url('/about/version-history') }}"><strong>Version History</strong></a>
 			</div>
 

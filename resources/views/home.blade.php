@@ -73,6 +73,7 @@
           <li class="nav__item"><a class="nav__link" href="#getting-started">Getting Started</a></li>
           <li class="nav__item"><a class="nav__link" href="#collections">Collections</a></li>
           <li class="nav__item"><a class="nav__link" href="#subcollections">Subcollections</a></li>
+          <li class="nav__item"><a class="nav__link" href="#code-examples">Code Examples</a></li>
         </ul>
         <a class="header--sm" href="{{ url('/about/version-history') }}"><strong>Version History</strong></a>
 
@@ -172,6 +173,205 @@
           <li><a href="{{url('api/1.0/interests/research?email='.$email['steve'])}}">{{url('api/1.0/interests/research?email='.$email['steve'])}}</a></li>
           <li><a href="{{url('api/1.0/interests/academic?email='.$email['steve'])}}">{{url('api/1.0/interests/academic?email='.$email['steve'])}}</a></li>
         </ul>
+        <h2 id="code-examples" class="type--header type--thin">Code Examples</h2>
+        <strong>Badges</strong>
+        <dl class="accordion">
+          <dt class="accordion__header"> JQuery <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+						<pre>
+					        <code class="prettyprint lang-js">
+//construct a function to get url and iterate over
+$(document).ready(function() {
+  //generate a url
+  var url = '{!! url('api/1.0/badges?email='.$email['steve']) !!}';
+  //use the URL as a request
+  $.ajax({
+    url: url
+  }).done(function(data) {
+    // save the degree list
+    var badgeList = data.badges;
+    //iterate over the degree list
+    $(badgeList).each(function(index, badge) {
+      //append each degree and institute
+      $('#badge-results').append('<strong>'+ badge.name + '</strong><br>by: ' + badge.issuer + '<br>');
+      });
+    });
+});
+							</code>
+						</pre>
+          </dd>
+          <dt class="accordion__header"> PHP <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+							<pre>
+								<code class="prettyprint lang-php">
+//generate a url
+$url = '{!! url('/api/1.0/badges?email='.$email['steve']) !!}';
+
+//perform the query
+$data = file_get_contents($url);
+
+//decode the json
+$data = json_decode($data, true);
+
+//iterate over the list of data and print
+foreach($data['badges'] as $badge){
+	echo = $badge['name'] . '<br>by: ' . $badge['issuer'].'<br>';
+}
+							</code>
+						</pre>
+          </dd>
+          <dt class="accordion__header"> Python <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+							<pre>
+								<code class="prettyprint language-py">
+#python
+import urllib2
+import json
+
+#generate a url
+url = u'{!! url('/api/1.0/badges?email='.$email['steve']) !!}'
+
+#open the url
+try:
+  u = urllib2.urlopen(url)
+  data = u.read()
+except Exception as e:
+  data = {}
+
+#load data with json object
+data = json.loads(data)
+
+#iterate over the json object and print
+for badge in data['badges']:
+  print badge['name'] + '\nby: ' + badge['issuer']
+								</code>
+							</pre>
+          </dd>
+          <dt class="accordion__header"> Ruby <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+  							<pre>
+	  					        <code class="prettyprint lang-rb">
+require 'net/http'
+require 'json'
+
+#generate a url
+source = '{!! url('/api/1.0/badges?email='.$email['steve']) !!}'
+
+#prepare the uri
+uri = URI.parse(source)
+
+#request the data
+response = Net::HTTP.get(uri)
+
+#parse the json
+badges = JSON.parse(response)
+
+#print the json
+badges['badges'].each do |badge|
+  puts "#{badge['name']}\nby: #{badge['issuer']}"
+							</code>
+						</pre>
+          </dd>
+        </dl>
+        <strong>Interests</strong>
+        <dl class="accordion">
+          <dt class="accordion__header"> JQuery <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+						<pre>
+					        <code class="prettyprint lang-js">
+//construct a function to get url and iterate over
+$(document).ready(function() {
+  //generate a url
+  var url = '{!! url('api/1.0/interests?email='.$email['steve']) !!}';
+  //use the URL as a request
+  $.ajax({
+    url: url
+  }).done(function(data) {
+    // save the degree list
+    var interestList = data.interests;
+    //iterate over the degree list
+    $(interestList).each(function(index, interest) {
+      //append each degree and institute
+      $('#interest-results').append(interest.title + '<br>');
+      });
+    });
+});
+							</code>
+						</pre>
+          </dd>
+          <dt class="accordion__header"> PHP <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+							<pre>
+								<code class="prettyprint lang-php">
+//generate a url
+$url = '{!! url('/api/1.0/interests?email='.$email['steve']) !!}';
+
+//perform the query
+$data = file_get_contents($url);
+
+//decode the json
+$data = json_decode($data, true);
+
+//iterate over the list of data and print
+foreach($data['interests'] as $interest){
+	echo = $interest['title'] .'<br>';
+}
+							</code>
+						</pre>
+          </dd>
+          <dt class="accordion__header"> Python <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+							<pre>
+								<code class="prettyprint language-py">
+#python
+import urllib2
+import json
+
+#generate a url
+url = u'{!! url('/api/1.0/interests?email='.$email['steve']) !!}'
+
+#open the url
+try:
+  u = urllib2.urlopen(url)
+  data = u.read()
+except Exception as e:
+  data = {}
+
+#load data with json object
+data = json.loads(data)
+
+#iterate over the json object and print
+for interest in data['interests']:
+  print interest['title']
+								</code>
+							</pre>
+          </dd>
+          <dt class="accordion__header"> Ruby <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
+          <dd class="accordion__content">
+  							<pre>
+	  					        <code class="prettyprint lang-rb">
+require 'net/http'
+require 'json'
+
+#generate a url
+source = '{!! url('/api/1.0/interests?email='.$email['steve']) !!}'
+
+#prepare the uri
+uri = URI.parse(source)
+
+#request the data
+response = Net::HTTP.get(uri)
+
+#parse the json
+interests = JSON.parse(response)
+
+#print the json
+interests['interests'].each do |interest|
+  puts "#{interest['title']}"
+							</code>
+						</pre>
+          </dd>
+        </dl>
       </div>
     </div>
   </div>
