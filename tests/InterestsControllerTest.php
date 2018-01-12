@@ -19,16 +19,14 @@ class InterestsControllerTest extends TestCase
     {
         $data = $this->call('GET', 'api/1.0/interests');
         $content = json_decode($data->content(), true);
-        $this->assertEquals($content['count'],1819);
-        $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['count'], count($content['interests']));
         $this->assertEquals($content['status'],200);
     }
     public function testGetAllInterests_return_persons_interests()
     {
         $data = $this->call('GET', 'api/1.0/interests?email='.$this->validEmail);
         $content = json_decode($data->content(), true);
-        $this->assertEquals($content['count'],7);
-        $this->assertEquals($content['count'],count($content['interests']));
+        $this->assertEquals($content['count'], count($content['interests']));
         $this->assertEquals($content['status'],200);
     }
     public function testHandleInterestType_returns_all_research_interests(){
@@ -72,7 +70,6 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getPersonsAcademicInterests('nr_jeffrey.wiegley@csun.edu');
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],1);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
     public function testGetPersonsAcademicInterests_throws_NotFoundHttpException(){
@@ -85,7 +82,6 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getPersonsPersonalInterests('nr_jeffrey.wiegley@csun.edu');
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],8);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
     public function testGetPersonsPersonalInterests_throws_NotFoundHttpException(){
@@ -97,7 +93,6 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getPersonsResearchInterests($this->validEmail);
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],7);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 
@@ -106,7 +101,6 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getAllPersonsInterests($this->validEmail);
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],7);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 
@@ -125,7 +119,6 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getAllResearchInterests();
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],1307);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 
@@ -134,14 +127,12 @@ class InterestsControllerTest extends TestCase
         $data = $this->interestController->getAllAcademicInterests();
         $this->assertEquals($data->status(), 200);
         $content = json_decode($data->content(), true);
-        $this->assertEquals($content['count'], 3);
         $this->assertEquals(count($content['interests']), $content['count']);
     }
   public function testGetAllPersonalInterests_return_all_personal_interests(){
         $data = $this->interestController->getAllPersonalInterests();
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
-        $this->assertEquals($content['count'],511);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 }

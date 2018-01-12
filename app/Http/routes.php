@@ -16,7 +16,7 @@ $app->get('/', function () {
     return view('home',compact('email'));
 });
 
-$app->group(['prefix' => 'api/1.0', 'namespace' => 'App\Http\Controllers'], function() use ($app) {
+$app->group(['prefix' => 'api/1.0'], function() use ($app) {
     // Badge requests
     $app->get('badges', 'BadgesController@handleBasedOnQuery');
     $app->get('badges/{email}', 'BadgesController@getPersonsBadges');
