@@ -5,14 +5,15 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.5.9",
-        "laravel/lumen-framework": "5.3.*",
+        "php": ">=7.0",
+        "laravel/lumen-framework": "5.5.*",
         "vlucas/phpdotenv": "~2.2",
-        "csun-metalab/lumen-proxypass": "^1.0"
+        "csun-metalab/lumen-proxypass": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "phpunit/phpunit": "~4.0"
+        "mockery/mockery": "~1.0",
+        "phpunit/phpunit": "~6.0"
     },
     "autoload": {
         "classmap": [
@@ -35,5 +36,10 @@
         "post-root-package-install": [
             "php -r \"copy('.env.example', '.env');\""
         ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "optimize-autoloader": true
     }
 }
