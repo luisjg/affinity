@@ -1,8 +1,6 @@
 <?php
+
 use App\Http\Controllers\InterestsController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
-use Illuminate\Http\Request;
 
 class InterestsControllerTest extends TestCase
 {
@@ -67,25 +65,31 @@ class InterestsControllerTest extends TestCase
     }
     public function testGetPersonsAcademicInterests_returns_all_persons_academic_interests()
     {
-        $data = $this->interestController->getPersonsAcademicInterests('nr_jeffrey.wiegley@csun.edu');
+        $data = $this->interestController->getPersonsAcademicInterests($this->validEmail);
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
+
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testGetPersonsAcademicInterests_throws_NotFoundHttpException(){
-        $this->setExpectedException(NotFoundHttpException::class);
         $this->interestController->getPersonsAcademicInterests($this->invalidEmail);
     }
 
     public function testGetPersonsPersonalInterests_returns_all_persons_personal_interests()
     {
-        $data = $this->interestController->getPersonsPersonalInterests('nr_jeffrey.wiegley@csun.edu');
+        $data = $this->interestController->getPersonsPersonalInterests($this->validEmail);
         $this->assertEquals($data->status(),200);
         $content = json_decode($data->content(),true);
         $this->assertEquals(count($content['interests']),$content['count']);
     }
+
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testGetPersonsPersonalInterests_throws_NotFoundHttpException(){
-        $this->setExpectedException(NotFoundHttpException::class);
         $this->interestController->getPersonsPersonalInterests($this->invalidEmail);
     }
 
@@ -104,14 +108,17 @@ class InterestsControllerTest extends TestCase
         $this->assertEquals(count($content['interests']),$content['count']);
     }
 
-
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testGetPersonsResearchInterests_throws_NotFoundHttpException(){
-       $this->setExpectedException(NotFoundHttpException::class);
        $this->interestController->getPersonsResearchInterests($this->invalidEmail);
     }
 
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testGetAllPersonsInterests_throws_NotFoundHttpException(){
-        $this->setExpectedException(NotFoundHttpException::class);
         $this->interestController->getAllPersonsInterests($this->invalidEmail);
 
     }
