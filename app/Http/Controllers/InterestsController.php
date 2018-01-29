@@ -4,7 +4,6 @@ use App\Models\Interest;
 use App\Models\InterestEntity;
 use App\Models\Personal;
 use App\Models\Research;
-use App\Models\Academic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -124,7 +123,7 @@ class InterestsController extends Controller
         {
             throw new NotFoundHttpException;
         }
-// Gets Personal and Research, ignoring academic since all academic interests are included in Research
+        // Gets Personal and Research, ignoring academic since all academic interests are included in Research
         $interestEntity = InterestEntity::where('entities_id', $user->user_id)->get();
         if(count($interestEntity)) {
             foreach($interestEntity as $item)

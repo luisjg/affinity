@@ -22,7 +22,9 @@ try {
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
+
 $app->withFacades();
+
 $app->withEloquent();
 
 /*
@@ -58,14 +60,12 @@ $app->singleton(
 */
 
 // $app->middleware([
-//     Clockwork\Support\Lumen\ClockworkMiddleware::class
+//    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-$app->routeMiddleware([
-    'auth'  => App\Http\Middleware\Authenticate::class,
-    'badge' => App\Http\Middleware\BadgesMiddleware::class,
-    'interest'  =>  App\Http\Middleware\InterestsMiddleware::class,
-]);
+// $app->routeMiddleware([
+//     'auth' => App\Http\Middleware\Authenticate::class,
+// ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -77,11 +77,6 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
-$app->configure('proxypass');
-$app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::class);
-
-// $app->register(Clockwork\Support\Lumen\ClockworkServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
@@ -98,8 +93,17 @@ $app->register(CSUNMetaLab\LumenProxyPass\Providers\ProxyPassServiceProvider::cl
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__.'/../app/Http/routes.php';
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+], function ($router) {
+    require __DIR__.'/../routes/web.php';
+});
+
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'api',
+], function ($router) {
+    require __DIR__.'/../routes/api.php';
 });
 
 return $app;

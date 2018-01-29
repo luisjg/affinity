@@ -1,7 +1,6 @@
 <?php
+
 use App\Http\Controllers\BadgesController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 use Illuminate\Http\Request;
 
 class BadgesControllerTest extends TestCase
@@ -23,8 +22,10 @@ class BadgesControllerTest extends TestCase
     }
 
 
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testCheckIfBadgeNameExists_throws_BadRequestHttpException(){
-        $this->setExpectedException(NotFoundHttpException::class);
         $this->badgesController->checkIfBadgeNameExists($this->invalidBadgeName);
     }
 
@@ -32,7 +33,7 @@ class BadgesControllerTest extends TestCase
         $data = $this->badgesController->getAllBadges(new Request());
         $content = json_decode($data->content(), true);
         $this->assertEquals('badges', $content['collection']);
-        $this->makeAssertionsForStatusAndCount(200, 11, $content,'badges');
+        $this->makeAssertionsForStatusAndCount(200, count($content['badges']), $content,'badges');
     }
 
     public function testCheckIfUserExists_returns_true(){
@@ -40,8 +41,10 @@ class BadgesControllerTest extends TestCase
         $this->assertEquals(true,$data);
     }
 
+    /**
+     * @expectedException Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     */
     public function testCheckIfUserExists_throws_NotFoundHttpException(){
-        $this->setExpectedException(NotFoundHttpException::class);
         $this->badgesController->checkIfUserExists($this->invalidEmail);
     }
 
@@ -65,12 +68,12 @@ class BadgesControllerTest extends TestCase
         $data = $this->badgesController->getPersonsBadges($this->validEmail);
         $content = json_decode($data->content(), true);
         $this->assertEquals('badges', $content['collection']);
-        $this->makeAssertionsForStatusAndCount(200, 2, $content, 'badges');
+        $this->makeAssertionsForStatusAndCount(200, count($content['badges']), $content, 'badges');
     }
 
     public function makeAssertionsForStatusAndCount($statusCode, $count, $content, $key){
         $this->assertEquals($statusCode, $content['status']);
-        $this->assertEquals($count,$content['count']);
+        $this->assertEquals($count, $content['count']);
         $this->assertEquals(count($content[$key]), $content['count']);
     }
 
@@ -78,7 +81,7 @@ class BadgesControllerTest extends TestCase
         $data = $this->badgesController->getAllIndividualsByBadge($this->validBadgeName);
         $content = json_decode($data->content(), true);
         $this->assertEquals('badges', $content['collection']);
-        $this->makeAssertionsForStatusAndCount(200, 42, $content, 'individuals');
+        $this->makeAssertionsForStatusAndCount(200, count($content['individuals']), $content, 'individuals');
     }
 
     public function testHandleBasedOnQuery_returns_get_persons_badge(){
