@@ -17,7 +17,7 @@
 <body>
 <div class="section section--sm">
   <div class="container type--center">
-    <h1 class="giga type--thin">Affinity Web Service</h1>
+    <h1 class="giga type--thin">{{ env('APP_NAME') }} Web Service</h1>
     <h3 class="h1 type--thin type--gray">Delivering Faculty Interests &amp; Badges</h3>
   </div>
 </div>

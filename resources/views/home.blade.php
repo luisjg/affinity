@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+  Documentation
+@endsection
+
 @section('page-styles')
 <style>
   /* Style the tab */

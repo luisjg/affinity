@@ -8,7 +8,7 @@
                     </div>
                     <div class="col-sm-9">
                         <ul class="list--unstyled">
-                            <li><strong>Affinity Web Service</strong><br />© California State University, Northridge</li>
+                            <li><strong>{{ env('APP_NAME') }} Web Service</strong><br />© California State University, Northridge</li>
                             <li>18111 Nordhoff Street, Northridge, CA 91330</li>
                             <li>Phone: (818) 677-1200 / <a href="//www.csun.edu/contact" target="_blank">Contact Us</a></li>
                         </ul>
@@ -20,7 +20,7 @@
                     <div class="col-sm-4">
                         <ul class="list--unstyled">
                             <li><a href="//www.csun.edu/emergency/" target="_blank">Emergency Information</a></li>
-                            <li><a href="http://www.csun.edu/afvp/university-policies-procedures/" target="_blank">University Policies &amp; Procedures</a></li>
+                            <li><a href="//www.csun.edu/afvp/university-policies-procedures/" target="_blank">University Policies &amp; Procedures</a></li>
                         </ul>
                     </div>
                     <div class="col-sm-4">

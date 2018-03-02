@@ -1,9 +1,12 @@
 @extends('layouts.master')
 
+@section('title')
+  Version History
+@endsection
 
 @section('content')
   <h2 id="introduction" class="type--header type--thin">Version History</h2>
-  <h2>Affinity 1.0.1 <small>Release Date: 02/06/18</small></h2>
+  <h2>{{ env('APP_NAME') }} 1.0.1 <small>Release Date: 02/06/18</small></h2>
   <p>
     <strong>Improvements:</strong>
     <ol>
@@ -11,7 +14,7 @@
       <li>HTTPS is now enforced through code.</li>
     </ol>
   </p>
-  <h2>Affinity 1.0.0 <small>Release Date: 10/04/17</small></h2>
+  <h2>{{ env('APP_NAME') }} 1.0.0 <small>Release Date: 10/04/17</small></h2>
   <p>
     <strong>New Features:</strong>
     <ol>
@@ -25,7 +28,7 @@
     </ol>
   </p>
   <hr>
-  <h2>Affinity Beta <small>Release Date: 06/12/17</small></h2>
+  <h2>{{ env('APP_NAME') }} Beta <small>Release Date: 06/12/17</small></h2>
   <p>
     Initial Release for Badges portion that is implemented in <a href="//www.csun.edu/faculty">Faculty</a>
     <br>
