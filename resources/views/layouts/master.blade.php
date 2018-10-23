@@ -33,7 +33,7 @@
 <div class="hero">
   <div class="text-center">
     <h1>{{ env('APP_NAME') }} Web Service</h1>
-    <hp>Delivering Faculty Interests &amp; Badges</hp>
+    <p>Delivering Faculty Interests &amp; Badges</p>
   </div>
 </div>
 
