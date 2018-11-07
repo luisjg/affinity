@@ -4,70 +4,22 @@
   Documentation
 @endsection
 
-@section('page-styles')
-<style>
-  /* Style the tab */
-  div.tab {
-    overflow: hidden;
-  }
-
-  /* Style the buttons inside the tab */
-  div.tab button {
-    background-color: #f1f1f1;
-    float: left;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: 0.3s;
-    font-size: 17px;
-  }
-
-  /* Change background color of buttons on hover */
-  div.tab button:hover {
-    background-color: #ddd;
-  }
-
-  /* Create an active/current tablink class */
-  div.tab button.active {
-    background-color: #ccc;
-    font-weight: bold;
-  }
-
-  /* Style the tab content */
-  .tabcontent {
-    padding: 6px 12px;
-    border: 2px solid #ccc;
-    border-top: none;
-  }
-
-  .inactive {
-    display: none;
-  }
-
-</style>
+@section('description')
+  {{ env('APP_NAME') }} Web Service Documentation
 @endsection
 
 @section('content')
-        <h2 id="introduction" class="type--header type--thin">Introduction</h2>
+        <h2 id="introduction">Introduction</h2>
         <p>The Affinity web service gives information acknowledging and celebrating
           teaching interests and accomplishments and helps promote faculty community
           and networking. This information is derived from the Research and Graduate
-          Studies and faculty submited information using <a href="">Scholarship</a>.
+          Studies and faculty submitted information using <a href="//www.csun.edu/faculty/scholarship">Scholarship</a>.
           The web service provides a gateway to access the information via a REST-ful
           API. The information is retrieved by creating a specific URI and giving
           values to filter the data. The information that is returned is a JSON
           object that contains a set of interest or badges attached to a particular
           member; the format of the JSON object is as follows:
         </p>
-
-        <div class="tab">
-          <button id="badges-btn" class="tablinks active">Badges</button>
-          <button id="interests-btn" class="tablinks">Interests</button>
-        </div>
-
-
-        <div id="badges-content" class="tabcontent">
         <pre class="prettyprint"><code>{
   "success": "true",
   "status": 200,
@@ -92,28 +44,7 @@
     }
   ]
 }</code></pre>
-</div>
-<div id="interests-content" class="tabcontent inactive">
-<pre class="prettyprint"><code>{
-  "success": "true",
-  "status": 200,
-  "api": "affinity",
-  "version": "1.0",
-  "collection": "interests",
-  "count": 1,
-  "interests": [
-    {
-      "title": "Sample Research Interest",
-      "short_name": null,
-      "parent_attribute_id": "research:11",
-      "hierarchy": "Architectural Engineering",
-      "count": 6
-    }
-  ]
-}</code></pre>
-</div>
-        <br>
-        <h2 id="getting-started" class="type--header type--thin">Getting Started</h2>
+        <h2 id="getting-started">Getting Started</h2>
         <ol>
           <li><strong>GENERATE THE URI:</strong> Find the usage that fits your need. Browse through subcollections, instances and query types to help you craft your URI.</li>
           <li><strong>PROVIDE THE DATA:</strong> Use the URI to query your data. See the Usage Example session.</li>
@@ -121,7 +52,7 @@
         </ol>
         <p>Loop through the data to display its information. See the Usage Example session.</p>
         <br>
-        <h2 id="collections" class="type--header type--thin">Collections</h2>
+        <h2 id="collections">Collections</h2>
         <strong>All Badges Listing</strong>
         <ul>
           <li><a href="{!! url('api/1.0/badges') !!}">{!! url('api/1.0/badges') !!}</a></li>
@@ -134,7 +65,7 @@
           <li><a href="{!! url('api/1.0/interests/academic') !!}">{!! url('api/1.0/interests/academic') !!}</a></li>
         </ul>
         <br>
-        <h2 id="subcollections" class="type--header type--thin">Subcollections</h2>
+        <h2 id="subcollections">Subcollections</h2>
         <strong>Specified person's Badges</strong>
         <ul>
           <li><a href="{!! url('api/1.0/badges?email='.$email['alexandra']) !!}">{!! url('api/1.0/badges?email='.$email['alexandra']) !!}</a></li>
@@ -151,13 +82,21 @@
           <li><a href="{!! url('api/1.0/interests/research?email='.$email['steve']) !!}">{!! url('api/1.0/interests/research?email='.$email['steve']) !!}</a></li>
           <li><a href="{!! url('api/1.0/interests/academic?email='.$email['steve']) !!}">{!! url('api/1.0/interests/academic?email='.$email['steve']) !!}</a></li>
         </ul>
-        <h2 id="code-examples" class="type--header type--thin">Code Examples</h2>
+        <h2 id="code-examples">Code Examples</h2>
         <strong>Badges</strong>
-        <dl class="accordion">
-          <dt class="accordion__header"> JQuery <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
-          <dd class="accordion__content">
-						<pre>
-					        <code class="prettyprint lang-js">
+        <div class="accordion">
+          <div class="card">
+            <div id="jquery-header" class="card-header">
+              <p class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#jquery-body" aria-expanded="true" aria-controls="jquery-body">
+                  JQuery
+                </button>
+              </p>
+            </div>
+            <div id="jquery-body" class="collapse" aria-labelledby="jquery-header">
+              <div class="card-body">
+                <pre>
+                  <code class="prettyprint lang-js">
 //construct a function to get url and iterate over
 $(document).ready(function() {
   //generate a url
@@ -175,18 +114,36 @@ $(document).ready(function() {
       });
     });
 });
-							</code>
-						</pre>
-          </dd>
-          <dt class="accordion__header"> PHP <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
-          <dd class="accordion__content">
-							<pre>
-								<code class="prettyprint lang-php">
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div id="php-header" class="card-header">
+                <p class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#php-body" aria-expanded="true" aria-controls="php-body">
+                    PHP
+                  </button>
+                </p>
+            </div>
+            <div id="php-body" class="collapse" aria-labelledby="php-header">
+              <div class="card-body">
+              <pre>
+                <code class="prettyprint lang-php">
 //generate a url
 $url = '{!! url('/api/1.0/badges?email='.$email['steve']) !!}';
 
+//add extra necessary options
+$arrContextOptions = [
+    "ssl" => [
+        "verify_peer"=>false,
+        "verify_peer_name"=>false
+    ]
+];
+
 //perform the query
-$data = file_get_contents($url);
+$data = file_get_contents($url, false, stream_context_create($arrContextOptions));
 
 //decode the json
 $data = json_decode($data, true);
@@ -195,13 +152,23 @@ $data = json_decode($data, true);
 foreach($data['badges'] as $badge){
 	echo = $badge['name'] . '<br>by: ' . $badge['issuer'].'<br>';
 }
-							</code>
-						</pre>
-          </dd>
-          <dt class="accordion__header"> Python <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
-          <dd class="accordion__content">
-							<pre>
-								<code class="prettyprint language-py">
+                </code>
+              </pre>
+            </div>
+            </div>
+          </div>
+          <div class="card">
+            <div id="python-header" class="card-header">
+              <p class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#python-body" aria-expanded="true" aria-controls="python-body">
+                  Python
+                </button>
+              </p>
+            </div>
+            <div id="python-body" class="collapse" aria-labelledby="python-header">
+              <div class="card-body">
+              <pre>
+                <code class="prettyprint language-py">
 #python
 import urllib2
 import json
@@ -222,13 +189,21 @@ data = json.loads(data)
 #iterate over the json object and print
 for badge in data['badges']:
   print badge['name'] + '\nby: ' + badge['issuer']
-								</code>
-							</pre>
-          </dd>
-          <dt class="accordion__header"> Ruby <i class="fa fa-chevron-down fa-pull-right type--red" aria-hidden="true"></i></dt>
-          <dd class="accordion__content">
-  							<pre>
-	  					        <code class="prettyprint lang-rb">
+                </code>
+              </pre>
+            </div>
+            </div>
+            <div id="ruby-header" class="card-header">
+              <p class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#ruby-body" aria-expanded="true" aria-controls="ruby-body">
+                  Ruby
+                </button>
+              </p>
+            </div>
+            <div id="ruby-body" class="collapse" aria-labelledby="ruby-header">
+              <div class="card-body">
+              <pre>
+                <code class="prettyprint lang-rb">
 require 'net/http'
 require 'json'
 
@@ -247,28 +222,10 @@ badges = JSON.parse(response)
 #print the json
 badges['badges'].each do |badge|
   puts "#{badge['name']}\nby: #{badge['issuer']}"
-							</code>
-						</pre>
-          </dd>
-        </dl>
-@endsection
-
-@section('scripts')
-<script>
-  $(document).ready(function(){
-      $("#badges-btn").click(function(){
-        $("#interests-btn").removeClass("active");
-        $("#badges-btn").addClass("active");
-        $("#interests-content").addClass("inactive");
-        $("#badges-content").removeClass("inactive");
-      });
-
-      $("#interests-btn").click(function(){
-        $("#badges-btn").removeClass("active");
-        $("#interests-btn").addClass("active");
-        $("#badges-content").addClass("inactive");
-        $("#interests-content").removeClass("inactive");
-      });
-  });
-</script>
+                </code>
+              </pre>
+            </div>
+            </div>
+          </div>
+        </div>
 @endsection
