@@ -59,7 +59,7 @@ $app->singleton(
 
 $app->middleware([
     CSUNMetaLab\LumenForceHttps\Http\Middleware\ForceHttps::class,
-    \Fruitcake\Cors\HandleCors::class,
+    Fruitcake\Cors\HandleCors::class,
 ]);
 
 /*
@@ -80,6 +80,7 @@ $app->configure('forcehttps');
 $app->register(CSUNMetaLab\LumenForceHttps\Providers\ForceHttpsServiceProvider::class);
 
 $app->configure('cors');
+$app->register(Fruitcake\Cors\CorsServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
