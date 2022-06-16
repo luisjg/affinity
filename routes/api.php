@@ -11,7 +11,7 @@
 |
 */
 
-$router->group(['prefix' => '1.0', 'middleware' => 'cors'], function() use ($router) {
+$router->group(['prefix' => '1.0'], function() use ($router) {
     // Badge requests
     $router->get('badges', 'BadgesController@handleBasedOnQuery');
     $router->get('badges/{email}', 'BadgesController@getPersonsBadges');
