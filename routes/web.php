@@ -16,7 +16,7 @@ $router->get('/', function () {
         'steve'=>'steven.fitzgerald@csun.edu',
         'alexandra'=>'alexandra.monchick@csun.edu'
     ];
-    if (env('APP_ENV') !=='production') {
+    if (config('app.environment') !=='production') {
         $email['steve']  = 'nr_'.$email['steve'];
         $email['alexandra'] = 'nr_'.$email['alexandra'];
     }
@@ -26,4 +26,3 @@ $router->get('/', function () {
 $router->get('/about/version-history', function() {
     return view('pages.about.version-history');
 });
-

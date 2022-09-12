@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Models\Badge;
 use App\Models\BadgeAwarded;
@@ -18,11 +20,11 @@ class BadgesController extends Controller
      */
     public function getAllBadges()
     {
-            $response = buildResponseArray('badges');
-            $badges = Badge::active()->get();
-            $response['count'] = "{$badges->count()}";
-            $response['badges'] = $badges;
-            return $this->sendResponse($response);
+        $response = buildResponseArray('badges');
+        $badges = Badge::active()->get();
+        $response['count'] = "{$badges->count()}";
+        $response['badges'] = $badges;
+        return $this->sendResponse($response);
     }
 
     /**

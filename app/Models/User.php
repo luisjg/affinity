@@ -19,12 +19,12 @@ class User extends Model
     ];
 
     public function badges()
-   {
+    {
        return $this->belongsToMany('App\Models\Badge', 'exploration.badges_awarded', 'members_id', 'badge_name')
                    ->withPivot('published')
                    ->select(['badges_id', 'name', 'url_image', 'url_web', 'award_date', 'published'])
                    ->orderBy('badges_id', 'ASC');
-   }
+    }
 
     public function scopeEmail($q, $email)
     {
@@ -35,11 +35,13 @@ class User extends Model
 
         return $q->whereEmail($email);
     }
+
     public function projects()
     {
         $data = $this->hasManyThrough('App\Models\Projects','App\Models\InterestEntity','expertise_id','project_id');
         return $data->where('entities_id','LIKE',"projects:%");
     }
+
     public function members()
     {
         $data = $this->hasManyThrough('App\Models\User','App\Models\InterestEntity','expertise_id','individuals_id');
