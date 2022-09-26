@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\Http\Controllers\InterestsController;
 
 class InterestsControllerTest extends TestCase
@@ -8,7 +10,7 @@ class InterestsControllerTest extends TestCase
     protected $validEmail = 'nr_steven.fitzgerald@csun.edu';
     protected $invalidEmail = 'Invalid@Email.edu';
 
-    public function setUp(){
+    public function setUp() :void {
         parent::setUp();
         $this->interestController = new InterestsController;
     }

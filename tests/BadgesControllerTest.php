@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use App\Http\Controllers\BadgesController;
 use Illuminate\Http\Request;
 
@@ -11,7 +13,7 @@ class BadgesControllerTest extends TestCase
     protected $invalidEmail = "Imaginary.User@csun.edu";
     protected $invalidBadgeName = 'Not Real Badge Name';
 
-    public function setUp(){
+    public function setUp() :void {
         parent::setUp();
         $this->badgesController = new BadgesController;
     }
